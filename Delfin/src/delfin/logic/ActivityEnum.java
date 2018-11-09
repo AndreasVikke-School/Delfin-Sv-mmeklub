@@ -5,12 +5,10 @@
  */
 package delfin.logic;
 
-import delfin.data.*;
-
 /**
  *
  * @author vikke
  */
-public class DeleteME {
-    
+public enum ActivityEnum {
+    EXERCISEIST, COMPETITIOR
 }
