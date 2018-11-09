@@ -1,1 +1,5 @@
 /Delfin/build/
+/Delfin/nbbuild/
+/Delfin/dist/
+/Delfin/nbdist/
+/Delfin/.nb-gradle/

@@ -1,7 +1,5 @@
 package delfin.logic;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,6 +30,8 @@ public class AdminTest {
         assertEquals("Martin", admin.getName());
         assertEquals("Skodsborgvej 190 2850 Nærum", admin.getAddres());
         assertEquals("12345678", admin.getPhone());
-        //assertEquals(new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISEIST), admin.getActivityInfo());
+        assertEquals(StatusEnum.ACTIVE, admin.getActivityInfo().getStatus());
+        assertEquals(TeamEnum.SENIOR, admin.getActivityInfo().getTeam());
+        assertEquals(ActivityEnum.EXERCISEIST, admin.getActivityInfo().getActivity());
     }
 }
