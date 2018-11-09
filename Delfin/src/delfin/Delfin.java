@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin;
+
+import delfin.logic.*;
 
 /**
  *
@@ -16,6 +13,8 @@ public class Delfin {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Member m = new Member("0111920777", "Martin Frederiksen", "Skodsborgvej 190 2850 nærum", "61462577"/*,new Info()*/);
+        System.out.println(m.getAge());
     }
     
 }
