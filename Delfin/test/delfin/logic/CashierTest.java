@@ -47,6 +47,7 @@ public class CashierTest {
         assertEquals("Tine", cashier.getName());
         assertEquals("Nørgaardsvej 30 2800 Kongens Lyngby", cashier.getAdress());
         assertEquals("29384756", cashier.getPhone());
+        
 
     }
 }
