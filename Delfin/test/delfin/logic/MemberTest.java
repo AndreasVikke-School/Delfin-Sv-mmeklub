@@ -1,38 +1,30 @@
 package delfin.logic;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Joe
+ * @author Martin Frederiksen
  */
 public class MemberTest {
-    
-    public MemberTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        
-    }
 
-    //Member m = new Member("snn", "name", "adress", "phone", "Ny class");
     @Test
     public void createMemberTest(){
         ActivityInfo info = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
-        Member m = new Member("0911920777", "Martin Frederiksen", "Skodsborgvej 190 2850 nærum", "61462577", info);
+        Member m = new Member("0911920777", "Martin Frederiksen", "Skodsborgvej 190, 2850 nærum", "61462577", info);
         assertNotNull(m);
+        assertNotNull(m.getSsn());
+        assertNotNull(m.getName());
+        assertNotNull(m.getAdress());
+        assertNotNull(m.getPhone());
+        assertNotNull(m.getInfo());
+        assertNotNull(m.getAge());
+        assertSame(m.getSsn(), m.getId());
         assertEquals(m.getSsn().length(), 10);
+        assertEquals(m.getPhone().length(), 8);
+        assertEquals(m.getAge(), 26);
         assertEquals(m.getName(), "Martin Frederiksen");
-        
+        assertNotEquals(m.getAdress(), "Bølgehaven 5, 2730 ravnsborg");    
     }
 }

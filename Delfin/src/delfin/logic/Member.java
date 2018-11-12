@@ -10,7 +10,7 @@ import java.time.Period;
 
 /**
  *
- * @author Joe
+ * @author Martin Frederiksen
  */
 public class Member {
     private String ssn;
