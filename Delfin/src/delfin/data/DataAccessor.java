@@ -44,7 +44,7 @@ public class DataAccessor {
         }
     }
      
-    public Member getSsn(String ssn) throws IllegalArgumentException {
+    public Member getMemberBySsn(String ssn) throws IllegalArgumentException {
         try{
             String query = "SELECT * FROM member WHERE ssn = '" + ssn + "';";
 

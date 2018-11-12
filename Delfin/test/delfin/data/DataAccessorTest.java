@@ -37,7 +37,7 @@ public class DataAccessorTest {
             List<Member> members = da.getMembers();
             assertNotNull(members);
             
-            int expected = 0;
+            int expected = 1;
             int actual = members.size();
             assertEquals(expected, actual);
             
@@ -55,7 +55,7 @@ public class DataAccessorTest {
             Member member = da.getMemberBySsn("1202960495");
             assertNotNull(member);
             assertEquals(member.getName(), "Henning Hansen");
-            assertEquals(member.getAge(), "22");
+            assertEquals(member.getAge(), 22);
             assertEquals(member.getPhone(), "12345678");
             assertEquals(member.getAddress(), "Digterparken 57, 2750 Ballerup");
             assertEquals(member.getSsn(), "1202960495");
@@ -64,23 +64,6 @@ public class DataAccessorTest {
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
-    }
-
-    /**
-     * Test of createMember method, of class DataAccessor.
-     */
-    @Test
-    public void testCreateMember() {
-        System.out.println("createMember");
-        String ssn = "";
-        String name = "";
-        String address = "";
-        String phone = "";
-        ActivityInfo info = null;
-        DataAccessor instance = null;
-        instance.createMember(ssn, name, address, phone, info);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
