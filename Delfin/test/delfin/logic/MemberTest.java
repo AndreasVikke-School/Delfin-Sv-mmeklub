@@ -22,6 +22,7 @@ public class MemberTest {
     
     @Before
     public void setUp() {
+        
     }
 
     //Member m = new Member("snn", "name", "adress", "phone", "Ny class");
