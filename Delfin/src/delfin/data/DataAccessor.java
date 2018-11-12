@@ -23,14 +23,14 @@ public class DataAccessor {
         try{
             String query = "SELECT * FROM member;"; 
 
-            Connection connection = connector.getConnection();  
+            Connection connection = connector.getConnection(); 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             ArrayList<Member> members = new ArrayList();
 
             while (rs.next()) {      
-                members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("adress"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR)));
+                members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR)));
                 
             }
             return members;       
@@ -40,7 +40,7 @@ public class DataAccessor {
         }
     }
      
-      public Member getSsn(String ssn) throws IllegalArgumentException {
+    public Member getSsn(String ssn) throws IllegalArgumentException {
         try{
             String query = "SELECT * FROM member WHERE ssn = '" + ssn + "';";
 
@@ -48,10 +48,10 @@ public class DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            
+
             while (rs.next()) {      
-                return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("adress"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR));
-                
+                return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR));
+
             }
             throw new IllegalArgumentException();       
         }catch (Exception ex) {     
@@ -60,16 +60,18 @@ public class DataAccessor {
         } 
     }
     
-      public Member createMember(String ssn, String name, String adress, String phone, ActivityInfo info) throws IllegalArgumentException {
+    public void createMember(String ssn, String name, String address, String phone, ActivityInfo info) throws IllegalArgumentException {
         try{
-            String query = "INSERT INTO members (ssn, name, adress, phone, info)";
-          
+            String query = "INSERT INTO members (ssn, name, address, phone, info) VALUES ('" + ssn + "','" + name + "','" + address + "','" + phone + "');";
+
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-          
+
         }catch (Exception ex){
             ex.printStackTrace();
             throw new IllegalArgumentException();
         }
+    }
+}
 
