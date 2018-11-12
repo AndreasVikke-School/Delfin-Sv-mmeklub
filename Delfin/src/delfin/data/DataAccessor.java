@@ -66,11 +66,11 @@ public class DataAccessor {
     
     public void createMember(String ssn, String name, String address, String phone, ActivityInfo info) throws IllegalArgumentException {
         try{
-            String query = "INSERT INTO members (ssn, name, address, phone, info) VALUES ('" + ssn + "','" + name + "','" + address + "','" + phone + "');";
+            String query = "INSERT INTO member (ssn, name, address, phone) VALUES ('" + ssn + "','" + name + "','" + address + "','" + phone + "');";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            stmt.execute(query);
 
         }catch (Exception ex){
             ex.printStackTrace();
