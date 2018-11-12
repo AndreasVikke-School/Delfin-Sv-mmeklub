@@ -15,14 +15,14 @@ import java.time.Period;
 public class Member {
     private String ssn;
     private String name;
-    private String adress;
+    private String address;
     private String phone;
     private ActivityInfo info;
 
-    public Member(String ssn, String name, String adress, String phone, ActivityInfo info) {
+    public Member(String ssn, String name, String address, String phone, ActivityInfo info) {
         this.ssn = ssn;
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.phone = phone;
         this.info = info;
     }
@@ -48,8 +48,8 @@ public class Member {
         return name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public String getPhone() {
