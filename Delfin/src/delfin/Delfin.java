@@ -13,7 +13,8 @@ public class Delfin {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Member m = new Member("0111920777", "Martin Frederiksen", "Skodsborgvej 190 2850 nærum", "61462577"/*,new Info()*/);
+        ActivityInfo info = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
+        Member m = new Member("0111920777", "Martin Frederiksen", "Skodsborgvej 190 2850 nærum", "61462577", info);
         System.out.println(m.getAge());
     }
     
