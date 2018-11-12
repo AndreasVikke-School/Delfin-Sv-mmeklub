@@ -49,19 +49,23 @@ public class DataAccessorTest {
     /**
      * Test of getSsn method, of class DataAccessor.
      */
-   /* @Test
-    public void testGetSsn() {
+    @Test
+    public void testGetMemberBySsn() {
         try {
-            Member member = da.getSsn(ssn);
+            Member member = da.getMemberBySsn("1202960495");
             assertNotNull(member);
-            assertEquals(member.getName(), "");
+            assertEquals(member.getName(), "Henning Hansen");
+            assertEquals(member.getAge(), "22");
+            assertEquals(member.getPhone(), "12345678");
+            assertEquals(member.getAddress(), "Digterparken 57, 2750 Ballerup");
+            assertEquals(member.getSsn(), "1202960495");
             
                    
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
-*/
+
     /**
      * Test of createMember method, of class DataAccessor.
      */
