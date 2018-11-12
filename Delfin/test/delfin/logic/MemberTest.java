@@ -16,7 +16,7 @@ public class MemberTest {
         assertNotNull(m);
         assertNotNull(m.getSsn());
         assertNotNull(m.getName());
-        assertNotNull(m.getAdress());
+        assertNotNull(m.getAddress());
         assertNotNull(m.getPhone());
         assertNotNull(m.getInfo());
         assertNotNull(m.getAge());
@@ -25,6 +25,6 @@ public class MemberTest {
         assertEquals(m.getPhone().length(), 8);
         assertEquals(m.getAge(), 26);
         assertEquals(m.getName(), "Martin Frederiksen");
-        assertNotEquals(m.getAdress(), "Bølgehaven 5, 2730 ravnsborg");    
+        assertNotEquals(m.getAddress(), "Bølgehaven 5, 2730 ravnsborg");    
     }
 }

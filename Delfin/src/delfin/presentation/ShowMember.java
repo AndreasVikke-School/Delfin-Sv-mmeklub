@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package delfin.presentation;
+import delfin.data.*;
+import delfin.logic.Member;
+
 
 
 
@@ -18,7 +21,27 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
-        jTable1.setValueAt("Hello", 0, 0);
+        int count = 0;
+        DataAccessor data = null;
+        try{
+            data = new DataAccessor(new DBConnector());
+            count = data.getMembers().size();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("Fail to setup");
+        }
+        int rowCount = 0;
+        if( jTable1.getRowCount() < count){
+        for(Member m: data.getMembers()) {
+            jTable1.setValueAt(m.getSsn(), rowCount, 0);
+            jTable1.setValueAt(m.getSsn(), rowCount, 1);
+            jTable1.setValueAt(m.getName(), rowCount, 2);
+            jTable1.setValueAt(m.getAddress(), rowCount, 3);
+            jTable1.setValueAt(m.getPhone(), rowCount, 4);
+            rowCount ++;
+        } 
+        }
     }
 
     /**
@@ -37,14 +60,7 @@ public class ShowMember extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, "asd", "asd", "asd", null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
