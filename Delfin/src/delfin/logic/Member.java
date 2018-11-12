@@ -17,14 +17,18 @@ public class Member {
     private String name;
     private String adress;
     private String phone;
-    private Info info;
+    private ActivityInfo info;
 
-    public Member(String ssn, String name, String adress, String phone/*, Info info*/) {
+    public Member(String ssn, String name, String adress, String phone, ActivityInfo info) {
         this.ssn = ssn;
         this.name = name;
         this.adress = adress;
         this.phone = phone;
         this.info = info;
+    }
+    
+    public String getId() {
+        return ssn;
     }
 
     public String getSsn() {
@@ -52,7 +56,7 @@ public class Member {
         return phone;
     }
 
-    public Info getInfo() {
+    public ActivityInfo getInfo() {
         return info;
     }
 }
