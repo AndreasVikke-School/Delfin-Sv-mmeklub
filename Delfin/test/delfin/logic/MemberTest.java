@@ -11,7 +11,7 @@ public class MemberTest {
 
     @Test
     public void createMemberTest(){
-        ActivityInfo info = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
+        ActivityInfo info = new ActivityInfo("0911920777", StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
         Member m = new Member("0911920777", "Martin Frederiksen", "Skodsborgvej 190, 2850 Nærum", "61462577", info);
         assertNotNull(m);
         assertNotNull(m.getSsn());

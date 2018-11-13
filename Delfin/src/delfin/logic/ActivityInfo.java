@@ -11,14 +11,20 @@ package delfin.logic;
  */
 public class ActivityInfo {
     
+    private String ssn;
     private StatusEnum status;
     private TeamEnum team;
     private ActivityEnum activity;
 
-    public ActivityInfo(StatusEnum status, TeamEnum team, ActivityEnum activity) {
+    public ActivityInfo(String ssn, StatusEnum status, TeamEnum team, ActivityEnum activity) {
+        this.ssn = ssn;
         this.status = status;
         this.team = team;
         this.activity = activity;
+    }
+    
+    public String getSsn() {
+        return ssn;
     }
 
     public StatusEnum getStatus() {

@@ -6,6 +6,7 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
+import java.util.List;
 
 
 
@@ -23,9 +24,12 @@ public class ShowMember extends javax.swing.JFrame {
         initComponents();
         int count = 0;
         DataAccessor data = null;
+        List<Member> members = null;
+        
         try{
-            data = new DataAccessor(new DBConnector());
-            count = data.getMembers().size();
+            data = new DataAccesorMember(new DBConnector());
+            members = (List<Member>)(Object)data.getAll();
+            count = members.size();
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -33,7 +37,7 @@ public class ShowMember extends javax.swing.JFrame {
         }
         int rowCount = 0;
         if( jTable1.getRowCount() < count){
-        for(Member m: data.getMembers()) {
+        for(Member m : members) {
             jTable1.setValueAt(m.getSsn(), rowCount, 0);
             jTable1.setValueAt(m.getSsn(), rowCount, 1);
             jTable1.setValueAt(m.getName(), rowCount, 2);
