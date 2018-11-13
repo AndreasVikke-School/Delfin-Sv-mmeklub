@@ -7,15 +7,9 @@ package delfin.data;
  */
 
 import delfin.data.DataAccessor;
-import delfin.logic.ActivityInfo;
-import delfin.logic.Member;
+import delfin.logic.*;
 import java.sql.SQLException;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -59,11 +53,36 @@ public class DataAccessorTest {
             assertEquals(member.getPhone(), "12345678");
             assertEquals(member.getAddress(), "Digterparken 57, 2750 Ballerup");
             assertEquals(member.getSsn(), "1202960495");
-            
-                   
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
     
+    @Test
+    public void testGetActivityInfos() {
+        try {
+            List<ActivityInfo> activityInfos = da.getActivityInfo();
+            assertNotNull(activityInfos);
+            
+            int expected = 1;
+            int actual = activityInfos.size();
+            assertEquals(expected, actual);
+            
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+    
+    @Test
+    public void testGetActivityInfoBySsn() {
+        try {
+            ActivityInfo activityInfo = da.getActivityInfoBySsn("0306980785");
+            assertNotNull(activityInfo);
+            assertEquals(activityInfo.getStatus(), StatusEnum.ACTIVE);
+            assertEquals(activityInfo.getTeam(), TeamEnum.SENIOR);
+            assertEquals(activityInfo.getActivity(), ActivityEnum.EXERCISER);
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 }
