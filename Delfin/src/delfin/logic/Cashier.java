@@ -12,13 +12,13 @@ package delfin.logic;
 public class Cashier {
     private String ssn;
     private String name;
-    private String adress;
+    private String address;
     private String phone;
 
-    public Cashier(String snn, String name, String adress, String phone) {
+    public Cashier(String snn, String name, String address, String phone) {
         this.ssn = snn;
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.phone = phone;
     }
     
@@ -30,8 +30,8 @@ public class Cashier {
         return name;
     }
     
-    public String getAdress(){
-        return adress;
+    public String getAddress(){
+        return address;
     }
     
     public String getPhone() {

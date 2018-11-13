@@ -54,7 +54,7 @@ public class CreateMember extends javax.swing.JFrame {
         activityComboBox = new javax.swing.JComboBox<>();
         createButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Member");
 
         jLabel1.setText("SSN:");

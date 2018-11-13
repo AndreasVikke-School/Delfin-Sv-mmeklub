@@ -7,15 +7,9 @@ package delfin.data;
  */
 
 import delfin.data.DataAccessor;
-import delfin.logic.ActivityInfo;
-import delfin.logic.Member;
+import delfin.logic.*;
 import java.sql.SQLException;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -52,18 +46,43 @@ public class DataAccessorTest {
     @Test
     public void testGetMemberBySsn() {
         try {
-            Member member = da.getMemberBySsn("1202960495");
+            Member member = da.getMemberBySsn("0407982345");
             assertNotNull(member);
             assertEquals(member.getName(), "Henning Hansen");
-            assertEquals(member.getAge(), 22);
+            assertEquals(member.getAge(), 20);
             assertEquals(member.getPhone(), "12345678");
-            assertEquals(member.getAddress(), "Digterparken 57, 2750 Ballerup");
-            assertEquals(member.getSsn(), "1202960495");
-            
-                   
+            assertEquals(member.getAddress(), "Test");
+            assertEquals(member.getSsn(), "0407982345");
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
     
+    @Test
+    public void testGetActivityInfos() {
+        try {
+            List<ActivityInfo> activityInfos = da.getActivityInfo();
+            assertNotNull(activityInfos);
+            
+            int expected = 1;
+            int actual = activityInfos.size();
+            assertEquals(expected, actual);
+            
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
+    
+    @Test
+    public void testGetActivityInfoBySsn() {
+        try {
+            ActivityInfo activityInfo = da.getActivityInfoBySsn("0407982345");
+            assertNotNull(activityInfo);
+            assertEquals(activityInfo.getStatus(), StatusEnum.ACTIVE);
+            assertEquals(activityInfo.getTeam(), TeamEnum.SENIOR);
+            assertEquals(activityInfo.getActivity(), ActivityEnum.COMPETITIOR);
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 }

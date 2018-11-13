@@ -10,16 +10,16 @@ import java.time.Period;
 
 /**
  *
- * @author Martin Frederiksen
+ * @author Celina
  */
-public class Member {
+public class Coach {
     private String ssn;
     private String name;
     private String address;
     private String phone;
     private ActivityInfo activityInfo;
 
-    public Member(String ssn, String name, String address, String phone, ActivityInfo activityInfo) {
+    public Coach(String ssn, String name, String address, String phone, ActivityInfo activityInfo) {
         this.ssn = ssn;
         this.name = name;
         this.address = address;
@@ -30,7 +30,7 @@ public class Member {
     public String getId() {
         return ssn;
     }
-
+    
     public String getSsn() {
         return ssn;
     }
@@ -43,7 +43,7 @@ public class Member {
         LocalDate currentDate = LocalDate.now();
         return Period.between(birthDate, currentDate).getYears();
     }
-
+    
     public String getName() {
         return name;
     }
@@ -58,5 +58,5 @@ public class Member {
 
     public ActivityInfo getActivityInfo() {
         return activityInfo;
-    }
+    }  
 }
