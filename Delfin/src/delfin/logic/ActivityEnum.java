@@ -10,5 +10,5 @@ package delfin.logic;
  * @author vikke
  */
 public enum ActivityEnum {
-    EXERCISEIST, COMPETITIOR
+    EXERCISER, COMPETITIOR
 }

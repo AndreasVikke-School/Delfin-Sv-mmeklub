@@ -20,7 +20,7 @@ public class ActivityInfoTest {
     
     @Test
     public void createActivityInfoTest() {
-        ActivityInfo activityInfo = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISEIST);
+        ActivityInfo activityInfo = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISER);
         
         assertNotNull(activityInfo);
         assertNotNull(activityInfo.getStatus());
@@ -29,6 +29,6 @@ public class ActivityInfoTest {
         
         assertEquals(StatusEnum.ACTIVE, activityInfo.getStatus());
         assertEquals(TeamEnum.SENIOR, activityInfo.getTeam());
-        assertEquals(ActivityEnum.EXERCISEIST, activityInfo.getActivity());
+        assertEquals(ActivityEnum.EXERCISER, activityInfo.getActivity());
     }
 }
