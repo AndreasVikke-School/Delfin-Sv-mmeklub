@@ -4,44 +4,21 @@
  * and open the template in the editor.
  */
 package delfin.presentation;
-import delfin.data.*;
-import delfin.logic.Member;
 
-
-
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Joe
+ * @author Nina
  */
-public class ShowMember extends javax.swing.JFrame {
+public class Menu extends javax.swing.JFrame {
 
     /**
-     * Creates new form ShowMember
+     * Creates new form Menu
      */
-    public ShowMember() {
+    public Menu() {
         initComponents();
-        int count = 0;
-        DataAccessor data = null;
-        try{
-            data = new DataAccessor(new DBConnector());
-            count = data.getMembers().size();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("Fail to setup");
-        }
-        int rowCount = 0;
-        if( jTable1.getRowCount() < count){
-        for(Member m: data.getMembers()) {
-            jTable1.setValueAt(m.getSsn(), rowCount, 0);
-            jTable1.setValueAt(m.getSsn(), rowCount, 1);
-            jTable1.setValueAt(m.getName(), rowCount, 2);
-            jTable1.setValueAt(m.getAddress(), rowCount, 3);
-            jTable1.setValueAt(m.getPhone(), rowCount, 4);
-            rowCount ++;
-        } 
-        }
     }
 
     /**
@@ -53,21 +30,16 @@ public class ShowMember extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
+        jButton1.setText("Member");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
-        ));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,19 +47,27 @@ public class ShowMember extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        java.awt.EventQueue.invokeLater(new Thread() {
+            public void run() {
+                new ShowMember().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,26 +86,25 @@ public class ShowMember extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ShowMember().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
