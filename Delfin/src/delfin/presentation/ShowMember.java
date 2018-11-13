@@ -6,7 +6,7 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
-import java.util.List;
+import java.awt.FontMetrics;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -42,8 +42,8 @@ public class ShowMember extends javax.swing.JFrame {
             model.addRow(new Object[]{});
         }
         int max = 0;
-        for(Member m : members) {
-            if( max < m.getSsn().length()) max = m.getAddress().length();
+        for(Member m: data.getMembers()) {
+            if( max < m.getSsn().length()) max = m.getSsn().length();
             
             TableColumn column = null;
         
@@ -53,7 +53,8 @@ public class ShowMember extends javax.swing.JFrame {
                 column.setPreferredWidth(max); //third column is bigger
             } 
             else {
-                column.setPreferredWidth(column.getWidth());
+                
+                column.setPreferredWidth(25);
             }
             jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             }
@@ -92,14 +93,8 @@ public class ShowMember extends javax.swing.JFrame {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
             }
         ));
-        jTable1.setColumnSelectionAllowed(true);
         jTable1.setEnabled(false);
         jTable1.setShowGrid(true);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,14 +116,6 @@ public class ShowMember extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        
-        /*boolean flag = jTable1.isEditing();
-        if (flag == false) {
-            JOptionPane.showMessageDialog(null, "You can not edit cells!", "Warning", HEIGHT);
-        }*/
-    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
