@@ -18,6 +18,7 @@ public class Member {
     private String address;
     private String phone;
     private ActivityInfo info;
+    
 
     public Member(String ssn, String name, String address, String phone, ActivityInfo info) {
         this.ssn = ssn;
