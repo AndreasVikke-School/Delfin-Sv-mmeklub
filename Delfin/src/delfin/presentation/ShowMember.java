@@ -6,7 +6,8 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
-import java.awt.FontMetrics;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -41,24 +42,14 @@ public class ShowMember extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.addRow(new Object[]{});
         }
-        int max = 0;
-        for(Member m: data.getMembers()) {
-            if( max < m.getSsn().length()) max = m.getSsn().length();
             
-            TableColumn column = null;
-        
-            for (int i = 0; i < 8; i++) {
-            column = jTable1.getColumnModel().getColumn(i);
-            if (column.getWidth() < max) {
-                column.setPreferredWidth(max); //third column is bigger
-            } 
-            else {
                 
-                column.setPreferredWidth(25);
-            }
-            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            }
-            
+                
+                
+        TableColumn column = jTable1.getColumnModel().getColumn(1);
+        
+        
+        for(Member m: members) {
             jTable1.setValueAt(m.getSsn(), rowCount, 0);
             jTable1.setValueAt(m.getSsn(), rowCount, 1);
             jTable1.setValueAt(m.getName(), rowCount, 2);
@@ -84,6 +75,9 @@ public class ShowMember extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1550, 366));
+
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +88,7 @@ public class ShowMember extends javax.swing.JFrame {
             }
         ));
         jTable1.setEnabled(false);
+        jTable1.setRequestFocusEnabled(false);
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
@@ -155,6 +150,23 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
     }
+    /*
+    TableColumn column = null;
+            
+            for (int i = 0; i < 8; i++) {
+            
+                
+                
+                
+            column = jTable1.getColumnModel().getColumn(i);
+            if (column.getWidth() < max) {
+                column.setPreferredWidth(max); //third column is bigger
+            } 
+            else {                
+                column.setPreferredWidth(9*max);
+            }
+            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
