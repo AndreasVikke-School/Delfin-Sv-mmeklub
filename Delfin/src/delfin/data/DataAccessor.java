@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Celina og Nina
  */
 public class DataAccessor {
     
@@ -17,6 +17,10 @@ public class DataAccessor {
 
     public DataAccessor(DBConnector connector) {
         this.connector = connector;
+    }
+
+    DataAccessor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public List<Member> getMembers() throws IllegalArgumentException {
@@ -40,7 +44,7 @@ public class DataAccessor {
         }
     }
      
-    public Member getSsn(String ssn) throws IllegalArgumentException {
+    public Member getMemberBySsn(String ssn) throws IllegalArgumentException {
         try{
             String query = "SELECT * FROM member WHERE ssn = '" + ssn + "';";
 
