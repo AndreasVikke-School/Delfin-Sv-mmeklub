@@ -27,7 +27,7 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public List<Object> getAll() {
         try{
-            String query = "SELECT * FROM result;";
+            String query = "SELECT * FROM results;";
         
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
@@ -48,7 +48,7 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public List<Object> getAllById(String id) {
         try{
-            String query = "SELECT * FROM result WHERE ssn = '" + id + "';";
+            String query = "SELECT * FROM results WHERE ssn = '" + id + "';";
             
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
@@ -69,7 +69,7 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public Object getSingleById(String id) {
         try{
-            String query = "SELECT * FROM result WHERE id = " + id + ";";
+            String query = "SELECT * FROM results WHERE id = " + id + ";";
             
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
@@ -90,7 +90,7 @@ public class DataAccessorResult implements DataAccessor {
         try{
             Result result = (Result)obj;
             
-            String query = "INSERT INTO result (ssn, date, time, placement, event) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', " + result.getTime()+ ", " + result.getPlacement()+ ", '" + result.getEvent() + "');";
+            String query = "INSERT INTO results (ssn, date, time, placement, event) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', " + result.getTime()+ ", " + result.getPlacement()+ ", '" + result.getEvent() + "');";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
