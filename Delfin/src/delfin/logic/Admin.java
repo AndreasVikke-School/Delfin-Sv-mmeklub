@@ -9,8 +9,7 @@ package delfin.logic;
  *
  * @author vikke
  */
-public class Admin {
-    
+public class Admin implements PersonInterface {
     private String ssn;
     private String name;
     private String addres;
@@ -25,24 +24,38 @@ public class Admin {
         this.activityInfo = activityInfo;
     }
 
+    @Override
     public String getSsn() {
         return ssn;
     }
-
+    
+    @Override
     public String getName() {
         return name;
     }
 
-    public String getAddres() {
+    @Override
+    public String getAddress() {
         return addres;
     }
 
+    @Override
     public String getPhone() {
         return phone;
     }
     
+    @Override
     public ActivityInfo getActivityInfo() {
         return activityInfo;
     }
-    
+
+    @Override
+    public String getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getAge() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -12,7 +12,7 @@ import java.time.Period;
  *
  * @author Martin Frederiksen
  */
-public class Member {
+public class Member implements PersonInterface {
     private String ssn;
     private String name;
     private String address;
@@ -28,14 +28,17 @@ public class Member {
         this.info = info;
     }
     
+    @Override
     public String getId() {
         return ssn;
     }
 
+    @Override
     public String getSsn() {
         return ssn;
     }
     
+    @Override
     public int getAge() {
         int day = Integer.parseInt(ssn.substring(0, 2));
         int month = Integer.parseInt(ssn.substring(2, 4));
@@ -45,18 +48,22 @@ public class Member {
         return Period.between(birthDate, currentDate).getYears();
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getAddress() {
         return address;
     }
 
+    @Override
     public String getPhone() {
         return phone;
     }
 
+    @Override
     public ActivityInfo getInfo() {
         return info;
     }
