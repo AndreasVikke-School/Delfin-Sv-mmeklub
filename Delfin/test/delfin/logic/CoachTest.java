@@ -27,7 +27,7 @@ public class CoachTest {
         assertNotNull(c.getName());
         assertNotNull(c.getAddress());
         assertNotNull(c.getPhone());
-        assertNotNull(c.getInfo());
+        assertNotNull(c.getActivityInfo());
         assertNotNull(c.getAge());
         assertSame(c.getSsn(), c.getId());
         assertEquals(c.getSsn().length(), 10);

@@ -13,14 +13,14 @@ public class Admin {
     
     private String ssn;
     private String name;
-    private String addres;
+    private String address;
     private String phone;
     private ActivityInfo activityInfo;
 
     public Admin(String ssn, String name, String address, String phone, ActivityInfo activityInfo) {
         this.ssn = ssn;
         this.name = name;
-        this.addres = address;
+        this.address = address;
         this.phone = phone;
         this.activityInfo = activityInfo;
     }
@@ -33,8 +33,8 @@ public class Admin {
         return name;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
     public String getPhone() {
