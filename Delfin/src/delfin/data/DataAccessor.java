@@ -133,5 +133,47 @@ public class DataAccessor {
             throw new IllegalArgumentException();
         }
     }
-}
+    
+    public List<Results> getResults() throws IllegalArgumentException {
+        try{
+            String query = "SELECT * FROM result;";
+        
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            ArrayList<Results> results = new ArrayList();
 
+            while (rs.next()) {    
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                results.add(new Results(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event")));
+                
+            }
+            return results;  
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+    
+    public List<Results> getResultsBySsn(String ssn) throws IllegalArgumentException {
+        try{
+            String query = "SELECT * FROM result WHERE ssn = '" + ssn + "';";
+            
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            ArrayList<Results> results = new ArrayList();
+            
+            while (rs.next()){
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                results.add(new Results(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event")));
+            }
+            throw new IllegalArgumentException();  
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+}
