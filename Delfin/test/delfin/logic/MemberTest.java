@@ -18,7 +18,7 @@ public class MemberTest {
         assertNotNull(m.getName());
         assertNotNull(m.getAddress());
         assertNotNull(m.getPhone());
-        assertNotNull(m.getInfo());
+        assertNotNull(m.getActivityInfo());
         assertNotNull(m.getAge());
         assertSame(m.getSsn(), m.getId());
         assertEquals(m.getSsn().length(), 10);
