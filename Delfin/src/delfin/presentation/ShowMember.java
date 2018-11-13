@@ -6,6 +6,7 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 /**
@@ -31,28 +32,38 @@ public class ShowMember extends javax.swing.JFrame {
             System.out.println("Fail to setup");
         }
         int rowCount = 0;
-        if( jTable1.getRowCount() < count){
+        
+        while( jTable1.getRowCount() < count){
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.addRow(new Object[]{});
+        }
+        int max = 0;
         for(Member m: data.getMembers()) {
+            if( max < m.getSsn().length()) max = m.getAddress().length();
+            
+            TableColumn column = null;
+        
+            for (int i = 0; i < 8; i++) {
+            column = jTable1.getColumnModel().getColumn(i);
+            if (column.getWidth() < max) {
+                column.setPreferredWidth(max); //third column is bigger
+            } 
+            else {
+                column.setPreferredWidth(column.getWidth());
+            }
+            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            }
+            
             jTable1.setValueAt(m.getSsn(), rowCount, 0);
             jTable1.setValueAt(m.getSsn(), rowCount, 1);
             jTable1.setValueAt(m.getName(), rowCount, 2);
             jTable1.setValueAt(m.getAddress(), rowCount, 3);
             jTable1.setValueAt(m.getPhone(), rowCount, 4);
+            jTable1.setValueAt(m.getActivityInfo().getActivity(), rowCount, 5);
+            jTable1.setValueAt(m.getActivityInfo().getStatus(), rowCount, 6);
+            jTable1.setValueAt(m.getActivityInfo().getTeam(), rowCount, 7);
             rowCount ++;
-            
-            }     
-        }
-        TableColumn column = null;
-        for (int i = 0; i < 5; i++) {
-        column = jTable1.getColumnModel().getColumn(i);
-        if (i == 2) {
-            column.setPreferredWidth(100); //third column is bigger
-        } else {
-            column.setPreferredWidth(50);
-        }
-}
+        }     
     }
 
     /**
@@ -71,14 +82,14 @@ public class ShowMember extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
             }
         ));
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setEnabled(false);
-        jTable1.setRowSelectionAllowed(false);
         jTable1.setShowGrid(true);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -93,8 +104,8 @@ public class ShowMember extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
