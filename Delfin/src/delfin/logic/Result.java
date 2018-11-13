@@ -12,14 +12,14 @@ import java.time.LocalDateTime;
  *
  * @author Nina
  */
-public class Results {
+public class Result {
     private String ssn;
     private LocalDate date;
     private double time;
     private int placement;
     private String event;
     
-    public Results (String ssn, LocalDate date, double time, int placement, String event){
+    public Result (String ssn, LocalDate date, double time, int placement, String event){
         this.ssn = ssn;
         this.date = date;
         this.time = time;

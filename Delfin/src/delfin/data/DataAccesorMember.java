@@ -37,7 +37,6 @@ public class DataAccesorMember implements DataAccessor {
             while (rs.next()) {    
                 ActivityInfo info = new ActivityInfo(rs.getString("ssn"), StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
                 members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info));
-                
             }
             return members;       
         }catch (Exception ex) {     
