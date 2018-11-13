@@ -25,7 +25,7 @@ public class DataAccessor {
     
     public List<Member> getMembers() throws IllegalArgumentException {
         try{
-            String query = "SELECT * FROM member;"; 
+            String query = "SELECT * FROM member NATURAL JOIN activityinfo;"; 
 
             Connection connection = connector.getConnection(); 
             Statement stmt = connection.createStatement();
@@ -33,8 +33,9 @@ public class DataAccessor {
 
             ArrayList<Member> members = new ArrayList();
 
-            while (rs.next()) {      
-                members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR)));
+            while (rs.next()) {    
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info));
                 
             }
             return members;       
@@ -46,7 +47,7 @@ public class DataAccessor {
      
     public Member getMemberBySsn(String ssn) throws IllegalArgumentException {
         try{
-            String query = "SELECT * FROM member WHERE ssn = '" + ssn + "';";
+            String query = "SELECT * FROM member NATURAL JOIN activityinfo WHERE ssn = '" + ssn + "';";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
@@ -54,7 +55,8 @@ public class DataAccessor {
 
 
             while (rs.next()) {      
-                return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.COMPETITIOR));
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info);
 
             }
             throw new IllegalArgumentException();       
@@ -90,7 +92,7 @@ public class DataAccessor {
 
             List<ActivityInfo> activityInfos = new ArrayList<ActivityInfo>();
 
-            while (rs.next()) {      
+            while (rs.next()) {  
                 activityInfos.add(new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]));
             }
             return activityInfos;       

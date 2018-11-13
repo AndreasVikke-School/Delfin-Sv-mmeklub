@@ -24,7 +24,7 @@ public class CashierTest {
         assertNotNull(cashier);
         assertEquals("0102907654", cashier.getSsn());
         assertEquals("Tine", cashier.getName());
-        assertEquals("Nørgaardsvej 30 2800 Kongens Lyngby", cashier.getAdress());
+        assertEquals("Nørgaardsvej 30 2800 Kongens Lyngby", cashier.getAddress());
         assertEquals("29384756", cashier.getPhone());
         
 

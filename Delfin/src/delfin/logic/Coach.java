@@ -17,14 +17,14 @@ public class Coach {
     private String name;
     private String address;
     private String phone;
-    private ActivityInfo info;
+    private ActivityInfo activityInfo;
 
-    public Coach(String ssn, String name, String address, String phone, ActivityInfo info) {
+    public Coach(String ssn, String name, String address, String phone, ActivityInfo activityInfo) {
         this.ssn = ssn;
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.info = info;
+        this.activityInfo = activityInfo;
     }
     
     public String getId() {
@@ -56,7 +56,7 @@ public class Coach {
         return phone;
     }
 
-    public ActivityInfo getInfo() {
-        return info;
+    public ActivityInfo getActivityInfo() {
+        return activityInfo;
     }  
 }

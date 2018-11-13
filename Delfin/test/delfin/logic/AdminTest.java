@@ -17,7 +17,7 @@ public class AdminTest {
         assertNotNull(admin);
         assertEquals("0911920777", admin.getSsn());
         assertEquals("Martin", admin.getName());
-        assertEquals("Skodsborgvej 190 2850 Nærum", admin.getAddres());
+        assertEquals("Skodsborgvej 190 2850 Nærum", admin.getAddress());
         assertEquals("12345678", admin.getPhone());
     }
 }
