@@ -17,18 +17,18 @@ import static org.junit.Assert.*;
  *
  * @author Celina og Nina
  */
-public class DataAccessorTest {
+public class DataAccessorMemberTest {
     
     private DataAccessor da;
     
-    public DataAccessorTest() throws SQLException {
-        da = new DataAccessor(new DBConnector());
+    public DataAccessorMemberTest() throws SQLException {
+        da = new DataAccesorMember(new DBConnector());
     }
     
     @Test
     public void testGetMembers() {
         try {
-            List<Member> members = da.getMembers();
+            List<Member> members = (List<Member>)(Object)da.getAll();
             assertNotNull(members);
             
             int expected = 1;
@@ -46,41 +46,13 @@ public class DataAccessorTest {
     @Test
     public void testGetMemberBySsn() {
         try {
-            Member member = da.getMemberBySsn("0407982345");
+            Member member = (Member)da.getSingleById("0407982345");
             assertNotNull(member);
             assertEquals(member.getName(), "Henning Hansen");
             assertEquals(member.getAge(), 20);
             assertEquals(member.getPhone(), "12345678");
             assertEquals(member.getAddress(), "Test");
             assertEquals(member.getSsn(), "0407982345");
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
-    }
-    
-    @Test
-    public void testGetActivityInfos() {
-        try {
-            List<ActivityInfo> activityInfos = da.getActivityInfo();
-            assertNotNull(activityInfos);
-            
-            int expected = 1;
-            int actual = activityInfos.size();
-            assertEquals(expected, actual);
-            
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
-    }
-    
-    @Test
-    public void testGetActivityInfoBySsn() {
-        try {
-            ActivityInfo activityInfo = da.getActivityInfoBySsn("0407982345");
-            assertNotNull(activityInfo);
-            assertEquals(activityInfo.getStatus(), StatusEnum.ACTIVE);
-            assertEquals(activityInfo.getTeam(), TeamEnum.SENIOR);
-            assertEquals(activityInfo.getActivity(), ActivityEnum.COMPETITIOR);
         } catch (Exception ex) {
             fail(ex.getMessage());
         }

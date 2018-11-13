@@ -1,71 +1,17 @@
 package delfin.data;
 
-import delfin.logic.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Celina og Nina
  */
-public class DataAccessor {
+public interface DataAccessor {
+    public List<Object> getAll();
     
-    private DBConnector connector = null;
-
-    public DataAccessor(DBConnector connector) {
-        this.connector = connector;
-    }
-
-    DataAccessor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public List<Member> getMembers() throws IllegalArgumentException {
-        try{
-            String query = "SELECT * FROM member NATURAL JOIN activityinfo;"; 
-
-            Connection connection = connector.getConnection(); 
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            ArrayList<Member> members = new ArrayList();
-
-            while (rs.next()) {    
-                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
-                members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info));
-                
-            }
-            return members;       
-        }catch (Exception ex) {     
-            ex.printStackTrace();
-            throw new IllegalArgumentException();
-        }
-    }
-     
-    public Member getMemberBySsn(String ssn) throws IllegalArgumentException {
-        try{
-            String query = "SELECT * FROM member NATURAL JOIN activityinfo WHERE ssn = '" + ssn + "';";
-
-            Connection connection = connector.getConnection();  
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-
-            while (rs.next()) {      
-                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
-                return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info);
-
-            }
-            throw new IllegalArgumentException();       
-        }catch (Exception ex) {     
-            ex.printStackTrace();
-            throw new IllegalArgumentException();
-        } 
-    }
-    
+    public List<Object> getAllById(String id);
+    public Object getSingleById(String id);
+    /*
     public void createMember(String ssn, String name, String address, String phone, ActivityInfo info) throws IllegalArgumentException {
         try{
             String query = "INSERT INTO member (ssn, name, address, phone) VALUES ('" + ssn + "','" + name + "','" + address + "','" + phone + "');";
@@ -133,5 +79,49 @@ public class DataAccessor {
             throw new IllegalArgumentException();
         }
     }
-}
+    
+    public List<Results> getResults() throws IllegalArgumentException {
+        try{
+            String query = "SELECT * FROM result;";
+        
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            ArrayList<Results> results = new ArrayList();
 
+            while (rs.next()) {    
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                results.add(new Results(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event")));
+                
+            }
+            return results;  
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+    
+    public List<Results> getResultsBySsn(String ssn) throws IllegalArgumentException {
+        try{
+            String query = "SELECT * FROM result WHERE ssn = '" + ssn + "';";
+            
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            ArrayList<Results> results = new ArrayList();
+            
+            while (rs.next()){
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                results.add(new Results(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event")));
+            }
+            throw new IllegalArgumentException();  
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+*/
+    public void create(Object obj);
+}

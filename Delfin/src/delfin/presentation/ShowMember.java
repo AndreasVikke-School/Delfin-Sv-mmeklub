@@ -24,9 +24,12 @@ public class ShowMember extends javax.swing.JFrame {
         
         int count = 0;
         DataAccessor data = null;
+        List<Member> members = null;
+        
         try{
-            data = new DataAccessor(new DBConnector());
-            count = data.getMembers().size();
+            data = new DataAccesorMember(new DBConnector());
+            members = (List<Member>)(Object)data.getAll();
+            count = members.size();
         }
         catch(Exception ex){
             ex.printStackTrace();
