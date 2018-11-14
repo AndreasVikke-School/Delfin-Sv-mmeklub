@@ -20,7 +20,7 @@ public class DataAccessorQuotansTest {
     private DataAccessor da;
     
     public DataAccessorQuotansTest() throws SQLException {
-        da = new DataAccessorQuotans(new DBConnector());
+        da = new DataAccessorQuota(new DBConnector());
     }
     
     /**

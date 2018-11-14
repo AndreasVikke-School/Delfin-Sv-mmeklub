@@ -27,7 +27,7 @@ public class DataAccessorActivityInfoTest {
     private DataAccessor da;
     
     public DataAccessorActivityInfoTest() throws SQLException {
-        da = new DataAccesorMember(new DBConnector());
+        da = new DataAccessorMember(new DBConnector());
     }
     
     @Test

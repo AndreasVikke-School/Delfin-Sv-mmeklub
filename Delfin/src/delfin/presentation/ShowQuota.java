@@ -6,6 +6,7 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
+import delfin.logic.Quota;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
@@ -16,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Joe
  */
-public class ShowMember extends javax.swing.JFrame {
+public class ShowQuota extends javax.swing.JFrame {
     private DataAccessor data = null;
     /**
      * Creates new form ShowMember
      */
-    public ShowMember() {
+    public ShowQuota() {
         initComponents();
         try{
         BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
@@ -36,7 +37,7 @@ public class ShowMember extends javax.swing.JFrame {
             e.printStackTrace();
         }
         try{
-            data = new DataAccessorMember(new DBConnector());
+            data = new DataAccessorQuota(new DBConnector());
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -61,7 +62,6 @@ public class ShowMember extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Members");
-        setPreferredSize(new java.awt.Dimension(800, 400));
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -70,7 +70,7 @@ public class ShowMember extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
+                "Ssn", "Name", "Subscription", "Paid", "Debt"
             }
         ));
         jTable1.setEnabled(false);
@@ -79,18 +79,7 @@ public class ShowMember extends javax.swing.JFrame {
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(90);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(55);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(55);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(55);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(55);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(10);
         }
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +127,7 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Thread() {
             public void run() {
-                new CreateMember().setVisible(true);
+                new CreateQuota().setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -164,41 +153,39 @@ public class ShowMember extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ShowMember().setVisible(true);
+                new ShowQuota().setVisible(true);
             }
         });
     }
     public void update(){
-        List<Member> members = (List<Member>)(Object)data.getAll();
-        int count = members.size();
+        List<Quota> quotas = (List<Quota>)(Object)data.getAll();
+        int count = quotas.size();
         int rowCount = 0;
         
         while( jTable1.getRowCount() < count){
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.addRow(new Object[]{});
         }
-        for(Member m: members) {
-            jTable1.setValueAt(m.getSsn(), rowCount, 0);
-            jTable1.setValueAt(m.getSsn(), rowCount, 1);
-            jTable1.setValueAt(m.getName(), rowCount, 2);
-            jTable1.setValueAt(m.getAddress(), rowCount, 3);
-            jTable1.setValueAt(m.getPhone(), rowCount, 4);
-            jTable1.setValueAt(m.getActivityInfo().getActivity(), rowCount, 5);
-            jTable1.setValueAt(m.getActivityInfo().getStatus(), rowCount, 6);
-            jTable1.setValueAt(m.getActivityInfo().getTeam(), rowCount, 7);
+        for(Quota q : quotas) {
+            jTable1.setValueAt(q.getSsn(), rowCount, 0);
+            jTable1.setValueAt(q.getMember().getName(), rowCount, 1);
+            jTable1.setValueAt(q.getSubscription(), rowCount, 2);
+            jTable1.setValueAt(q.getPaid(), rowCount, 3);
+            jTable1.setValueAt(q.getSubscription() - q.getPaid(), rowCount, 4);
             rowCount ++;
         }  
     }

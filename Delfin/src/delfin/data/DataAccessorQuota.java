@@ -17,10 +17,10 @@ import java.util.List;
  *
  * @author Nina
  */
-public class DataAccessorQuotans implements DataAccessor {
+public class DataAccessorQuota implements DataAccessor {
     private DBConnector connector = null;
     
-    public DataAccessorQuotans (DBConnector connector) {
+    public DataAccessorQuota (DBConnector connector) {
         this.connector = connector;
     }
 
@@ -34,7 +34,7 @@ public class DataAccessorQuotans implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList <Object> quotas = new ArrayList();
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
@@ -57,7 +57,7 @@ public class DataAccessorQuotans implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<Object> quotas = new ArrayList();
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
@@ -79,7 +79,7 @@ public class DataAccessorQuotans implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
 
             while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
