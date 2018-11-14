@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * @author Celina og Nina
+ * @author Andreas Vikke
  */
 public interface DataAccessor {
     public List<Object> getAll();

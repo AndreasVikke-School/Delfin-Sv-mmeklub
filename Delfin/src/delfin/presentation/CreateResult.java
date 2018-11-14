@@ -5,20 +5,18 @@
  */
 package delfin.presentation;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessor;
 import delfin.data.DataAccessorResult;
 import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.regex.Pattern;
 
 
 /**
  *
- * @author Celina
+ * @author Celina Dencker
  */
 public class CreateResult extends javax.swing.JFrame {
 
@@ -232,6 +230,7 @@ public class CreateResult extends javax.swing.JFrame {
         else if(yearTextField.getText().length() != 4 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
             showErrorMessage("Please type a valid year with four digits");
         }
+<<<<<<< HEAD
         //////////////////////////////////////////////////////////////////////////// time placement event
         else if(Integer.parseInt(yearTextField.getText()) > 2018 && 0000 > Integer.parseInt(yearTextField.getText())) {
             showErrorMessage("Please type a valid year");
@@ -254,6 +253,15 @@ public class CreateResult extends javax.swing.JFrame {
         da.create(result);
         } 
     } catch(Exception ex) {
+=======
+        
+        else{
+            Result result = new Result(ssnTextField.getText(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
+
+            da.create(result);
+        }  
+    }catch(Exception ex) {
+>>>>>>> dfcad704628dff0ae7df374ec8e568790295e614
         ex.printStackTrace();
         showErrorMessage(ex.getMessage());        
     }  

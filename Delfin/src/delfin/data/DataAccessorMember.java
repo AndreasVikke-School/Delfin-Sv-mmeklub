@@ -13,13 +13,13 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Nina Lisakovski & Celina Dencker
  */
-public class DataAccesorMember implements DataAccessor {
+public class DataAccessorMember implements DataAccessor {
     
     private DBConnector connector = null;
 
-    public DataAccesorMember(DBConnector connector) {
+    public DataAccessorMember(DBConnector connector) {
         this.connector = connector;
     }
     

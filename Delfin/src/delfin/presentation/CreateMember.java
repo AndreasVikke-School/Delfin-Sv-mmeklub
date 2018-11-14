@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author vikke
+ * @author Andreas Vikke
  */
 public class CreateMember extends javax.swing.JFrame {
     
@@ -19,7 +19,7 @@ public class CreateMember extends javax.swing.JFrame {
         initComponents();
         
         try {
-            da = new DataAccesorMember(new DBConnector());
+            da = new DataAccessorMember(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");

@@ -1,23 +1,24 @@
 package delfin.presentation;
 
 import delfin.data.*;
-import delfin.logic.Member;
+import delfin.logic.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Martin Frederiksen
  */
-public class ShowMember extends javax.swing.JFrame {
+public class ShowResult extends javax.swing.JFrame {
     private DataAccessor data = null;
     /**
-     * Creates new form ShowMember
+     * Creates new form ShowResult
      */
-    public ShowMember() {
+    public ShowResult() {
         initComponents();
         try{
         BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
@@ -32,7 +33,7 @@ public class ShowMember extends javax.swing.JFrame {
             e.printStackTrace();
         }
         try{
-            data = new DataAccessorMember(new DBConnector());
+            data = new DataAccessorResult(new DBConnector());
         }
         catch(Exception ex){
             ex.printStackTrace();
@@ -52,12 +53,10 @@ public class ShowMember extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Members");
-        setPreferredSize(new java.awt.Dimension(800, 400));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -66,34 +65,13 @@ public class ShowMember extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
+                "Id", "Name", "Disciplin", "Time", "Date"
             }
         ));
         jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
+        jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(55);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(55);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(55);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(55);
-        }
-
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,26 +79,32 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
 
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,17 +115,17 @@ public class ShowMember extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        java.awt.EventQueue.invokeLater(new Thread() {
-            public void run() {
-                new CreateMember().setVisible(true);
-            }
-        });
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        java.awt.EventQueue.invokeLater(new Thread() {
+            public void run() {
+                new CreateResult().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,44 +144,42 @@ public class ShowMember extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ShowMember.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ShowResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ShowMember().setVisible(true);
+                new ShowResult().setVisible(true);
             }
         });
     }
-    public void update(){
-        List<Member> members = (List<Member>)(Object)data.getAll();
-        int count = members.size();
+     public void update(){
+        List<Result> results = (List<Result>)(Object)data.getAll();
+        int count = results.size();
         int rowCount = 0;
         
         while( jTable1.getRowCount() < count){
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.addRow(new Object[]{});
         }
-        for(Member m: members) {
-            jTable1.setValueAt(m.getSsn(), rowCount, 0);
-            jTable1.setValueAt(m.getSsn(), rowCount, 1);
-            jTable1.setValueAt(m.getName(), rowCount, 2);
-            jTable1.setValueAt(m.getAddress(), rowCount, 3);
-            jTable1.setValueAt(m.getPhone(), rowCount, 4);
-            jTable1.setValueAt(m.getActivityInfo().getActivity(), rowCount, 5);
-            jTable1.setValueAt(m.getActivityInfo().getStatus(), rowCount, 6);
-            jTable1.setValueAt(m.getActivityInfo().getTeam(), rowCount, 7);
+        for(Result r: results) {
+            jTable1.setValueAt(r.getSsn(), rowCount, 0);
+            jTable1.setValueAt(r.getMember().getName(), rowCount, 1);
+            jTable1.setValueAt(r.getDisciplin() ,rowCount, 2);
+            jTable1.setValueAt(r.getTime(), rowCount, 3);
+            jTable1.setValueAt(r.getDate(), rowCount, 4);
             rowCount ++;
         }  
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
