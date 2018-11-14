@@ -1,21 +1,13 @@
-/*
-
-
-
-
-
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.presentation;
 
 import delfin.data.DBConnector;
 import delfin.data.DataAccessor;
+import delfin.data.DataAccessorMember;
 import delfin.data.DataAccessorResult;
 import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -25,7 +17,10 @@ import java.util.regex.Pattern;
  */
 public class CreateResult extends javax.swing.JFrame {
 
-    DataAccessor da = null;
+    DataAccessor dam = null;
+    DataAccessor dar = null;
+    List<Member> members = null;
+    
     /**
      * Creates new form CreateResult
      */
@@ -33,11 +28,19 @@ public class CreateResult extends javax.swing.JFrame {
         initComponents();
         
         try {
-            da = new DataAccessorResult(new DBConnector());
+            dam = new DataAccessorMember(new DBConnector());
+            dar = new DataAccessorResult(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
         }
+        
+        messageLabel.setText("");
+        members = (List<Member>)(Object)dam.getAll();
+        
+        ssnComboBox.removeAllItems();
+        for(Member m : members)
+            ssnComboBox.addItem(m.getSsn());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +52,6 @@ public class CreateResult extends javax.swing.JFrame {
     private void initComponents() {
 
         ssnLabel = new javax.swing.JLabel();
-        ssnTextField = new javax.swing.JTextField();
         dayTextField = new javax.swing.JTextField();
         timeTextField = new javax.swing.JTextField();
         placementTextField = new javax.swing.JTextField();
@@ -61,18 +63,13 @@ public class CreateResult extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         monthTextField = new javax.swing.JTextField();
         yearTextField = new javax.swing.JTextField();
-        errorMessage = new javax.swing.JLabel();
+        messageLabel = new javax.swing.JLabel();
+        ssnComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Results");
 
         ssnLabel.setText("SSN:");
-
-        ssnTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ssnTextFieldActionPerformed(evt);
-            }
-        });
 
         dayTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +122,9 @@ public class CreateResult extends javax.swing.JFrame {
             }
         });
 
-        errorMessage.setText("jLabel1");
+        messageLabel.setText("jLabel1");
+
+        ssnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,18 +144,19 @@ public class CreateResult extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(placementTextField)
                             .addComponent(eventTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ssnTextField)
                             .addComponent(timeTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(yearTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(yearTextField))
+                                .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(errorMessage)))
+                        .addComponent(messageLabel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,14 +165,13 @@ public class CreateResult extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ssnLabel)
-                    .addComponent(ssnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(yearTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateLabel)
-                        .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateLabel)
+                    .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,16 +187,12 @@ public class CreateResult extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createButton)
-                    .addComponent(errorMessage))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(messageLabel))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ssnTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ssnTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ssnTextFieldActionPerformed
 
     private void dayTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTextFieldActionPerformed
         // TODO add your handling code here:
@@ -208,33 +203,26 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-     try {
-        if(ssnTextField.getText().length() != 10 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
-            showErrorMessage("Please type a valid SSN with maximum ten digits)");
-        }
-        
-        
-        
-        else if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", dayTextField.getText())) {
-            showErrorMessage("Please type a valid day with two digits");
-        }
-        else if(Integer.parseInt(dayTextField.getText()) > 31 && 0 > Integer.parseInt(dayTextField.getText())) {
-            showErrorMessage("Please type a valid day between 1 and 31");
-        }
-        
-        
-        
-        else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", monthTextField.getText())) {
-            showErrorMessage("Please type a valid month with two digits");
-        }
-        else if(Integer.parseInt(monthTextField.getText()) > 12 && 0 > Integer.parseInt(monthTextField.getText())) {
-            showErrorMessage("Please type a valid month between 12 and 1");
-        }
-        
-
-/*
-        showErrorMessage(ex.getMessage());        
-    }  
+        try {
+            if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", dayTextField.getText())) {
+                showErrorMessage("Please type a valid day with two digits");
+            }
+            else if(Integer.parseInt(dayTextField.getText()) > 31 && 0 > Integer.parseInt(dayTextField.getText())) {
+                showErrorMessage("Please type a valid day between 1 and 31");
+            }
+            else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", monthTextField.getText())) {
+                showErrorMessage("Please type a valid month with two digits");
+            }
+            else if(Integer.parseInt(monthTextField.getText()) > 12 && 0 > Integer.parseInt(monthTextField.getText())) {
+                showErrorMessage("Please type a valid month between 12 and 1");
+            }
+            else{
+                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
+                dar.create(result);
+            }
+        } catch(Exception ex) {
+            showErrorMessage(ex.getMessage());        
+        }  
     }//GEN-LAST:event_createButtonActionPerformed
    
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
@@ -254,7 +242,7 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_yearTextFieldActionPerformed
     
     private void showErrorMessage(String message) {
-        errorMessage.setText("<html><font color='red'>"+ message + "</font></html>");
+        messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
     
     /**
@@ -296,14 +284,14 @@ public class CreateResult extends javax.swing.JFrame {
     private javax.swing.JButton createButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dayTextField;
-    private javax.swing.JLabel errorMessage;
     private javax.swing.JLabel eventLabel;
     private javax.swing.JTextField eventTextField;
+    private javax.swing.JLabel messageLabel;
     private javax.swing.JTextField monthTextField;
     private javax.swing.JLabel placementLabel;
     private javax.swing.JTextField placementTextField;
+    private javax.swing.JComboBox<String> ssnComboBox;
     private javax.swing.JLabel ssnLabel;
-    private javax.swing.JTextField ssnTextField;
     private javax.swing.JLabel timeLabel;
     private javax.swing.JTextField timeTextField;
     private javax.swing.JTextField yearTextField;
