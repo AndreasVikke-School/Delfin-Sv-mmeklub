@@ -7,6 +7,7 @@ package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -19,7 +20,10 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
-        
+        ImageIcon addImage = new ImageIcon("/usr/local/Desktop/Images/add16.png");
+        ImageIcon refreshImage = new ImageIcon("/usr/local/Desktop/Images/refresh16.png");
+        jButton1.setIcon(addImage);
+        jButton2.setIcon(refreshImage);
         try{
             data = new DataAccesorMember(new DBConnector());
         }
@@ -76,14 +80,12 @@ public class ShowMember extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setMaxWidth(75);
         }
 
-        jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Refresh");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -113,7 +115,7 @@ public class ShowMember extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
