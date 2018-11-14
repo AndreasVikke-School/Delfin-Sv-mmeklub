@@ -10,6 +10,7 @@ import delfin.logic.Member;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,15 +96,31 @@ public class DataAccessorQuota implements DataAccessor {
     @Override
     public void create(Object obj) {
         try{
-            Quota quotas = (Quota)obj;
+            Quota quota = (Quota)obj;
             
-            String query = "INSERT INTO quota (ssn, subscription, paid) VALUES ('" + quotas.getSsn() + "','" + quotas.getSubscription() + "','" + quotas.getPaid() + "');";
+            String query = "INSERT INTO quota (ssn, subscription, paid, createdate) VALUES ('" + quota.getSsn() + "','" + quota.getSubscription() + "','" + quota.getPaid() + "', '" + LocalDate.now() + "');";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
             stmt.execute(query);
 
         }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
+    
+    public void createPayment(Object obj) {
+        try{
+            Quota quota = (Quota)obj;
+            
+            String query = "UPDATE quota as a INNER JOIN (SELECT ssn, min(createdate) AS createdate from quota WHERE ssn = '" + quota.getSsn() + "' AND paid <> subscription) AS b ON (a.ssn=b.ssn) set paid = paid + " + quota.getPaid() + " where a.createdate=b.createdate;";
+                    
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+
+        } catch (Exception ex){
             ex.printStackTrace();
             throw new IllegalAccessError();
         }

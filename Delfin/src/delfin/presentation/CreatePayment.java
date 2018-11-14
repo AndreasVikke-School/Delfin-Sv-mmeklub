@@ -9,17 +9,17 @@ import java.util.regex.Pattern;
  *
  * @author vikke
  */
-public class CreateQuota extends javax.swing.JFrame {
+public class CreatePayment extends javax.swing.JFrame {
     
     DataAccessor dam = null;
-    DataAccessor daq = null;
+    DataAccessorQuota daq = null;
     
     List<Member> members = null;
     
     /**
      * Creates new form CreateMember
      */
-    public CreateQuota() {
+    public CreatePayment() {
         initComponents();
         
         try {
@@ -36,8 +36,6 @@ public class CreateQuota extends javax.swing.JFrame {
         ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
-        
-        setSubscriptionPrice();
     }
 
     /**
@@ -52,9 +50,9 @@ public class CreateQuota extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         createButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         ssnComboBox = new javax.swing.JComboBox<>();
-        subscriptionLabel = new javax.swing.JLabel();
+        paymentTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Member");
@@ -70,16 +68,11 @@ public class CreateQuota extends javax.swing.JFrame {
 
         messageLabel.setText("jLabel5");
 
-        jLabel5.setText("Subscription:");
-
         ssnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ssnComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ssnComboBoxActionPerformed(evt);
-            }
-        });
 
-        subscriptionLabel.setText("jLabel2");
+        paymentTextField.setText("jTextField1");
+
+        jLabel2.setText("Payment:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,12 +87,12 @@ public class CreateQuota extends javax.swing.JFrame {
                         .addComponent(messageLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(subscriptionLabel))))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ssnComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(paymentTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,56 +104,35 @@ public class CreateQuota extends javax.swing.JFrame {
                     .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(subscriptionLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(paymentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(createButton)
                     .addComponent(messageLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        try {
-            Quota quota = new Quota(ssnComboBox.getSelectedItem().toString(), Double.parseDouble(subscriptionLabel.getText()), 0, new Member(null,null,null,null,null));
-            daq.create(quota);
-            messageLabel.setText("<html><font color='green'>Quota is created successfully!</font></html>");
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            showErrorMessage(ex.getMessage());
+        if(paymentTextField.getText().length() == 0 || Pattern.matches("[a-zA-Z]+", paymentTextField.getText())) {
+            showErrorMessage("Please enter a valid digit in payment");
+        } else {
+            try {
+                Quota quota = new Quota(ssnComboBox.getSelectedItem().toString(), 0, Double.parseDouble(paymentTextField.getText()), new Member(null,null,null,null,null));
+                daq.createPayment(quota);
+                messageLabel.setText("<html><font color='green'>Payment is created successfully!</font></html>");
+            } catch(Exception ex) {
+                ex.printStackTrace();
+                showErrorMessage(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void ssnComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ssnComboBoxActionPerformed
-        setSubscriptionPrice();
-    }//GEN-LAST:event_ssnComboBoxActionPerformed
-
     private void showErrorMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
-    }
-    
-    public void setSubscriptionPrice() {
-        double subscription = 0;
-        
-        for(Member m : members) {
-            if(m.getSsn().equals(ssnComboBox.getSelectedItem())) {
-                if(m.getActivityInfo().getStatus() == StatusEnum.ACTIVE) {
-                    if(m.getAge() >= 18)
-                        subscription = 1600;
-                    else
-                        subscription = 1000;
-                } else {
-                    subscription = 500;
-                }
-                
-                if(m.getAge() >= 60)
-                    subscription = subscription * 0.75;
-            }
-        }
-        subscriptionLabel.setText(String.valueOf(subscription));
     }
     
     /**
@@ -180,21 +152,23 @@ public class CreateQuota extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreatePayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreatePayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreatePayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateQuota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreatePayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateQuota().setVisible(true);
+                new CreatePayment().setVisible(true);
             }
         });
     }
@@ -202,9 +176,9 @@ public class CreateQuota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel messageLabel;
+    private javax.swing.JTextField paymentTextField;
     private javax.swing.JComboBox<String> ssnComboBox;
-    private javax.swing.JLabel subscriptionLabel;
     // End of variables declaration//GEN-END:variables
 }
