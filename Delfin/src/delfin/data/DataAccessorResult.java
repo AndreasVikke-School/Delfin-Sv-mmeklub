@@ -34,9 +34,11 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<Object> results = new ArrayList();
-
-            while (rs.next()) {    
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"))); 
+            DataAccessor da = new DataAccesorMember(new DBConnector());
+            
+            while (rs.next()) {   
+                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member)); 
             }
             return results;  
         }catch (Exception ex){
@@ -55,9 +57,11 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<Object> results = new ArrayList();
+            DataAccessor da = new DataAccesorMember(new DBConnector());
             
-            while (rs.next()){
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event")));
+            while (rs.next()) {   
+                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member));
             }
             return results; 
         }catch (Exception ex){
@@ -75,8 +79,11 @@ public class DataAccessorResult implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            while (rs.next()){
-                return new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"));
+            DataAccessor da = new DataAccesorMember(new DBConnector());
+            
+            while (rs.next()) {   
+                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                return new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member);
             }
             throw new NullPointerException();
         }catch (Exception ex){

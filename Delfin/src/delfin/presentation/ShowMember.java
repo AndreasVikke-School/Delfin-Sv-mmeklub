@@ -60,6 +60,7 @@ public class ShowMember extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Members");
         setPreferredSize(new java.awt.Dimension(800, 400));
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -74,7 +75,6 @@ public class ShowMember extends javax.swing.JFrame {
         ));
         jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
-        jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(90);
