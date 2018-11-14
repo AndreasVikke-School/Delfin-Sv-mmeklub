@@ -40,16 +40,14 @@
                           <Component id="placementTextField" alignment="0" max="32767" attributes="0"/>
                           <Component id="eventTextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="timeTextField" alignment="1" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="dayTextField" min="-2" pref="84" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="monthTextField" min="-2" pref="82" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="yearTextField" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="ssnComboBox" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="dayTextField" min="-2" pref="84" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="monthTextField" min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="yearTextField" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="ssnComboBox" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -71,11 +69,13 @@
                   <Component id="ssnComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="dayTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="monthTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="yearTextField" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dayTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="monthTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
