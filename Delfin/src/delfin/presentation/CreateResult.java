@@ -1,4 +1,9 @@
 /*
+
+
+
+
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -225,44 +230,8 @@ public class CreateResult extends javax.swing.JFrame {
             showErrorMessage("Please type a valid month between 12 and 1");
         }
         
-        
-       
-        else if(yearTextField.getText().length() != 4 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
-            showErrorMessage("Please type a valid year with four digits");
-        }
-<<<<<<< HEAD
-        //////////////////////////////////////////////////////////////////////////// time placement event
-        else if(Integer.parseInt(yearTextField.getText()) > 2018 && 0000 > Integer.parseInt(yearTextField.getText())) {
-            showErrorMessage("Please type a valid year");
-        }
-        
-        else if(timeTextField.getText().length() != 5 || Pattern.matches("[a-zA-Z]+", timeTextField.getText())) {
-            showErrorMessage("Please type a valid time with four digits");
-        }
-        else if(Double.parseDouble(timeTextField.getText()) > 60.00 && 00.00 > Double.parseDouble(timeTextField.getText())) {
-            showErrorMessage("Please type a valid time");
-        }       
-        
-        else if(placementTextField.getText().length() != 1 || Pattern.matches("[a-zA-Z]+", placementTextField.getText())) {
-            showErrorMessage("Please type a valid placement");
-        }
 
-        else {
-        Result result = new Result(ssnTextField.getText(), LocalDate.of(new Integer(Integer.parseInt(dayTextField.getText())), Integer.parseInt(monthTextField.getText()), Integer.parseInt(yearTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText());
-          
-        da.create(result);
-        } 
-    } catch(Exception ex) {
-=======
-        
-        else{
-            Result result = new Result(ssnTextField.getText(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
-
-            da.create(result);
-        }  
-    }catch(Exception ex) {
->>>>>>> dfcad704628dff0ae7df374ec8e568790295e614
-        ex.printStackTrace();
+/*
         showErrorMessage(ex.getMessage());        
     }  
     }//GEN-LAST:event_createButtonActionPerformed
