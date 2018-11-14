@@ -12,13 +12,13 @@ package delfin.logic;
 public class Cashier implements PersonInterface {
     private String ssn;
     private String name;
-    private String adress;
+    private String address;
     private String phone;
 
-    public Cashier(String snn, String name, String adress, String phone) {
+    public Cashier(String snn, String name, String address, String phone) {
         this.ssn = snn;
         this.name = name;
-        this.adress = adress;
+        this.address = address;
         this.phone = phone;
     }
     
@@ -34,7 +34,7 @@ public class Cashier implements PersonInterface {
     
     @Override
     public String getAddress(){
-        return adress;
+        return address;
     }
     
     @Override

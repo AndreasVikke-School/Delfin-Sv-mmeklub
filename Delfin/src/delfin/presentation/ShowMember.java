@@ -6,10 +6,11 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
-
-
-
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 /**
  *
  * @author Joe
@@ -21,27 +22,44 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
+        
         int count = 0;
         DataAccessor data = null;
+        List<Member> members = null;
+        
         try{
-            data = new DataAccessor(new DBConnector());
-            count = data.getMembers().size();
+            data = new DataAccesorMember(new DBConnector());
+            members = (List<Member>)(Object)data.getAll();
+            count = members.size();
         }
         catch(Exception ex){
             ex.printStackTrace();
             System.out.println("Fail to setup");
         }
         int rowCount = 0;
-        if( jTable1.getRowCount() < count){
-        for(Member m: data.getMembers()) {
+        
+        while( jTable1.getRowCount() < count){
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{});
+        }
+            
+                
+                
+                
+        TableColumn column = jTable1.getColumnModel().getColumn(1);
+        
+        
+        for(Member m: members) {
             jTable1.setValueAt(m.getSsn(), rowCount, 0);
             jTable1.setValueAt(m.getSsn(), rowCount, 1);
             jTable1.setValueAt(m.getName(), rowCount, 2);
             jTable1.setValueAt(m.getAddress(), rowCount, 3);
             jTable1.setValueAt(m.getPhone(), rowCount, 4);
+            jTable1.setValueAt(m.getActivityInfo().getActivity(), rowCount, 5);
+            jTable1.setValueAt(m.getActivityInfo().getStatus(), rowCount, 6);
+            jTable1.setValueAt(m.getActivityInfo().getTeam(), rowCount, 7);
             rowCount ++;
-        } 
-        }
+        }     
     }
 
     /**
@@ -56,7 +74,10 @@ public class ShowMember extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1550, 366));
+
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -66,6 +87,8 @@ public class ShowMember extends javax.swing.JFrame {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
             }
         ));
+        jTable1.setEnabled(false);
+        jTable1.setRequestFocusEnabled(false);
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
@@ -75,8 +98,8 @@ public class ShowMember extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,11 +142,32 @@ public class ShowMember extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ShowMember().setVisible(true);
+                ShowMember sM = new ShowMember();
+                sM.setTitle("Members");
+                sM.setVisible(true);
+                
+                
             }
         });
     }
-
+    /*
+    TableColumn column = null;
+            
+            for (int i = 0; i < 8; i++) {
+            
+                
+                
+                
+            column = jTable1.getColumnModel().getColumn(i);
+            if (column.getWidth() < max) {
+                column.setPreferredWidth(max); //third column is bigger
+            } 
+            else {                
+                column.setPreferredWidth(9*max);
+            }
+            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            }*/
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

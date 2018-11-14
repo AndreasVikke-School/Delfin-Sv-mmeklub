@@ -12,14 +12,14 @@ package delfin.logic;
 public class Admin implements PersonInterface {
     private String ssn;
     private String name;
-    private String addres;
+    private String address;
     private String phone;
     private ActivityInfo activityInfo;
 
     public Admin(String ssn, String name, String address, String phone, ActivityInfo activityInfo) {
         this.ssn = ssn;
         this.name = name;
-        this.addres = address;
+        this.address = address;
         this.phone = phone;
         this.activityInfo = activityInfo;
     }
@@ -36,7 +36,7 @@ public class Admin implements PersonInterface {
 
     @Override
     public String getAddress() {
-        return addres;
+        return address;
     }
 
     @Override

@@ -20,14 +20,14 @@ public class CoachTest {
 
     @Test
     public void createCoachTest(){
-        ActivityInfo info = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
+        ActivityInfo info = new ActivityInfo("1705981598", StatusEnum.ACTIVE, TeamEnum.JUNIOR, ActivityEnum.COMPETITIOR);
         Coach c = new Coach("1705981598", "Anna Kofoed", "Dildhaven 9, 2730 Herlev", "17725889", info);
         assertNotNull(c);
         assertNotNull(c.getSsn());
         assertNotNull(c.getName());
         assertNotNull(c.getAddress());
         assertNotNull(c.getPhone());
-        assertNotNull(c.getInfo());
+        assertNotNull(c.getActivityInfo());
         assertNotNull(c.getAge());
         assertSame(c.getSsn(), c.getId());
         assertEquals(c.getSsn().length(), 10);

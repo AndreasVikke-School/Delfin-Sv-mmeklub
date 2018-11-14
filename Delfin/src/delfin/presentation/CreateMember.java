@@ -18,7 +18,7 @@ public class CreateMember extends javax.swing.JFrame {
         initComponents();
         
         try {
-            da = new DataAccessor(new DBConnector());
+            da = new DataAccesorMember(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
@@ -54,7 +54,7 @@ public class CreateMember extends javax.swing.JFrame {
         activityComboBox = new javax.swing.JComboBox<>();
         createButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Member");
 
         jLabel1.setText("SSN:");
@@ -183,7 +183,8 @@ public class CreateMember extends javax.swing.JFrame {
         else
             teamEnum = TeamEnum.JUNIOR;
         
-        da.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+        Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+        da.create(newMember);
     }//GEN-LAST:event_createButtonActionPerformed
 
     /**

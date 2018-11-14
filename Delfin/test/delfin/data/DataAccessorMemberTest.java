@@ -7,15 +7,9 @@ package delfin.data;
  */
 
 import delfin.data.DataAccessor;
-import delfin.logic.ActivityInfo;
-import delfin.logic.Member;
+import delfin.logic.*;
 import java.sql.SQLException;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,18 +17,18 @@ import static org.junit.Assert.*;
  *
  * @author Celina og Nina
  */
-public class DataAccessorTest {
+public class DataAccessorMemberTest {
     
     private DataAccessor da;
     
-    public DataAccessorTest() throws SQLException {
-        da = new DataAccessor(new DBConnector());
+    public DataAccessorMemberTest() throws SQLException {
+        da = new DataAccesorMember(new DBConnector());
     }
     
     @Test
     public void testGetMembers() {
         try {
-            List<Member> members = da.getMembers();
+            List<Member> members = (List<Member>)(Object)da.getAll();
             assertNotNull(members);
             
             int expected = 1;
@@ -52,18 +46,15 @@ public class DataAccessorTest {
     @Test
     public void testGetMemberBySsn() {
         try {
-            Member member = da.getMemberBySsn("1202960495");
+            Member member = (Member)da.getSingleById("0407982345");
             assertNotNull(member);
             assertEquals(member.getName(), "Henning Hansen");
-            assertEquals(member.getAge(), 22);
+            assertEquals(member.getAge(), 20);
             assertEquals(member.getPhone(), "12345678");
-            assertEquals(member.getAddress(), "Digterparken 57, 2750 Ballerup");
-            assertEquals(member.getSsn(), "1202960495");
-            
-                   
+            assertEquals(member.getAddress(), "Test");
+            assertEquals(member.getSsn(), "0407982345");
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
-    
 }

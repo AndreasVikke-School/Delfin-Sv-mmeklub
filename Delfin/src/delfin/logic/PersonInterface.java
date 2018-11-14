@@ -16,6 +16,6 @@ public interface PersonInterface {
     public String getName();
     public String getAddress();
     public String getPhone();
-    public ActivityInfo getInfo();
+    public ActivityInfo getActivityInfo();
     
 }
