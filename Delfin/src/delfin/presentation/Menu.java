@@ -49,6 +49,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delfin");
 
         jButton1.setText("Members");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
