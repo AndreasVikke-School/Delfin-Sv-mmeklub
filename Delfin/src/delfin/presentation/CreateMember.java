@@ -31,6 +31,8 @@ public class CreateMember extends javax.swing.JFrame {
         activityComboBox.removeAllItems();
         for(ActivityEnum status : ActivityEnum.values())
             activityComboBox.addItem(status.toString());
+        
+        messageLabel.setText("");
     }
 
     /**
@@ -53,6 +55,7 @@ public class CreateMember extends javax.swing.JFrame {
         statusComboBox = new javax.swing.JComboBox<>();
         activityComboBox = new javax.swing.JComboBox<>();
         createButton = new javax.swing.JButton();
+        messageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Member");
@@ -90,11 +93,6 @@ public class CreateMember extends javax.swing.JFrame {
         jLabel4.setText("Phone:");
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusComboBoxActionPerformed(evt);
-            }
-        });
 
         activityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -105,6 +103,8 @@ public class CreateMember extends javax.swing.JFrame {
             }
         });
 
+        messageLabel.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,23 +113,29 @@ public class CreateMember extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(messageLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                            .addComponent(addressTextField)
-                            .addComponent(nameTextField)
-                            .addComponent(ssnTextField)))
-                    .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                                    .addComponent(addressTextField)
+                                    .addComponent(nameTextField)
+                                    .addComponent(ssnTextField))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,7 +162,9 @@ public class CreateMember extends javax.swing.JFrame {
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(createButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createButton)
+                    .addComponent(messageLabel))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -180,22 +188,42 @@ public class CreateMember extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneTextFieldActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        Member member = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), null);
-        
-        TeamEnum teamEnum = null;
-        if(member.getAge() >= 18)
-            teamEnum = TeamEnum.SENIOR;
-        else
-            teamEnum = TeamEnum.JUNIOR;
-        
-        Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
-        da.create(newMember);
+        try {
+            if(ssnTextField.getText().length() != 10 ) {
+                showErrorMessage("Please type a real SSN number (Only digits and 10 in length)");
+            }
+            else if(nameTextField.getText().length() == 0) {
+                showErrorMessage("Please input a name");
+            }
+            else if(addressTextField.getText().length() == 0) {
+                showErrorMessage("Please input an address");
+            }
+            else if(phoneTextField.getText().length() == 0) {
+                showErrorMessage("Please input a phone number");
+            }
+            else {
+                Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), TeamEnum.JUNIOR, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+
+                TeamEnum teamEnum = null;
+                if(newMember.getAge() >= 18)
+                    teamEnum = TeamEnum.SENIOR;
+                else
+                    teamEnum = TeamEnum.JUNIOR;
+
+                newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+                da.create(newMember);
+                messageLabel.setText("<html><font color='red'>Member is created successfully!</font></html>");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            showErrorMessage(ex.getMessage());
+        }
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusComboBoxActionPerformed
-
+    private void showErrorMessage(String message) {
+        messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -239,6 +267,7 @@ public class CreateMember extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel messageLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JTextField ssnTextField;
