@@ -48,4 +48,13 @@ public class Result {
     public String getEvent(){
         return event;
     }
+    
+    // giver en hel member klasse memningn når man ikke er interesseret i adresse osv?
+    public Member getMember(){
+        return member;
+    }
+    
+    public String getDisciplin(){
+        return "Crawl";
+    }
 }

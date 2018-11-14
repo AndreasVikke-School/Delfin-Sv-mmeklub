@@ -5,17 +5,46 @@
  */
 package delfin.presentation;
 
+import delfin.data.*;
+import delfin.logic.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Joe
  */
 public class ShowResult extends javax.swing.JFrame {
-
+    private DataAccessor data = null;
     /**
      * Creates new form ShowResult
      */
     public ShowResult() {
         initComponents();
+        try{
+        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
+        ImageIcon addIcon = new ImageIcon(addImg);
+        jButton1.setIcon(addIcon);
+        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
+        ImageIcon refreshIcon = new ImageIcon(refreshImg);
+        jButton2.setIcon(refreshIcon);
+        
+        
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            data = new DataAccessorResult(new DBConnector());
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("Fail to setup");
+        }
+        update();
     }
 
     /**
@@ -80,7 +109,7 @@ public class ShowResult extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -92,13 +121,13 @@ public class ShowResult extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //update();
+        update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Thread() {
             public void run() {
-                new CreateMember().setVisible(true);
+                new CreateResult().setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -136,6 +165,24 @@ public class ShowResult extends javax.swing.JFrame {
                 new ShowResult().setVisible(true);
             }
         });
+    }
+     public void update(){
+        List<Result> results = (List<Result>)(Object)data.getAll();
+        int count = results.size();
+        int rowCount = 0;
+        
+        while( jTable1.getRowCount() < count){
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{});
+        }
+        for(Result r: results) {
+            jTable1.setValueAt(r.getSsn(), rowCount, 0);
+            jTable1.setValueAt(r.getMember().getName(), rowCount, 1);
+            jTable1.setValueAt(r.getDisciplin() ,rowCount, 2);
+            jTable1.setValueAt(r.getTime(), rowCount, 3);
+            jTable1.setValueAt(r.getDate(), rowCount, 4);
+            rowCount ++;
+        }  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
