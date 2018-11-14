@@ -222,14 +222,11 @@ public class CreateResult extends javax.swing.JFrame {
         else if(yearTextField.getText().length() != 4) {
             showErrorMessage("Please type a valid year with four digits");
         }
-        else if(timeTextField.getText().length() != 4) {
-            showErrorMessage("Please type a valid time with four digits");
-        }
         
         else{
-        Result result = new Result(ssnTextField.getText(), LocalDate.of(new Integer(Integer.parseInt(dayTextField.getText())), Integer.parseInt(monthTextField.getText()), Integer.parseInt(yearTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText());
-          
-        da.create(result);
+            Result result = new Result(ssnTextField.getText(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
+
+            da.create(result);
         }  
     }catch(Exception ex) {
         ex.printStackTrace();
