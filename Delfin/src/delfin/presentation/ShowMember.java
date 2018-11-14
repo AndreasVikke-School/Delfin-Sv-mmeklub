@@ -6,7 +6,11 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -19,7 +23,18 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
+        try{
+        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
+        ImageIcon addIcon = new ImageIcon(addImg);
+        jButton1.setIcon(addIcon);
+        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
+        ImageIcon refreshIcon = new ImageIcon(refreshImg);
+        jButton2.setIcon(refreshIcon);
         
+        
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         try{
             data = new DataAccesorMember(new DBConnector());
         }
@@ -54,7 +69,7 @@ public class ShowMember extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
+                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
             }
         ));
         jTable1.setEnabled(false);
@@ -66,24 +81,24 @@ public class ShowMember extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(90);
             jTable1.getColumnModel().getColumn(1).setMinWidth(90);
             jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(4).setMinWidth(75);
             jTable1.getColumnModel().getColumn(4).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(75);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(55);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(55);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(55);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(55);
         }
 
-        jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Refresh");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -113,7 +128,7 @@ public class ShowMember extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
