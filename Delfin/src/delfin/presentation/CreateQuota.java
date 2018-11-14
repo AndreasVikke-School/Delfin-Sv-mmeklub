@@ -3,11 +3,10 @@ package delfin.presentation;
 import delfin.logic.*;
 import delfin.data.*;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  *
- * @author vikke
+ * @author Andreas Vikke
  */
 public class CreateQuota extends javax.swing.JFrame {
     

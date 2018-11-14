@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author vikke
+ * @author Andreas Vikke
  */
 public class CreatePayment extends javax.swing.JFrame {
     

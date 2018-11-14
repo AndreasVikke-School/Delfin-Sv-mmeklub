@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.presentation;
+
 import delfin.data.*;
 import delfin.logic.Member;
 import java.awt.image.BufferedImage;
@@ -14,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author Joe
+ * @author Martin Frederiksen
  */
 public class ShowMember extends javax.swing.JFrame {
     private DataAccessor data = null;

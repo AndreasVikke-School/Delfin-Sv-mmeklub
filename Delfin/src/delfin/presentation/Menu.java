@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.presentation;
 
 import java.awt.image.BufferedImage;
@@ -12,7 +7,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakovski
  */
 public class Menu extends javax.swing.JFrame {
 

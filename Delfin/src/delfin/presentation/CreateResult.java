@@ -5,20 +5,18 @@
  */
 package delfin.presentation;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessor;
 import delfin.data.DataAccessorResult;
 import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.regex.Pattern;
 
 
 /**
  *
- * @author Celina
+ * @author Celina Dencker
  */
 public class CreateResult extends javax.swing.JFrame {
 

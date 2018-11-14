@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Nina Lisakovski & Celina Dencker
  */
 public class DataAccessorMember implements DataAccessor {
     
