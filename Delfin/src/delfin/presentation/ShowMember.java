@@ -6,7 +6,10 @@
 package delfin.presentation;
 import delfin.data.*;
 import delfin.logic.Member;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -20,10 +23,18 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
-        ImageIcon addImage = new ImageIcon("/usr/local/Desktop/Images/add16.png");
-        ImageIcon refreshImage = new ImageIcon("/usr/local/Desktop/Images/refresh16.png");
-        jButton1.setIcon(addImage);
-        jButton2.setIcon(refreshImage);
+        try{
+        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
+        ImageIcon addIcon = new ImageIcon(addImg);
+        jButton1.setIcon(addIcon);
+        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
+        ImageIcon refreshIcon = new ImageIcon(refreshImg);
+        jButton2.setIcon(refreshIcon);
+        
+        
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         try{
             data = new DataAccesorMember(new DBConnector());
         }
@@ -58,7 +69,7 @@ public class ShowMember extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Contender", "Category"
+                "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
             }
         ));
         jTable1.setEnabled(false);
@@ -70,14 +81,16 @@ public class ShowMember extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(90);
             jTable1.getColumnModel().getColumn(1).setMinWidth(90);
             jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(4).setMinWidth(75);
             jTable1.getColumnModel().getColumn(4).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(75);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(75);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(75);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(55);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(55);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(55);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(55);
         }
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
