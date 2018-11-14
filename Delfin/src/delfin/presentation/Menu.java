@@ -23,24 +23,12 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         
         try {
-            BufferedImage img = ImageIO.read(new URL("http://i.imgur.com/GowBYtV.png"));
+            BufferedImage img = ImageIO.read(new URL("https://raw.githubusercontent.com/AndreasVikke/Delfin-Sv-mmeklub/master/DelfinInfo/Logo.png"));
             ImageIcon icon = new ImageIcon(img);
             logoLabel.setIcon(icon);
             logoLabel.setText("");
         } catch(Exception ex) {
             ex.printStackTrace();
-        }
-    }
-    
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected ImageIcon createImageIcon(String path,
-                                               String description) {
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
         }
     }
 
