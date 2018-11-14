@@ -90,6 +90,11 @@ public class CreateMember extends javax.swing.JFrame {
         jLabel4.setText("Phone:");
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusComboBoxActionPerformed(evt);
+            }
+        });
 
         activityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -186,6 +191,10 @@ public class CreateMember extends javax.swing.JFrame {
         Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
         da.create(newMember);
     }//GEN-LAST:event_createButtonActionPerformed
+
+    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
