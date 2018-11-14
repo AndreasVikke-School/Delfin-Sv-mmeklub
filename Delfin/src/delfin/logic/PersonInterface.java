@@ -19,4 +19,3 @@ public interface PersonInterface {
     public ActivityInfo getActivityInfo();
     
 }
-
