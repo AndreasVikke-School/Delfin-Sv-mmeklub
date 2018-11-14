@@ -1,5 +1,10 @@
 package delfin;
 
+import delfin.logic.ActivityEnum;
+import delfin.logic.ActivityInfo;
+import delfin.logic.Member;
+import delfin.logic.StatusEnum;
+import delfin.logic.TeamEnum;
 import delfin.presentation.Menu;
 
 /**

@@ -5,6 +5,9 @@
  */
 package delfin.logic;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  *
  * @author vikke
@@ -51,11 +54,20 @@ public class Admin implements PersonInterface {
 
     @Override
     public String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ssn;
     }
 
     @Override
     public int getAge() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int day = Integer.parseInt(ssn.substring(0, 2));
+        int month = Integer.parseInt(ssn.substring(2, 4));
+        int year = 0;
+        if(Integer.parseInt(ssn.substring(4, 6)) >= 0 && Integer.parseInt(ssn.substring(4, 6)) <= 18)
+            year = 2000 + Integer.parseInt(ssn.substring(4, 6));
+        else
+            year = 1900 + Integer.parseInt(ssn.substring(4, 6));
+        LocalDate birthDate = LocalDate.of(year, month, day);
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears();
     }
 }

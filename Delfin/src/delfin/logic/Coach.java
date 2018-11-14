@@ -41,7 +41,11 @@ public class Coach implements PersonInterface{
     public int getAge() {
         int day = Integer.parseInt(ssn.substring(0, 2));
         int month = Integer.parseInt(ssn.substring(2, 4));
-        int year = 1900 + Integer.parseInt(ssn.substring(4, 6));
+        int year = 0;
+        if(Integer.parseInt(ssn.substring(4, 6)) >= 0 && Integer.parseInt(ssn.substring(4, 6)) <= 18)
+            year = 2000 + Integer.parseInt(ssn.substring(4, 6));
+        else
+            year = 1900 + Integer.parseInt(ssn.substring(4, 6));
         LocalDate birthDate = LocalDate.of(year, month, day);
         LocalDate currentDate = LocalDate.now();
         return Period.between(birthDate, currentDate).getYears();
