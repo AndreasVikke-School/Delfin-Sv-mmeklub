@@ -1,4 +1,9 @@
 /*
+
+
+
+
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -203,11 +208,14 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-    try {
+     try {
         if(ssnTextField.getText().length() != 10 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
             showErrorMessage("Please type a valid SSN with maximum ten digits)");
         }
-        else if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
+        
+        
+        
+        else if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", dayTextField.getText())) {
             showErrorMessage("Please type a valid day with two digits");
         }
         else if(Integer.parseInt(dayTextField.getText()) > 31 && 0 > Integer.parseInt(dayTextField.getText())) {
@@ -215,24 +223,20 @@ public class CreateResult extends javax.swing.JFrame {
         }
         
         
-        else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
+        
+        else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", monthTextField.getText())) {
             showErrorMessage("Please type a valid month with two digits");
         }
-        else if(yearTextField.getText().length() != 4) {
-            showErrorMessage("Please type a valid year with four digits");
+        else if(Integer.parseInt(monthTextField.getText()) > 12 && 0 > Integer.parseInt(monthTextField.getText())) {
+            showErrorMessage("Please type a valid month between 12 and 1");
         }
         
-        else{
-            Result result = new Result(ssnTextField.getText(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
 
-            da.create(result);
-        }  
-    }catch(Exception ex) {
-        ex.printStackTrace();
-        showErrorMessage(ex.getMessage());
+/*
+        showErrorMessage(ex.getMessage());        
+    }  
     }//GEN-LAST:event_createButtonActionPerformed
-    }
-    
+   
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_placementTextFieldActionPerformed
