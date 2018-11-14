@@ -5,12 +5,14 @@
  */
 package delfin.presentation;
 
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessor;
 import delfin.data.DataAccessorResult;
 import delfin.logic.Result;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.regex.Pattern;
 
 
 /**
@@ -55,6 +57,7 @@ public class CreateResult extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         monthTextField = new javax.swing.JTextField();
         yearTextField = new javax.swing.JTextField();
+        errorMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +120,8 @@ public class CreateResult extends javax.swing.JFrame {
             }
         });
 
+        errorMessage.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,7 +150,8 @@ public class CreateResult extends javax.swing.JFrame {
                                 .addComponent(yearTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(errorMessage)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,7 +181,9 @@ public class CreateResult extends javax.swing.JFrame {
                     .addComponent(eventTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventLabel))
                 .addGap(18, 18, 18)
-                .addComponent(createButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createButton)
+                    .addComponent(errorMessage))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -195,12 +203,39 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+    try {
+        if(ssnTextField.getText().length() != 10 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
+            showErrorMessage("Please type a valid SSN with maximum ten digits)");
+        }
+        else if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
+            showErrorMessage("Please type a valid day with two digits");
+        }
+        else if(Integer.parseInt(dayTextField.getText()) > 31 && 0 > Integer.parseInt(dayTextField.getText())) {
+            showErrorMessage("Please type a valid day between 1 and 31");
+        }
+        
+        
+        else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
+            showErrorMessage("Please type a valid month with two digits");
+        }
+        else if(yearTextField.getText().length() != 4) {
+            showErrorMessage("Please type a valid year with four digits");
+        }
+        else if(timeTextField.getText().length() != 4) {
+            showErrorMessage("Please type a valid time with four digits");
+        }
+        
+        else{
         Result result = new Result(ssnTextField.getText(), LocalDate.of(new Integer(Integer.parseInt(dayTextField.getText())), Integer.parseInt(monthTextField.getText()), Integer.parseInt(yearTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText());
           
         da.create(result);
-          
+        }  
+    }catch(Exception ex) {
+        ex.printStackTrace();
+        showErrorMessage(ex.getMessage());
     }//GEN-LAST:event_createButtonActionPerformed
-
+    }
+    
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_placementTextFieldActionPerformed
@@ -216,7 +251,11 @@ public class CreateResult extends javax.swing.JFrame {
     private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_yearTextFieldActionPerformed
-
+    
+    private void showErrorMessage(String message) {
+        errorMessage.setText("<html><font color='red'>"+ message + "</font></html>");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -256,6 +295,7 @@ public class CreateResult extends javax.swing.JFrame {
     private javax.swing.JButton createButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dayTextField;
+    private javax.swing.JLabel errorMessage;
     private javax.swing.JLabel eventLabel;
     private javax.swing.JTextField eventTextField;
     private javax.swing.JTextField monthTextField;
