@@ -56,7 +56,7 @@ public class CreateQuota extends javax.swing.JFrame {
         subscriptionLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Create Member");
+        setTitle("Create Quota");
 
         jLabel1.setText("SSN:");
 

@@ -55,7 +55,7 @@ public class CreatePayment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Create Member");
+        setTitle("Create Payment");
 
         jLabel1.setText("SSN:");
 

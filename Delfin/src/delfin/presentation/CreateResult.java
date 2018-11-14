@@ -58,7 +58,8 @@ public class CreateResult extends javax.swing.JFrame {
         yearTextField = new javax.swing.JTextField();
         errorMessage = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Create Results");
 
         ssnLabel.setText("SSN:");
 

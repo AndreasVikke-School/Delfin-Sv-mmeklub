@@ -56,7 +56,8 @@ public class ShowResult extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Results");
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -70,7 +71,6 @@ public class ShowResult extends javax.swing.JFrame {
         ));
         jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
-        jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.addActionListener(new java.awt.event.ActionListener() {
