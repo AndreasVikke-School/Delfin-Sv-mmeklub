@@ -9,9 +9,6 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -26,24 +23,12 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         
         try {
-            BufferedImage img = ImageIO.read(new URL("http://i.imgur.com/GowBYtV.png"));
+            BufferedImage img = ImageIO.read(new URL("https://raw.githubusercontent.com/AndreasVikke/Delfin-Sv-mmeklub/master/DelfinInfo/Logo.png"));
             ImageIcon icon = new ImageIcon(img);
             logoLabel.setIcon(icon);
             logoLabel.setText("");
         } catch(Exception ex) {
             ex.printStackTrace();
-        }
-    }
-    
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected ImageIcon createImageIcon(String path,
-                                               String description) {
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
         }
     }
 
@@ -64,6 +49,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delfin");
 
         jButton1.setText("Members");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
