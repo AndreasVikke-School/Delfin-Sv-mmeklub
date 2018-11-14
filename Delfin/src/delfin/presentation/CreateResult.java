@@ -8,6 +8,7 @@ package delfin.presentation;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessor;
 import delfin.data.DataAccessorResult;
+import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
 import java.time.Month;
@@ -195,7 +196,7 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        Result result = new Result(ssnTextField.getText(), LocalDate.of(new Integer(Integer.parseInt(dayTextField.getText())), Integer.parseInt(monthTextField.getText()), Integer.parseInt(yearTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText());
+        Result result = new Result(ssnTextField.getText(), LocalDate.of(new Integer(Integer.parseInt(dayTextField.getText())), Integer.parseInt(monthTextField.getText()), Integer.parseInt(yearTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null, null, null, null, null));
           
         da.create(result);
           
