@@ -5,7 +5,8 @@
  */
 package delfin.data;
 
-import delfin.logic.*;
+import delfin.logic.Quota;
+import delfin.logic.Member;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -14,34 +15,33 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Nina
  */
-public class DataAccessorResult implements DataAccessor {
-
+public class DataAccessorQuota implements DataAccessor {
     private DBConnector connector = null;
-
-    public DataAccessorResult(DBConnector connector) {
+    
+    public DataAccessorQuota (DBConnector connector) {
         this.connector = connector;
     }
-    
+
     @Override
     public List<Object> getAll() {
         try{
-            String query = "SELECT * FROM results;";
-        
-            Connection connection = connector.getConnection();  
+            String query = "SELECT * FROM quota;";
+            
+            Connection connection = connector.getConnection(); 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<Object> results = new ArrayList();
+            ArrayList <Object> quotas = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
-            while (rs.next()) {   
+            while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member)); 
+                quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
-            return results;  
-        }catch (Exception ex){
+            return quotas;
+        }catch(Exception ex){
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -50,21 +50,21 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public List<Object> getAllById(String id) {
         try{
-            String query = "SELECT * FROM results WHERE ssn = '" + id + "';";
+            String query = "SELECT * FROM quota WHERE ssn = '" + id + "';";
             
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<Object> results = new ArrayList();
+            ArrayList<Object> quotas = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
-            while (rs.next()) {   
+            while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member));
+                quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
-            return results; 
-        }catch (Exception ex){
+            return quotas;
+        }catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -73,20 +73,20 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public Object getSingleById(String id) {
         try{
-            String query = "SELECT * FROM results WHERE id = " + id + ";";
-            
+            String query = "SELECT * FROM quota WHERE ssn = '" + id + "';";
+
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             DataAccessor da = new DataAccessorMember(new DBConnector());
-            
-            while (rs.next()) {   
+
+            while (rs.next()) {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                return new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), member);
+                return (new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             throw new NullPointerException();
-        }catch (Exception ex){
+        }catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -95,9 +95,9 @@ public class DataAccessorResult implements DataAccessor {
     @Override
     public void create(Object obj) {
         try{
-            Result result = (Result)obj;
+            Quota quotas = (Quota)obj;
             
-            String query = "INSERT INTO results (ssn, date, time, placement, event) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', " + result.getTime()+ ", " + result.getPlacement()+ ", '" + result.getEvent() + "');";
+            String query = "INSERT INTO quota (ssn, subscription, paid) VALUES ('" + quotas.getSsn() + "','" + quotas.getSubscription() + "','" + quotas.getPaid() + "');";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
@@ -108,5 +108,4 @@ public class DataAccessorResult implements DataAccessor {
             throw new IllegalAccessError();
         }
     }
-
 }

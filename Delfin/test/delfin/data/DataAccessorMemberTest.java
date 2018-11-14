@@ -22,7 +22,7 @@ public class DataAccessorMemberTest {
     private DataAccessor da;
     
     public DataAccessorMemberTest() throws SQLException {
-        da = new DataAccesorMember(new DBConnector());
+        da = new DataAccessorMember(new DBConnector());
     }
     
     @Test
