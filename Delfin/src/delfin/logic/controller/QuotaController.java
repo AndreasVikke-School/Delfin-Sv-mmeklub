@@ -67,4 +67,8 @@ public class QuotaController {
     public Quota getFirstNotPaidQuotaById(String id) {
         return (Quota)daq.getFirstNotPaidQuotaById(id);
     }
+
+    public List<Quota> getAllQuotasWithDebt() {
+        return (List<Quota>)(Object)daq.getAllWithDebt();
+    }
 }
