@@ -43,8 +43,29 @@ public class DataAccessorQuota implements DataAccessor {
             throw new IllegalAccessError();
         }
     }
+    
+    public List<DomainObject> getAllWithDebt() {
+        try{
+            String query = "SELECT * FROM quota where paid < subscription;";
+            
+            Connection connection = connector.getConnection(); 
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            ArrayList <DomainObject> quotas = new ArrayList();
+            DataAccessor da = new DataAccessorMember(new DBConnector());
+            
+            while (rs.next()) {
+                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
+            }
+            return quotas;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
 
-    @Override
     public List<DomainObject> getAllById(String id) {
         try{
             String query = "SELECT * FROM quota WHERE ssn = '" + id + "';";
