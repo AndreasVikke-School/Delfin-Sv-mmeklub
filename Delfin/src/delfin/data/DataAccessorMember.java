@@ -105,7 +105,14 @@ public class DataAccessorMember implements DataAccessor {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
+<<<<<<< HEAD:Delfin/src/delfin/data/DataAccesorMember.java
     }
     
     
 }
+=======
+    }   
+}
+
+
+>>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d:Delfin/src/delfin/data/DataAccessorMember.java
