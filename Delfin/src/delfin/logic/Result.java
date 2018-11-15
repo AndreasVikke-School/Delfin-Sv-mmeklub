@@ -1,16 +1,14 @@
-        /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.logic;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
+<<<<<<< HEAD
  * @author Nina Lisakowski
+=======
+ * @author Nina Lisakovski
+>>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
  */
 public class Result {
     private String ssn;
@@ -47,5 +45,14 @@ public class Result {
     
     public String getEvent(){
         return event;
+    }
+    
+    // giver en hel member klasse memningn når man ikke er interesseret i adresse osv?
+    public Member getMember(){
+        return member;
+    }
+    
+    public String getDisciplin(){
+        return "Crawl";
     }
 }

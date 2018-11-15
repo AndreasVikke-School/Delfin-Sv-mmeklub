@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.data;
 
 import delfin.logic.*;
@@ -14,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Nina Lisakovski
  */
 public class DataAccessorResult implements DataAccessor {
 
@@ -34,7 +29,7 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<Object> results = new ArrayList();
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
@@ -57,7 +52,7 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<Object> results = new ArrayList();
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
@@ -79,7 +74,7 @@ public class DataAccessorResult implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            DataAccessor da = new DataAccesorMember(new DBConnector());
+            DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));

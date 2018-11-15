@@ -1,22 +1,15 @@
 package delfin.data;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import delfin.data.DataAccessor;
 import delfin.logic.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Celina og Nina
+ * @author Celina Dencker & Nina Lisakovski
  */
 public class DataAccessorResultTest {
     

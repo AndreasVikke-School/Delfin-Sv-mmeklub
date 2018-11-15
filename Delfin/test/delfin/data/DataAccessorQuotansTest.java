@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.data;
 
 import delfin.logic.*;
@@ -13,14 +8,14 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakovski
  */
 public class DataAccessorQuotansTest {
     
     private DataAccessor da;
     
     public DataAccessorQuotansTest() throws SQLException {
-        da = new DataAccessorQuotans(new DBConnector());
+        da = new DataAccessorQuota(new DBConnector());
     }
     
     /**

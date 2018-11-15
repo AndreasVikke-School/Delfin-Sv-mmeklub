@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.logic;
 
 import delfin.logic.Member;
 
 /**
  *
+<<<<<<< HEAD
  * @author Nina Lisakowski
+=======
+ * @author Nina Lisakovski
+>>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
  */
 public class Quota {
     

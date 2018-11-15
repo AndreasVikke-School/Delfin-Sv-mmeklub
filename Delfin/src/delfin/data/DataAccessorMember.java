@@ -13,13 +13,13 @@ import java.util.List;
 
 /**
  *
- * @author vikke
+ * @author Nina Lisakovski & Celina Dencker
  */
-public class DataAccesorMember implements DataAccessor {
+public class DataAccessorMember implements DataAccessor {
     
     private DBConnector connector = null;
 
-    public DataAccesorMember(DBConnector connector) {
+    public DataAccessorMember(DBConnector connector) {
         this.connector = connector;
     }
     
@@ -105,7 +105,14 @@ public class DataAccesorMember implements DataAccessor {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
+<<<<<<< HEAD:Delfin/src/delfin/data/DataAccesorMember.java
     }
     
     
 }
+=======
+    }   
+}
+
+
+>>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d:Delfin/src/delfin/data/DataAccessorMember.java
