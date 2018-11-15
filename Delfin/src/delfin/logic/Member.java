@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author Martin Frederiksen & Celina Dencker
  */
-public class Member implements PersonInterface {
+public class Member extends DomainObject implements PersonInterface {
     private String ssn;
     private String name;
     private String address;
