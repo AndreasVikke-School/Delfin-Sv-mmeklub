@@ -5,10 +5,62 @@
  */
 package delfin.logic.controller;
 
+import delfin.data.DBConnector;
+import delfin.data.DataAccessorResult;
+import delfin.logic.DisciplinEnum;
+import delfin.logic.Member;
+import delfin.logic.Result;
+import java.time.LocalDate;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Nina Lisakowski
  */
 public class ResultController {
     
+    DataAccessorResult dar = null;
+    
+    public ResultController(){
+        try{
+            dar = new DataAccessorResult(new DBConnector());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Setup fail!");
+
+        }
+    }
+    
+    public String createResult(String ssn, String day, String month, String year, String time, String placement, String event, String disciplin){
+        try {
+            if(day.length() != 2 || Pattern.matches("[a-zA-Z]+", day)) {
+                return ("Please type a valid day with two digits");
+            }
+            else if(Integer.parseInt(day) > 31 && 0 > Integer.parseInt(day)) {
+                return ("Please type a valid day between 1 and 31");
+            }
+            else if(month.length() != 2 || Pattern.matches("[a-zA-Z]+", month)) {
+                return ("Please type a valid month with two digits");
+            }
+            else if(Integer.parseInt(month) > 12 && 0 > Integer.parseInt(month)) {
+                return ("Please type a valid month between 12 and 1");
+            }
+            else if(year.length() !=4 || Pattern.matches("[a-zA-Z]+",year)){
+                return ("Please type a valid year with four digits");
+            }
+            else if (Pattern.matches("[a-zA-Z]+",time)){
+                return ("Please type a valid digit");
+            }
+            else if (Pattern.matches("[a-zA-Z]+",placement)){
+                return ("Please type a valid digit");
+            }
+            else{
+                Result result = new Result(ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
+                dar.create(result);
+                return ("<html><font color='green'>Member is created successfully!</font></html>");
+            }
+        } catch(Exception ex) {
+            return (ex.getMessage());        
+        }  
+    }    
 }
