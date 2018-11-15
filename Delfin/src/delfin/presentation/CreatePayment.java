@@ -1,9 +1,8 @@
 package delfin.presentation;
 
 import delfin.logic.*;
-import delfin.data.*;
+import delfin.logic.controller.*;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -11,8 +10,7 @@ import java.util.regex.Pattern;
  */
 public class CreatePayment extends javax.swing.JFrame {
     QuotaController quotaController = null;
-    
-    DataAccessor dam = null;
+    MemberController memberController = null;
     
     List<Member> members = null;
     
@@ -23,15 +21,10 @@ public class CreatePayment extends javax.swing.JFrame {
         initComponents();
         
         quotaController = new QuotaController();
-        try {
-            dam = new DataAccessorMember(new DBConnector());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Setup fail!");
-        }
+        memberController = new MemberController();
         
         messageLabel.setText("");
-        members = (List<Member>)(Object)dam.getAll();
+        members = memberController.getAllMembers();
         
         ssnComboBox.removeAllItems();
         for(Member m : members)

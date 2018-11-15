@@ -1,11 +1,8 @@
 package delfin.presentation;
 
-import delfin.data.*;
 import delfin.logic.Quota;
-import java.awt.image.BufferedImage;
-import java.net.URL;
+import delfin.logic.controller.*;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -13,35 +10,28 @@ import javax.swing.table.DefaultTableModel;
  * @author Andreas Vikke
  */
 public class ShowQuota extends javax.swing.JFrame {
-    private DataAccessor data = null;
+    QuotaController quotaController = null;
+    
     /**
      * Creates new form ShowMember
      */
     public ShowQuota() {
         initComponents();
         try{
-        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-        ImageIcon addIcon = new ImageIcon(addImg);
-        jButton1.setIcon(addIcon);
-        BufferedImage addImg2 = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-        ImageIcon addIcon2 = new ImageIcon(addImg2);
-        jButton3.setIcon(addIcon2);
-        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
-        ImageIcon refreshIcon = new ImageIcon(refreshImg);
-        jButton2.setIcon(refreshIcon);
-        
-        
+            ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
+            jButton1.setIcon(addIcon);
+            jButton3.setIcon(addIcon);
+            ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
+            jButton2.setIcon(refreshIcon);
+            
+            
         } catch(Exception e){
             e.printStackTrace();
         }
-        try{
-            data = new DataAccessorQuota(new DBConnector());
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("Fail to setup");
-        }
-        update();
+        
+        quotaController = new QuotaController();
+        
+        update(false);
     }
 
     /**
@@ -58,6 +48,7 @@ public class ShowQuota extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quotas");
@@ -101,21 +92,28 @@ public class ShowQuota extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Show Debt");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(582, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jScrollPane1))
+                .addContainerGap(485, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +123,8 @@ public class ShowQuota extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3)
+                        .addComponent(jButton4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addContainerGap())
@@ -143,7 +142,7 @@ public class ShowQuota extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        update();
+        update(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -153,6 +152,10 @@ public class ShowQuota extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        update(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,28 +192,24 @@ public class ShowQuota extends javax.swing.JFrame {
             }
         });
     }
-    public void update(){
-        List<Quota> quotas = (List<Quota>)(Object)data.getAll();
-        int count = quotas.size();
-        int rowCount = 0;
-        
-        while( jTable1.getRowCount() < count){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{});
-        }
-        for(Quota q : quotas) {
-            jTable1.setValueAt(q.getSsn(), rowCount, 0);
-            jTable1.setValueAt(q.getMember().getName(), rowCount, 1);
-            jTable1.setValueAt(q.getSubscription(), rowCount, 2);
-            jTable1.setValueAt(q.getPaid(), rowCount, 3);
-            jTable1.setValueAt(q.getSubscription() - q.getPaid(), rowCount, 4);
-            rowCount ++;
+    public void update(boolean debt){
+        List<Quota> quotas = null;
+        if(debt) 
+            quotas = quotaController.getAllQuotasWithDebt();
+        else
+            quotas = quotaController.getAllQuotas();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for(Quota q: quotas) {
+            model.addRow(new Object[]{q.getSsn(), q.getMember().getName(), q.getSubscription(), q.getPaid(), q.getSubscription() - q.getPaid()});
         }  
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

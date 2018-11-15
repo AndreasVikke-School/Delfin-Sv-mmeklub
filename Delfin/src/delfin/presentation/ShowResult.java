@@ -2,10 +2,7 @@ package delfin.presentation;
 
 import delfin.data.*;
 import delfin.logic.*;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,14 +18,10 @@ public class ShowResult extends javax.swing.JFrame {
     public ShowResult() {
         initComponents();
         try{
-        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-        ImageIcon addIcon = new ImageIcon(addImg);
+        ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
         jButton1.setIcon(addIcon);
-        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
-        ImageIcon refreshIcon = new ImageIcon(refreshImg);
+        ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
         jButton2.setIcon(refreshIcon);
-        
-        
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -163,23 +156,11 @@ public class ShowResult extends javax.swing.JFrame {
     }
      public void update(){
         List<Result> results = (List<Result>)(Object)data.getAll();
-        int count = results.size();
-        int rowCount = 0;
-        
-        while( jTable1.getRowCount() < count){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{});
-        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
         for(Result r: results) {
-            jTable1.setValueAt(r.getSsn(), rowCount, 0);
-            jTable1.setValueAt(r.getMember().getName(), rowCount, 1);
-            jTable1.setValueAt(r.getDisciplin() ,rowCount, 2);
-            jTable1.setValueAt(r.getPlacement(), rowCount, 3);
-            jTable1.setValueAt(r.getTime(), rowCount, 4);
-            jTable1.setValueAt(r.getEvent(), rowCount, 5);
-            jTable1.setValueAt(r.getDate(), rowCount, 6);
-            rowCount ++;
-        }  
+            model.addRow(new Object[]{r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getTime(), r.getEvent(), r.getDate()});
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
