@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
  * @author Andreas Vikke
  */
 public class CreatePayment extends javax.swing.JFrame {
+    QuotaController quotaController = null;
     
     DataAccessor dam = null;
-    DataAccessorQuota daq = null;
     
     List<Member> members = null;
     
@@ -22,9 +22,9 @@ public class CreatePayment extends javax.swing.JFrame {
     public CreatePayment() {
         initComponents();
         
+        quotaController = new QuotaController();
         try {
             dam = new DataAccessorMember(new DBConnector());
-            daq = new DataAccessorQuota(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
@@ -115,21 +115,10 @@ public class CreatePayment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        if(paymentTextField.getText().length() == 0 || Pattern.matches("[a-zA-Z]+", paymentTextField.getText())) {
-            showErrorMessage("Please enter a valid digit in payment");
-        } else {
-            try {
-                Quota quota = new Quota(ssnComboBox.getSelectedItem().toString(), 0, Double.parseDouble(paymentTextField.getText()), new Member(null,null,null,null,null));
-                daq.createPayment(quota);
-                messageLabel.setText("<html><font color='green'>Payment is created successfully!</font></html>");
-            } catch(Exception ex) {
-                ex.printStackTrace();
-                showErrorMessage(ex.getMessage());
-            }
-        }
+        showMessage(quotaController.createPayment(ssnComboBox.getSelectedItem().toString(), paymentTextField.getText()));
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void showErrorMessage(String message) {
+    private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
     
