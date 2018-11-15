@@ -45,7 +45,6 @@ public class Result extends DomainObject {
         return event;
     }
     
-    // giver en hel member klasse memningn når man ikke er interesseret i adresse osv?
     public Member getMember(){
         return member;
     }

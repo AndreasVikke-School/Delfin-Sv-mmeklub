@@ -191,20 +191,10 @@ public class ShowQuota extends javax.swing.JFrame {
     }
     public void update(){
         List<Quota> quotas = (List<Quota>)(Object)data.getAll();
-        int count = quotas.size();
-        int rowCount = 0;
-        
-        while( jTable1.getRowCount() < count){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{});
-        }
-        for(Quota q : quotas) {
-            jTable1.setValueAt(q.getSsn(), rowCount, 0);
-            jTable1.setValueAt(q.getMember().getName(), rowCount, 1);
-            jTable1.setValueAt(q.getSubscription(), rowCount, 2);
-            jTable1.setValueAt(q.getPaid(), rowCount, 3);
-            jTable1.setValueAt(q.getSubscription() - q.getPaid(), rowCount, 4);
-            rowCount ++;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for(Quota q: quotas) {
+            model.addRow(new Object[]{q.getSsn(), q.getMember().getName(), q.getSubscription(), q.getPaid(), q.getSubscription() - q.getPaid()});
         }  
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
