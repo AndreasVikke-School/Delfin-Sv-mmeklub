@@ -1,11 +1,7 @@
 package delfin.presentation;
 
-import delfin.data.DBConnector;
-import delfin.data.DataAccessor;
-import delfin.data.DataAccessorMember;
-import delfin.data.DataAccessorResult;
-import delfin.logic.Member;
-import delfin.logic.Result;
+import delfin.data.*;
+import delfin.logic.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -13,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Celina Dencker
+ * @author Celina Dencker & Martin Frederiksen
  */
 public class CreateResult extends javax.swing.JFrame {
 
@@ -41,6 +37,11 @@ public class CreateResult extends javax.swing.JFrame {
         ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
+        
+        disciplinComboBox.removeAllItems();
+        
+        for(DisciplinEnum status: DisciplinEnum.values())
+            disciplinComboBox.addItem(status.toString());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +66,8 @@ public class CreateResult extends javax.swing.JFrame {
         yearTextField = new javax.swing.JTextField();
         messageLabel = new javax.swing.JLabel();
         ssnComboBox = new javax.swing.JComboBox<>();
+        eventLabel1 = new javax.swing.JLabel();
+        disciplinComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Results");
@@ -126,6 +129,15 @@ public class CreateResult extends javax.swing.JFrame {
 
         ssnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        eventLabel1.setText("Disciplin");
+
+        disciplinComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        disciplinComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disciplinComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,14 +146,27 @@ public class CreateResult extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(createButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(messageLabel))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ssnLabel)
-                            .addComponent(dateLabel)
-                            .addComponent(timeLabel)
-                            .addComponent(placementLabel)
-                            .addComponent(eventLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(ssnLabel)
+                                        .addComponent(dateLabel)
+                                        .addComponent(timeLabel)
+                                        .addComponent(eventLabel))
+                                    .addGap(36, 36, 36))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(placementLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(eventLabel1)
+                                .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(disciplinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(placementTextField)
                             .addComponent(eventTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(timeTextField, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -151,11 +176,7 @@ public class CreateResult extends javax.swing.JFrame {
                                 .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(yearTextField))
-                            .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(createButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(messageLabel)))
+                            .addComponent(ssnComboBox, 0, 255, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -166,13 +187,12 @@ public class CreateResult extends javax.swing.JFrame {
                     .addComponent(ssnLabel)
                     .addComponent(ssnComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateLabel)
-                        .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dateLabel)
+                    .addComponent(dayTextField)
+                    .addComponent(monthTextField)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(timeLabel))
@@ -184,7 +204,11 @@ public class CreateResult extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(eventTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventLabel))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(disciplinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventLabel1))
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createButton)
                     .addComponent(messageLabel))
@@ -217,8 +241,9 @@ public class CreateResult extends javax.swing.JFrame {
                 showErrorMessage("Please type a valid month between 12 and 1");
             }
             else{
-                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
+                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), DisciplinEnum.valueOf(disciplinComboBox.getSelectedItem().toString()), new Member(null,null,null,null,null));
                 dar.create(result);
+                messageLabel.setText("<html><font color='green'>Member is created successfully!</font></html>");
             }
         } catch(Exception ex) {
             showErrorMessage(ex.getMessage());        
@@ -240,6 +265,10 @@ public class CreateResult extends javax.swing.JFrame {
     private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_yearTextFieldActionPerformed
+
+    private void disciplinComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disciplinComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_disciplinComboBoxActionPerformed
     
     private void showErrorMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
@@ -284,7 +313,9 @@ public class CreateResult extends javax.swing.JFrame {
     private javax.swing.JButton createButton;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dayTextField;
+    private javax.swing.JComboBox<String> disciplinComboBox;
     private javax.swing.JLabel eventLabel;
+    private javax.swing.JLabel eventLabel1;
     private javax.swing.JTextField eventTextField;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JTextField monthTextField;

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Andreas Vikke
+ * @author Andreas Vikke & Celina Dencker
  */
 public class CreateQuota extends javax.swing.JFrame {
     
@@ -36,7 +36,7 @@ public class CreateQuota extends javax.swing.JFrame {
         messageLabel.setText("");
         members = (List<Member>)(Object)dam.getAll();
         
-        ssnComboBox.removeAllItems();
+        //ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
         
@@ -75,7 +75,6 @@ public class CreateQuota extends javax.swing.JFrame {
 
         jLabel5.setText("Subscription:");
 
-        ssnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ssnComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ssnComboBoxActionPerformed(evt);
@@ -139,26 +138,10 @@ public class CreateQuota extends javax.swing.JFrame {
     }
     
     public void setSubscriptionPrice() {
-        double subscription = 0;
-        
-        for(Member m : members) {
-            if(m.getSsn().equals(ssnComboBox.getSelectedItem())) {
-                if(m.getActivityInfo().getStatus() == StatusEnum.ACTIVE) {
-                    if(m.getAge() >= 18)
-                        subscription = 1600;
-                    else
-                        subscription = 1000;
-                } else {
-                    subscription = 500;
-                }
-                
-                if(m.getAge() >= 60)
-                    subscription = subscription * 0.75;
-            }
-        }
-        subscriptionLabel.setText(String.valueOf(subscription));
+        Member calcMember = new Member(ssnComboBox.getSelectedItem().toString(), null, null, null, null);
+        subscriptionLabel.setText(calcMember.getSubscriptionPrice(members, calcMember.getSsn()));
     }
-    
+   
     /**
      * @param args the command line arguments
      */
