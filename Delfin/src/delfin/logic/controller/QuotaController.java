@@ -9,6 +9,7 @@ package delfin.logic.controller;
 import delfin.data.*;
 import delfin.logic.*;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -27,6 +28,9 @@ public class QuotaController {
         }
     }
     
+    public List<Quota> getAllQuotas() {
+        return (List<Quota>)(Object)daq.getAll();
+    }
     
     public String createPayment(String ssn, String payment) {
         Quota firstSubscription = getFirstNotPaidQuotaById(ssn);

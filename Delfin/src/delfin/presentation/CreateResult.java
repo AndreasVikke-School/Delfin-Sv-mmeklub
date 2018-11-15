@@ -2,6 +2,7 @@ package delfin.presentation;
 
 import delfin.data.*;
 import delfin.logic.*;
+import delfin.logic.controller.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -12,8 +13,9 @@ import java.util.regex.Pattern;
  * @author Celina Dencker & Martin Frederiksen
  */
 public class CreateResult extends javax.swing.JFrame {
+    
+    MemberController memberController = null;
 
-    DataAccessor dam = null;
     DataAccessor dar = null;
     List<Member> members = null;
     
@@ -23,8 +25,9 @@ public class CreateResult extends javax.swing.JFrame {
     public CreateResult() {
         initComponents();
         
+        memberController = new MemberController();
+        
         try {
-            dam = new DataAccessorMember(new DBConnector());
             dar = new DataAccessorResult(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -32,7 +35,7 @@ public class CreateResult extends javax.swing.JFrame {
         }
         
         messageLabel.setText("");
-        members = (List<Member>)(Object)dam.getAll();
+        members = memberController.getAllMembers();
         
         ssnComboBox.removeAllItems();
         for(Member m : members)

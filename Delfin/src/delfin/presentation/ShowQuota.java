@@ -1,7 +1,7 @@
 package delfin.presentation;
 
-import delfin.data.*;
 import delfin.logic.Quota;
+import delfin.logic.controller.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
@@ -13,34 +13,29 @@ import javax.swing.table.DefaultTableModel;
  * @author Andreas Vikke
  */
 public class ShowQuota extends javax.swing.JFrame {
-    private DataAccessor data = null;
+    QuotaController quotaController = null;
+    
     /**
      * Creates new form ShowMember
      */
     public ShowQuota() {
         initComponents();
         try{
-        BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-        ImageIcon addIcon = new ImageIcon(addImg);
-        jButton1.setIcon(addIcon);
-        BufferedImage addImg2 = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-        ImageIcon addIcon2 = new ImageIcon(addImg2);
-        jButton3.setIcon(addIcon2);
-        BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
-        ImageIcon refreshIcon = new ImageIcon(refreshImg);
-        jButton2.setIcon(refreshIcon);
-        
-        
+            BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
+            ImageIcon addIcon = new ImageIcon(addImg);
+            jButton1.setIcon(addIcon);
+            BufferedImage addImg2 = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
+            ImageIcon addIcon2 = new ImageIcon(addImg2);
+            jButton3.setIcon(addIcon2);
+            BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
+            ImageIcon refreshIcon = new ImageIcon(refreshImg);
+            jButton2.setIcon(refreshIcon);
         } catch(Exception e){
             e.printStackTrace();
         }
-        try{
-            data = new DataAccessorQuota(new DBConnector());
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("Fail to setup");
-        }
+        
+        quotaController = new QuotaController();
+        
         update();
     }
 
@@ -190,7 +185,7 @@ public class ShowQuota extends javax.swing.JFrame {
         });
     }
     public void update(){
-        List<Quota> quotas = (List<Quota>)(Object)data.getAll();
+        List<Quota> quotas = quotaController.getAllQuotas();
         int count = quotas.size();
         int rowCount = 0;
         

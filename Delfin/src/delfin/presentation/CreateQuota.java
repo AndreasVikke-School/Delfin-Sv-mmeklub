@@ -1,8 +1,7 @@
 package delfin.presentation;
 
 import delfin.logic.*;
-import delfin.data.*;
-import delfin.logic.controller.QuotaController;
+import delfin.logic.controller.*;
 import java.util.List;
 
 /**
@@ -12,8 +11,7 @@ import java.util.List;
 public class CreateQuota extends javax.swing.JFrame {
     
     QuotaController quotaController = null;
-    
-    DataAccessor dam = null;
+    MemberController memberController = null;
     
     List<Member> members = null;
     
@@ -24,18 +22,11 @@ public class CreateQuota extends javax.swing.JFrame {
         initComponents();
         
         quotaController = new QuotaController();
-        
-        try {
-            dam = new DataAccessorMember(new DBConnector());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Setup fail!");
-        }
+        memberController = new MemberController();
         
         messageLabel.setText("");
-        members = (List<Member>)(Object)dam.getAll();
+        members = memberController.getAllMembers();
         
-        //ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
         
@@ -137,8 +128,7 @@ public class CreateQuota extends javax.swing.JFrame {
     }
     
     public void setSubscriptionPrice() {
-        Member calcMember = new Member(ssnComboBox.getSelectedItem().toString(), null, null, null, null);
-        subscriptionLabel.setText(calcMember.getSubscriptionPrice(members, calcMember.getSsn()));
+        subscriptionLabel.setText(memberController.getSubscriptionPrice(members, ssnComboBox.getSelectedItem().toString()));
     }
    
     /**

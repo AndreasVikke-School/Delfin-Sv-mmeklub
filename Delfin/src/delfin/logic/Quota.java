@@ -4,12 +4,9 @@ import delfin.logic.Member;
 
 /**
  *
-<<<<<<< HEAD
  * @author Nina Lisakowski
-=======
- * @author Nina Lisakovski
->>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
- */
+*/
+
 public class Quota extends DomainObject {
     
     private String ssn;

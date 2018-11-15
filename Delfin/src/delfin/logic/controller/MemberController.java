@@ -6,13 +6,13 @@
 package delfin.logic.controller;
 
 import delfin.data.DBConnector;
-import delfin.data.DataAccessor;
 import delfin.data.DataAccessorMember;
 import delfin.logic.ActivityEnum;
 import delfin.logic.ActivityInfo;
 import delfin.logic.Member;
 import delfin.logic.StatusEnum;
 import delfin.logic.TeamEnum;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -32,6 +32,10 @@ public class MemberController {
         }
     }
     
+    public List<Member> getAllMembers() {
+        return (List<Member>)(Object)dam.getAll();
+    }
+    
     public String createMember(String ssn, String name, String address, String phone, String activity, String status){
         try {
             if(ssn.length() != 10 || Pattern.matches("[a-zA-Z]+", ssn)) {
@@ -47,7 +51,7 @@ public class MemberController {
                 return ("Please input a phone number only digits");
             }
             else {
-                Member newMember = new Member(ssn, name, address, phone, new ActivityInfo(StatusEnum.valueOf(status), null, ActivityEnum.valueOf(activity)));
+                Member newMember = new Member(ssn, null, null, null, null);
 
                 TeamEnum teamEnum = null;
                 if(newMember.getAge() >= 18)
@@ -63,5 +67,26 @@ public class MemberController {
             ex.printStackTrace();
             return (ex.getMessage());
         }
+    }
+    
+    public String getSubscriptionPrice(List<Member> members, String ssn) {
+        double subscription = 0;
+        
+        for(Member m : members) {
+            if(m.getSsn().equals(ssn)) {
+                if(m.getActivityInfo().getStatus() == StatusEnum.ACTIVE) {
+                    if(m.getAge() >= 18)
+                        subscription = 1600;
+                    else
+                        subscription = 1000;
+                } else {
+                    subscription = 500;
+                }
+                
+                if(m.getAge() >= 60)
+                    subscription = subscription * 0.75;
+            }  
+        }
+        return String.valueOf(subscription);
     }
 }

@@ -2,6 +2,7 @@ package delfin.presentation;
 
 import delfin.data.*;
 import delfin.logic.Member;
+import delfin.logic.controller.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
@@ -13,7 +14,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Martin Frederiksen
  */
 public class ShowMember extends javax.swing.JFrame {
-    private DataAccessor data = null;
+    
+    MemberController memberController = null;
+    
     /**
      * Creates new form ShowMember
      */
@@ -31,13 +34,9 @@ public class ShowMember extends javax.swing.JFrame {
         } catch(Exception e){
             e.printStackTrace();
         }
-        try{
-            data = new DataAccessorMember(new DBConnector());
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("Fail to setup");
-        }
+        
+        memberController = new MemberController();
+        
         update();
     }
 
@@ -178,7 +177,7 @@ public class ShowMember extends javax.swing.JFrame {
         });
     }
     public void update(){
-        List<Member> members = (List<Member>)(Object)data.getAll();
+        List<Member> members = memberController.getAllMembers();
         int count = members.size();
         int rowCount = 0;
         
