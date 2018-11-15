@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author Andreas
+ * @author Andreas Vikke
  */
 public class ShowQuota extends javax.swing.JFrame {
     private DataAccessor data = null;

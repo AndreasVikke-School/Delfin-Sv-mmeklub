@@ -12,7 +12,11 @@ import java.util.List;
 
 /**
  *
+<<<<<<< HEAD:Delfin/src/delfin/data/DataAccessorQuotans.java
+ * @author Nina Lisakowski
+=======
  * @author Nina Lisakovski
+>>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d:Delfin/src/delfin/data/DataAccessorQuota.java
  */
 public class DataAccessorQuota implements DataAccessor {
     private DBConnector connector = null;
