@@ -201,7 +201,7 @@ public class CreateMember extends javax.swing.JFrame {
                 showErrorMessage("Please input a phone number only digits");
             }
             else {
-                Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), TeamEnum.JUNIOR, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+                Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), TeamEnum.JUNIOR, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
 
                 TeamEnum teamEnum = null;
                 if(newMember.getAge() >= 18)
@@ -209,7 +209,7 @@ public class CreateMember extends javax.swing.JFrame {
                 else
                     teamEnum = TeamEnum.JUNIOR;
 
-                newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(ssnTextField.getText(), StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
+                newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
                 da.create(newMember);
                 messageLabel.setText("<html><font color='green'>Member is created successfully!</font></html>");
             }

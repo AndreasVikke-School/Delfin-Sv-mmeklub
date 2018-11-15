@@ -2,12 +2,13 @@ package delfin.logic;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 
 /**
  *
- * @author Martin Frederiksen
+ * @author Martin Frederiksen & Celina Dencker
  */
-public class Member implements PersonInterface {
+public class Member extends DomainObject implements PersonInterface {
     private String ssn;
     private String name;
     private String address;
@@ -65,5 +66,27 @@ public class Member implements PersonInterface {
     @Override
     public ActivityInfo getActivityInfo() {
         return activityInfo;
+    }
+     
+    public String getSubscriptionPrice(ArrayList<Member> members, String ssn) {
+        
+        double subscription = 0;
+        
+        for(Member m : members) {
+            if(m.getSsn().equals(ssn)) {
+                if(m.getActivityInfo().getStatus() == StatusEnum.ACTIVE) {
+                    if(m.getAge() >= 18)
+                        subscription = 1600;
+                    else
+                        subscription = 1000;
+                } else {
+                    subscription = 500;
+                }
+                
+                if(m.getAge() >= 60)
+                    subscription = subscription * 0.75;
+            }  
+        }
+        return String.valueOf(subscription);
     }
 }

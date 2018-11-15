@@ -10,7 +10,7 @@ import delfin.logic.Member;
  * @author Nina Lisakovski
 >>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
  */
-public class Quota {
+public class Quota extends DomainObject {
     
     private String ssn;
     private double subscription;

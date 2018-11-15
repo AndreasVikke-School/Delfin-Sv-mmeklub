@@ -11,7 +11,7 @@ public class CashierTest {
 
     @Test
     public void createCashierTest(){
-        Cashier cashier = new Cashier("0102907654", "Tine", "Nørgaardsvej 30 2800 Kongens Lyngby", "29384756", new ActivityInfo("0102907654", StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISER));
+        Cashier cashier = new Cashier("0102907654", "Tine", "Nørgaardsvej 30 2800 Kongens Lyngby", "29384756", new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISER));
         assertNotNull(cashier);
         assertEquals("0102907654", cashier.getSsn());
         assertEquals("Tine", cashier.getName());

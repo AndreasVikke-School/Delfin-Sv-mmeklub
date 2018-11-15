@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * @author Nina Lisakovski
 >>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
  */
-public class Result {
+public class Result extends DomainObject {
     private String ssn;
     private LocalDate date;
     private double time;

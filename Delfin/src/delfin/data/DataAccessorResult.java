@@ -20,7 +20,7 @@ public class DataAccessorResult implements DataAccessor {
     }
     
     @Override
-    public List<Object> getAll() {
+    public List<DomainObject> getAll() {
         try{
             String query = "SELECT * FROM results;";
         
@@ -28,7 +28,7 @@ public class DataAccessorResult implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<Object> results = new ArrayList();
+            ArrayList<DomainObject> results = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
@@ -43,7 +43,7 @@ public class DataAccessorResult implements DataAccessor {
     }
 
     @Override
-    public List<Object> getAllById(String id) {
+    public List<DomainObject> getAllById(String id) {
         try{
             String query = "SELECT * FROM results WHERE ssn = '" + id + "';";
             
@@ -51,7 +51,7 @@ public class DataAccessorResult implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<Object> results = new ArrayList();
+            ArrayList<DomainObject> results = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
@@ -66,7 +66,7 @@ public class DataAccessorResult implements DataAccessor {
     }
 
     @Override
-    public Object getSingleById(String id) {
+    public DomainObject getSingleById(String id) {
         try{
             String query = "SELECT * FROM results WHERE id = " + id + ";";
             
@@ -88,7 +88,7 @@ public class DataAccessorResult implements DataAccessor {
     }
 
     @Override
-    public void create(Object obj) {
+    public void create(DomainObject obj) {
         try{
             Result result = (Result)obj;
             

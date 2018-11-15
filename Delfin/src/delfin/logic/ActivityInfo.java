@@ -4,24 +4,18 @@ package delfin.logic;
  *
  * @author Andreas Vikke
  */
-public class ActivityInfo {
+public class ActivityInfo extends DomainObject {
     
-    private String ssn;
     private StatusEnum status;
     private TeamEnum team;
     private ActivityEnum activity;
 
-    public ActivityInfo(String ssn, StatusEnum status, TeamEnum team, ActivityEnum activity) {
-        this.ssn = ssn;
+    public ActivityInfo(StatusEnum status, TeamEnum team, ActivityEnum activity) {
         this.status = status;
         this.team = team;
         this.activity = activity;
     }
     
-    public String getSsn() {
-        return ssn;
-    }
-
     public StatusEnum getStatus() {
         return status;
     }

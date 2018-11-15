@@ -11,7 +11,7 @@ public class ActivityInfoTest {
     
     @Test
     public void createActivityInfoTest() {
-        ActivityInfo activityInfo = new ActivityInfo("0202961234", StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISER);
+        ActivityInfo activityInfo = new ActivityInfo(StatusEnum.ACTIVE, TeamEnum.SENIOR, ActivityEnum.EXERCISER);
         
         assertNotNull(activityInfo);
         assertNotNull(activityInfo.getStatus());
