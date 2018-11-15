@@ -32,7 +32,7 @@ public class CreateQuota extends javax.swing.JFrame {
         messageLabel.setText("");
         members = (List<Member>)(Object)dam.getAll();
         
-        ssnComboBox.removeAllItems();
+        //ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
         
@@ -71,7 +71,6 @@ public class CreateQuota extends javax.swing.JFrame {
 
         jLabel5.setText("Subscription:");
 
-        ssnComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ssnComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ssnComboBoxActionPerformed(evt);
@@ -140,8 +139,10 @@ public class CreateQuota extends javax.swing.JFrame {
     private void showErrorMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
+    
     public void setSubscriptionPrice() {
-        
+        Member calcMember = new Member(ssnComboBox.getSelectedItem().toString(), null, null, null, null);
+        subscriptionLabel.setText(calcMember.getSubscriptionPrice(members, calcMember.getSsn()));
     }
    
     /**

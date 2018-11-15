@@ -3,6 +3,7 @@ package delfin.logic;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -68,7 +69,7 @@ public class Member extends DomainObject implements PersonInterface {
         return activityInfo;
     }
      
-    public String getSubscriptionPrice(ArrayList<Member> members, String ssn) {
+    public String getSubscriptionPrice(List<Member> members, String ssn) {
         
         double subscription = 0;
         
