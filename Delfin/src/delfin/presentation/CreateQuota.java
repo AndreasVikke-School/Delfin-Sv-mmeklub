@@ -2,6 +2,7 @@ package delfin.presentation;
 
 import delfin.logic.*;
 import delfin.data.*;
+import delfin.logic.controller.QuotaController;
 import java.util.List;
 
 /**
@@ -13,7 +14,6 @@ public class CreateQuota extends javax.swing.JFrame {
     QuotaController quotaController = null;
     
     DataAccessor dam = null;
-    DataAccessorQuota daq = null;
     
     List<Member> members = null;
     
@@ -27,7 +27,6 @@ public class CreateQuota extends javax.swing.JFrame {
         
         try {
             dam = new DataAccessorMember(new DBConnector());
-            daq = new DataAccessorQuota(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
