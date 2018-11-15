@@ -1,5 +1,6 @@
 package delfin.data;
 
+import delfin.logic.DomainObject;
 import java.util.List;
 
 /**
@@ -7,10 +8,10 @@ import java.util.List;
  * @author Andreas Vikke
  */
 public interface DataAccessor {
-    public List<Object> getAll();
+    public List<DomainObject> getAll();
     
-    public List<Object> getAllById(String id);
-    public Object getSingleById(String id);
+    public List<DomainObject> getAllById(String id);
+    public DomainObject getSingleById(String id);
 
-    public void create(Object obj);
+    public void create(DomainObject obj);
 }

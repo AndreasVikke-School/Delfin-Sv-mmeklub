@@ -2,6 +2,7 @@ package delfin.data;
 
 import delfin.logic.ActivityEnum;
 import delfin.logic.ActivityInfo;
+import delfin.logic.DomainObject;
 import delfin.logic.Member;
 import delfin.logic.StatusEnum;
 import delfin.logic.TeamEnum;
@@ -24,7 +25,7 @@ public class DataAccessorMember implements DataAccessor {
     }
     
     @Override
-    public List<Object> getAll() {
+    public List<DomainObject> getAll() {
         try{
             String query = "SELECT * FROM member NATURAL JOIN activityinfo;"; 
 
@@ -32,10 +33,10 @@ public class DataAccessorMember implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            ArrayList<Object> members = new ArrayList();
+            ArrayList<DomainObject> members = new ArrayList();
 
             while (rs.next()) {    
-                ActivityInfo info = new ActivityInfo(rs.getString("ssn"), StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
                 members.add(new Member(rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info));
             }
             return members;       
@@ -46,7 +47,7 @@ public class DataAccessorMember implements DataAccessor {
     }
 
     @Override
-    public List<Object> getAllById(String id) {
+    public List<DomainObject> getAllById(String id) {
         try{
             String query = "SELECT * FROM member NATURAL JOIN activityinfo WHERE ssn = '" + id + "';";
 
@@ -54,10 +55,10 @@ public class DataAccessorMember implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<Object> members = new ArrayList<>();
+            ArrayList<DomainObject> members = new ArrayList<>();
 
             while (rs.next()) {      
-                ActivityInfo info = new ActivityInfo(rs.getString("ssn"), StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
                 members.add(new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info));
             }
             return members;      
@@ -68,7 +69,7 @@ public class DataAccessorMember implements DataAccessor {
     }
     
     @Override
-    public Object getSingleById(String id) {
+    public DomainObject getSingleById(String id) {
         try{
             String query = "SELECT * FROM member NATURAL JOIN activityinfo WHERE ssn = '" + id + "';";
 
@@ -77,7 +78,7 @@ public class DataAccessorMember implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             while (rs.next()) {
-                ActivityInfo info = new ActivityInfo(rs.getString("ssn"), StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
+                ActivityInfo info = new ActivityInfo(StatusEnum.values()[rs.getInt("status")], TeamEnum.values()[rs.getInt("team")], ActivityEnum.values()[rs.getInt("activity")]);
                 return new Member (rs.getString("ssn"), rs.getString("name"), rs.getString("address"), rs.getString("phone"), info);
             }
             throw new NullPointerException();   
@@ -88,7 +89,7 @@ public class DataAccessorMember implements DataAccessor {
     }
 
     @Override
-    public void create(Object obj) {
+    public void create(DomainObject obj) {
         try{
             Member member = (Member)obj;
             
@@ -99,7 +100,7 @@ public class DataAccessorMember implements DataAccessor {
             stmt.execute(query);
             
             DataAccesorActivityInfo daai = new DataAccesorActivityInfo(connector);
-            daai.create(member.getActivityInfo());
+            daai.createWithSsn(member.getSsn(), member.getActivityInfo());
 
         }catch (Exception ex){
             ex.printStackTrace();

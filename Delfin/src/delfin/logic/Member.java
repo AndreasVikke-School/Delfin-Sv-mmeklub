@@ -7,7 +7,7 @@ import java.time.Period;
  *
  * @author Martin Frederiksen
  */
-public class Member implements PersonInterface {
+public class Member extends DomainObject implements PersonInterface {
     private String ssn;
     private String name;
     private String address;
