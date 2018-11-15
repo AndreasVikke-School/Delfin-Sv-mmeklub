@@ -4,27 +4,25 @@ import java.time.LocalDate;
 
 /**
  *
-<<<<<<< HEAD
- * @author Nina Lisakowski
-=======
- * @author Nina Lisakovski
->>>>>>> e97dad17a95c27824d268ce7207a39fe9fa1036d
+ * @author Nina Lisakovski & Martin Frederiksen
  */
-public class Result {
+public class Result extends DomainObject {
     private String ssn;
     private LocalDate date;
     private double time;
     private int placement;
     private String event;
     private Member member;
+    private DisciplinEnum disciplin;
     
-    public Result (String ssn, LocalDate date, double time, int placement, String event, Member member){
+    public Result (String ssn, LocalDate date, double time, int placement, String event, DisciplinEnum disciplin, Member member){
         this.ssn = ssn;
         this.date = date;
         this.time = time;
         this.placement = placement;
         this.event = event;
         this.member = member;
+        this.disciplin = disciplin;
     }
     
     public String getSsn(){
@@ -52,7 +50,7 @@ public class Result {
         return member;
     }
     
-    public String getDisciplin(){
-        return "Crawl";
+    public DisciplinEnum getDisciplin(){
+        return disciplin;
     }
 }

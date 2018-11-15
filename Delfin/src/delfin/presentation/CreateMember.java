@@ -31,6 +31,7 @@ public class CreateMember extends javax.swing.JFrame {
         for(ActivityEnum status : ActivityEnum.values())
             activityComboBox.addItem(status.toString());
         
+        
         messageLabel.setText("");
     }
 
