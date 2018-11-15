@@ -47,7 +47,7 @@ public class MemberController {
                 return ("Please input a phone number only digits");
             }
             else {
-                Member newMember = new Member(ssn, name, address, phone, new ActivityInfo(ssn, StatusEnum.valueOf(status), null, ActivityEnum.valueOf(activity)));
+                Member newMember = new Member(ssn, name, address, phone, new ActivityInfo(StatusEnum.valueOf(status), null, ActivityEnum.valueOf(activity)));
 
                 TeamEnum teamEnum = null;
                 if(newMember.getAge() >= 18)
@@ -55,7 +55,7 @@ public class MemberController {
                 else
                     teamEnum = TeamEnum.JUNIOR;
 
-                newMember = new Member(ssn, name, address, phone, new ActivityInfo(ssn, StatusEnum.valueOf(status), teamEnum, ActivityEnum.valueOf(activity)));
+                newMember = new Member(ssn, name, address, phone, new ActivityInfo(StatusEnum.valueOf(status), teamEnum, ActivityEnum.valueOf(activity)));
                 dam.create(newMember);
                 return ("<html><font color='green'>Member is created successfully!</font></html>");
             }
