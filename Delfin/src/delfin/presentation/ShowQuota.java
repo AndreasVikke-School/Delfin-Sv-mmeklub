@@ -2,10 +2,7 @@ package delfin.presentation;
 
 import delfin.logic.Quota;
 import delfin.logic.controller.*;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -21,15 +18,13 @@ public class ShowQuota extends javax.swing.JFrame {
     public ShowQuota() {
         initComponents();
         try{
-            BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-            ImageIcon addIcon = new ImageIcon(addImg);
+            ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
             jButton1.setIcon(addIcon);
-            BufferedImage addImg2 = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-            ImageIcon addIcon2 = new ImageIcon(addImg2);
-            jButton3.setIcon(addIcon2);
-            BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
-            ImageIcon refreshIcon = new ImageIcon(refreshImg);
+            jButton3.setIcon(addIcon);
+            ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
             jButton2.setIcon(refreshIcon);
+            
+            
         } catch(Exception e){
             e.printStackTrace();
         }

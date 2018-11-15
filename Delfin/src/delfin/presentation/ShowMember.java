@@ -1,13 +1,8 @@
 package delfin.presentation;
 
-import delfin.data.*;
 import delfin.logic.Member;
 import delfin.logic.controller.*;
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import java.sql.Statement;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -24,11 +19,9 @@ public class ShowMember extends javax.swing.JFrame {
     public ShowMember() {
         initComponents();
         try{
-            BufferedImage addImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/add16.png?raw=true"));
-            ImageIcon addIcon = new ImageIcon(addImg);
+            ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
             jButton1.setIcon(addIcon);
-            BufferedImage refreshImg = ImageIO.read(new URL("https://github.com/AndreasVikke/Delfin-Sv-mmeklub/blob/master/Images/refresh16.png?raw=true"));
-            ImageIcon refreshIcon = new ImageIcon(refreshImg);
+            ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
             jButton2.setIcon(refreshIcon);
         } catch(Exception e){
             e.printStackTrace();

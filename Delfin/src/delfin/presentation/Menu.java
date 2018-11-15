@@ -1,8 +1,5 @@
 package delfin.presentation;
 
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,8 +15,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         
         try {
-            BufferedImage img = ImageIO.read(new URL("https://raw.githubusercontent.com/AndreasVikke/Delfin-Sv-mmeklub/master/DelfinInfo/Logo.png"));
-            ImageIcon icon = new ImageIcon(img);
+            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Images/Logo.png"));
             logoLabel.setIcon(icon);
             logoLabel.setText("");
         } catch(Exception ex) {
