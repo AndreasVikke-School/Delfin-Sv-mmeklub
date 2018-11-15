@@ -11,6 +11,7 @@ import delfin.logic.DisciplinEnum;
 import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -29,6 +30,10 @@ public class ResultController {
             System.out.println("Setup fail!");
 
         }
+    }
+    
+    public List<Result> getAllResults(){
+        return (List<Result>)(Object)dar.getAll();
     }
     
     public String createResult(String ssn, String day, String month, String year, String time, String placement, String event, String disciplin){

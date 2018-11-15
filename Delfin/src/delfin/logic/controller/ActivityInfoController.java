@@ -5,10 +5,38 @@
  */
 package delfin.logic.controller;
 
+import delfin.data.DBConnector;
+import delfin.data.DataAccessorActivityInfo;
+import delfin.logic.ActivityEnum;
+import delfin.logic.ActivityInfo;
+import delfin.logic.StatusEnum;
+import delfin.logic.TeamEnum;
+import java.util.List;
+
 /**
  *
  * @author Nina Lisakowski
  */
 public class ActivityInfoController {
     
+    DataAccessorActivityInfo daa = null;
+    
+    public ActivityInfoController(){
+        try{
+            daa = new DataAccessorActivityInfo(new DBConnector());
+        }catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println("Setup fail!");
+        }
+    }
+    public List<ActivityInfo> getAllActivityInfo(){
+        return (List<ActivityInfo>)(Object)daa.getAll();
+    }
+    
+    public String createActivityInfo(StatusEnum status, TeamEnum team, ActivityEnum activity){
+        ActivityInfo activityInfo = new ActivityInfo(status, team, activity);
+        
+        daa.create(activityInfo);
+        return ("ActivityInfo created succesfully!");
+    }
 }

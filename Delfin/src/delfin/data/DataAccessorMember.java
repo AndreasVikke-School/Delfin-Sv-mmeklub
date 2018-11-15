@@ -99,7 +99,7 @@ public class DataAccessorMember implements DataAccessor {
             Statement stmt = connection.createStatement();
             stmt.execute(query);
             
-            DataAccesorActivityInfo daai = new DataAccesorActivityInfo(connector);
+            DataAccessorActivityInfo daai = new DataAccessorActivityInfo(connector);
             daai.createWithSsn(member.getSsn(), member.getActivityInfo());
 
         }catch (Exception ex){

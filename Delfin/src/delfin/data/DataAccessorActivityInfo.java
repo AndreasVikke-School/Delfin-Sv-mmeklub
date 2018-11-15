@@ -16,11 +16,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  * @author Andreas Vikke
  */
-public class DataAccesorActivityInfo implements DataAccessor {
+public class DataAccessorActivityInfo implements DataAccessor {
 
     private DBConnector connector = null;
 
-    public DataAccesorActivityInfo(DBConnector connector) {
+    public DataAccessorActivityInfo(DBConnector connector) {
         this.connector = connector;
     }
     
