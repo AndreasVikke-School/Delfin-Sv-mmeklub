@@ -92,7 +92,7 @@ public class DataAccessorResult implements DataAccessor {
         try{
             Result result = (Result)obj;
             
-            String query = "INSERT INTO results (ssn, date, time, placement, event) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', " + result.getTime()+ ", " + result.getPlacement()+ ", '" + result.getEvent() + "');";
+            String query = "INSERT INTO results (ssn, date, time, placement, event, disciplin) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', " + result.getTime()+ ", " + result.getPlacement()+ ", '" + result.getEvent() + "');";
 
             Connection connection = connector.getConnection();  
             Statement stmt = connection.createStatement();
