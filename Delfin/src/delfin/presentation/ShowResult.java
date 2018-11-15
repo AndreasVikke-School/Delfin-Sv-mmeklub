@@ -163,23 +163,11 @@ public class ShowResult extends javax.swing.JFrame {
     }
      public void update(){
         List<Result> results = (List<Result>)(Object)data.getAll();
-        int count = results.size();
-        int rowCount = 0;
-        
-        while( jTable1.getRowCount() < count){
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{});
-        }
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
         for(Result r: results) {
-            jTable1.setValueAt(r.getSsn(), rowCount, 0);
-            jTable1.setValueAt(r.getMember().getName(), rowCount, 1);
-            jTable1.setValueAt(r.getDisciplin() ,rowCount, 2);
-            jTable1.setValueAt(r.getPlacement(), rowCount, 3);
-            jTable1.setValueAt(r.getTime(), rowCount, 4);
-            jTable1.setValueAt(r.getEvent(), rowCount, 5);
-            jTable1.setValueAt(r.getDate(), rowCount, 6);
-            rowCount ++;
-        }  
+            model.addRow(new Object[]{r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getTime(), r.getEvent(), r.getDate()});
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
