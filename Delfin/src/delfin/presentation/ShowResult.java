@@ -66,7 +66,7 @@ public class ShowResult extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Disciplin", "Time", "Date"
+                "Id", "Name", "Disciplin", "Placement", "Time", "Event", "Date"
             }
         ));
         jTable1.setEnabled(false);
@@ -174,8 +174,10 @@ public class ShowResult extends javax.swing.JFrame {
             jTable1.setValueAt(r.getSsn(), rowCount, 0);
             jTable1.setValueAt(r.getMember().getName(), rowCount, 1);
             jTable1.setValueAt(r.getDisciplin() ,rowCount, 2);
-            jTable1.setValueAt(r.getTime(), rowCount, 3);
-            jTable1.setValueAt(r.getDate(), rowCount, 4);
+            jTable1.setValueAt(r.getPlacement(), rowCount, 3);
+            jTable1.setValueAt(r.getTime(), rowCount, 4);
+            jTable1.setValueAt(r.getEvent(), rowCount, 5);
+            jTable1.setValueAt(r.getDate(), rowCount, 6);
             rowCount ++;
         }  
     }
