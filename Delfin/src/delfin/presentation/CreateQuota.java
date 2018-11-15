@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Andreas Vikke
+ * @author Andreas Vikke & Celina Dencker
  */
 public class CreateQuota extends javax.swing.JFrame {
     
@@ -140,28 +140,10 @@ public class CreateQuota extends javax.swing.JFrame {
     private void showErrorMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
-    
     public void setSubscriptionPrice() {
-        double subscription = 0;
         
-        for(Member m : members) {
-            if(m.getSsn().equals(ssnComboBox.getSelectedItem())) {
-                if(m.getActivityInfo().getStatus() == StatusEnum.ACTIVE) {
-                    if(m.getAge() >= 18)
-                        subscription = 1600;
-                    else
-                        subscription = 1000;
-                } else {
-                    subscription = 500;
-                }
-                
-                if(m.getAge() >= 60)
-                    subscription = subscription * 0.75;
-            }
-        }
-        subscriptionLabel.setText(String.valueOf(subscription));
     }
-    
+   
     /**
      * @param args the command line arguments
      */
