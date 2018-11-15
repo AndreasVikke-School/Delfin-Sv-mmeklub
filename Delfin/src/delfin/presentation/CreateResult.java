@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Celina Dencker
+ * @author Celina Dencker & Martin Frederiksen
  */
 public class CreateResult extends javax.swing.JFrame {
 
@@ -241,7 +241,7 @@ public class CreateResult extends javax.swing.JFrame {
                 showErrorMessage("Please type a valid month between 12 and 1");
             }
             else{
-                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), new Member(null,null,null,null,null));
+                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), DisciplinEnum.valueOf(disciplinComboBox.getSelectedItem().toString()), new Member(null,null,null,null,null));
                 dar.create(result);
                 messageLabel.setText("<html><font color='green'>Member is created successfully!</font></html>");
             }
