@@ -9,7 +9,7 @@ import delfin.logic.Member;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakowski
  */
 public class Quota {
     

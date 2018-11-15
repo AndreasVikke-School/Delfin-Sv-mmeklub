@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakowski
  */
 public class DataAccessorQuotans implements DataAccessor {
     private DBConnector connector = null;

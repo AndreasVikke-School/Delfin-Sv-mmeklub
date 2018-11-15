@@ -10,7 +10,7 @@ import java.time.Period;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakowski
  */
 public class Cashier implements PersonInterface {
     private String ssn;

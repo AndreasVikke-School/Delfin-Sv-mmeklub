@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author Nina
+ * @author Nina Lisakowski
  */
 public class Result {
     private String ssn;
