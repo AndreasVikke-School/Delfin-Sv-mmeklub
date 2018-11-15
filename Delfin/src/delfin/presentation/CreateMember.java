@@ -2,15 +2,17 @@ package delfin.presentation;
 
 import delfin.logic.*;
 import delfin.data.*;
+import delfin.logic.controller.MemberController;
 import java.util.regex.Pattern;
 
 /**
  *
- * @author Andreas Vikke 
+ * @author Andreas Vikke, Celina Dencker & Nina Lisakowski
  */
 public class CreateMember extends javax.swing.JFrame {
     
-    DataAccessor da = null;
+    // MemberController null
+    MemberController mc = null;
     
     /**
      * Creates new form CreateMember
@@ -18,12 +20,8 @@ public class CreateMember extends javax.swing.JFrame {
     public CreateMember() {
         initComponents();
         
-        try {
-            da = new DataAccessorMember(new DBConnector());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Setup fail!");
-        }
+        // New Membercontroller
+        mc = new MemberController();
         
         statusComboBox.removeAllItems();
         for(StatusEnum status : StatusEnum.values())
@@ -187,39 +185,10 @@ public class CreateMember extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneTextFieldActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        try {
-            if(ssnTextField.getText().length() != 10 || Pattern.matches("[a-zA-Z]+", ssnTextField.getText())) {
-                showErrorMessage("Please type a real SSN number (Only digits and 10 in length)");
-            }
-            else if(nameTextField.getText().length() == 0) {
-                showErrorMessage("Please input a name");
-            }
-            else if(addressTextField.getText().length() == 0) {
-                showErrorMessage("Please input an address");
-            }
-            else if(phoneTextField.getText().length() == 0 || Pattern.matches("[a-zA-Z]+", phoneTextField.getText())) {
-                showErrorMessage("Please input a phone number only digits");
-            }
-            else {
-                Member newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), TeamEnum.JUNIOR, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
-
-                TeamEnum teamEnum = null;
-                if(newMember.getAge() >= 18)
-                    teamEnum = TeamEnum.SENIOR;
-                else
-                    teamEnum = TeamEnum.JUNIOR;
-
-                newMember = new Member(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), new ActivityInfo(StatusEnum.valueOf(statusComboBox.getSelectedItem().toString()), teamEnum, ActivityEnum.valueOf(activityComboBox.getSelectedItem().toString())));
-                da.create(newMember);
-                messageLabel.setText("<html><font color='green'>Member is created successfully!</font></html>");
-            }
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            showErrorMessage(ex.getMessage());
-        }
+        showMessage(mc.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void showErrorMessage(String message) {
+    private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
     

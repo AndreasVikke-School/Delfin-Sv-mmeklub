@@ -2,6 +2,7 @@ package delfin.presentation;
 
 import delfin.logic.*;
 import delfin.data.*;
+import delfin.logic.controller.QuotaController;
 import java.util.List;
 
 /**
@@ -10,8 +11,9 @@ import java.util.List;
  */
 public class CreateQuota extends javax.swing.JFrame {
     
+    QuotaController quotaController = null;
+    
     DataAccessor dam = null;
-    DataAccessor daq = null;
     
     List<Member> members = null;
     
@@ -21,9 +23,10 @@ public class CreateQuota extends javax.swing.JFrame {
     public CreateQuota() {
         initComponents();
         
+        quotaController = new QuotaController();
+        
         try {
             dam = new DataAccessorMember(new DBConnector());
-            daq = new DataAccessorQuota(new DBConnector());
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
@@ -122,21 +125,14 @@ public class CreateQuota extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        try {
-            Quota quota = new Quota(ssnComboBox.getSelectedItem().toString(), Double.parseDouble(subscriptionLabel.getText()), 0, new Member(null,null,null,null,null));
-            daq.create(quota);
-            messageLabel.setText("<html><font color='green'>Quota is created successfully!</font></html>");
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            showErrorMessage(ex.getMessage());
-        }
+        showMessage(quotaController.createQuota(ssnComboBox.getSelectedItem().toString(), Double.parseDouble(subscriptionLabel.getText())));
     }//GEN-LAST:event_createButtonActionPerformed
 
     private void ssnComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ssnComboBoxActionPerformed
         setSubscriptionPrice();
     }//GEN-LAST:event_ssnComboBoxActionPerformed
 
-    private void showErrorMessage(String message) {
+    private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
     
