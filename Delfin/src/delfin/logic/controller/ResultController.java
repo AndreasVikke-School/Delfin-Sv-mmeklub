@@ -8,7 +8,6 @@ package delfin.logic.controller;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessorResult;
 import delfin.logic.DisciplinEnum;
-import delfin.logic.Member;
 import delfin.logic.Result;
 import java.time.LocalDate;
 import java.util.List;

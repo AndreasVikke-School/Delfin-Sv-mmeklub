@@ -6,6 +6,7 @@ import delfin.logic.DomainObject;
 import delfin.logic.Member;
 import delfin.logic.StatusEnum;
 import delfin.logic.TeamEnum;
+import delfin.logic.controller.ActivityInfoController;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -99,8 +100,8 @@ public class DataAccessorMember implements DataAccessor {
             Statement stmt = connection.createStatement();
             stmt.execute(query);
             
-            DataAccessorActivityInfo daai = new DataAccessorActivityInfo(connector);
-            daai.createWithSsn(member.getSsn(), member.getActivityInfo());
+            ActivityInfoController activityInfoController = new ActivityInfoController();
+            activityInfoController.createActivityInfo(member.getSsn(), member.getActivityInfo().getStatus(), member.getActivityInfo().getTeam(), member.getActivityInfo().getActivity());
 
         }catch (Exception ex){
             ex.printStackTrace();

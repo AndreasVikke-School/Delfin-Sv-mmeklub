@@ -1,11 +1,8 @@
 package delfin.presentation;
 
-import delfin.data.*;
 import delfin.logic.*;
 import delfin.logic.controller.*;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 /**
@@ -15,8 +12,8 @@ import java.util.regex.Pattern;
 public class CreateResult extends javax.swing.JFrame {
     
     MemberController memberController = null;
+    ResultController resultController = null;
 
-    DataAccessor dar = null;
     List<Member> members = null;
     
     /**
@@ -26,13 +23,7 @@ public class CreateResult extends javax.swing.JFrame {
         initComponents();
         
         memberController = new MemberController();
-        
-        try {
-            dar = new DataAccessorResult(new DBConnector());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Setup fail!");
-        }
+        resultController = new ResultController();
         
         messageLabel.setText("");
         members = memberController.getAllMembers();
@@ -230,27 +221,7 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        try {
-            if(dayTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", dayTextField.getText())) {
-                showErrorMessage("Please type a valid day with two digits");
-            }
-            else if(Integer.parseInt(dayTextField.getText()) > 31 && 0 > Integer.parseInt(dayTextField.getText())) {
-                showErrorMessage("Please type a valid day between 1 and 31");
-            }
-            else if(monthTextField.getText().length() != 2 || Pattern.matches("[a-zA-Z]+", monthTextField.getText())) {
-                showErrorMessage("Please type a valid month with two digits");
-            }
-            else if(Integer.parseInt(monthTextField.getText()) > 12 && 0 > Integer.parseInt(monthTextField.getText())) {
-                showErrorMessage("Please type a valid month between 12 and 1");
-            }
-            else{
-                Result result = new Result(ssnComboBox.getSelectedItem().toString(), LocalDate.of(Integer.parseInt(yearTextField.getText()), Integer.parseInt(monthTextField.getText()), Integer.parseInt(dayTextField.getText())), Double.parseDouble(timeTextField.getText()), Integer.parseInt(placementTextField.getText()), eventTextField.getText(), DisciplinEnum.valueOf(disciplinComboBox.getSelectedItem().toString()), new Member(null,null,null,null,null));
-                dar.create(result);
-                messageLabel.setText("<html><font color='green'>Member is created successfully!</font></html>");
-            }
-        } catch(Exception ex) {
-            showErrorMessage(ex.getMessage());        
-        }  
+        showMessage(resultController.createResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
    
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
@@ -273,7 +244,7 @@ public class CreateResult extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_disciplinComboBoxActionPerformed
     
-    private void showErrorMessage(String message) {
+    private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
     }
     

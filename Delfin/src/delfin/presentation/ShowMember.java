@@ -18,16 +18,13 @@ public class ShowMember extends javax.swing.JFrame {
      */
     public ShowMember() {
         initComponents();
-        try{
-            ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
-            jButton1.setIcon(addIcon);
-            ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
-            jButton2.setIcon(refreshIcon);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
         
         memberController = new MemberController();
+        
+        ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
+        jButton1.setIcon(addIcon);
+        ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
+        jButton2.setIcon(refreshIcon);
         
         update();
     }
@@ -131,8 +128,6 @@ public class ShowMember extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -170,6 +165,7 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
     }
+    
     public void update(){
         List<Member> members = memberController.getAllMembers();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

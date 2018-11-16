@@ -33,10 +33,10 @@ public class ActivityInfoController {
         return (List<ActivityInfo>)(Object)daa.getAll();
     }
     
-    public String createActivityInfo(StatusEnum status, TeamEnum team, ActivityEnum activity){
+    public String createActivityInfo(String ssn, StatusEnum status, TeamEnum team, ActivityEnum activity){
         ActivityInfo activityInfo = new ActivityInfo(status, team, activity);
         
-        daa.create(activityInfo);
+        daa.createWithSsn(ssn, activityInfo);
         return ("ActivityInfo created succesfully!");
     }
 }
