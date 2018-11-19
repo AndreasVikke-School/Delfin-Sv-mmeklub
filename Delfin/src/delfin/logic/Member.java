@@ -2,12 +2,10 @@ package delfin.logic;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author Martin Frederiksen & Celina Dencker
+ * @author Martin Frederiksen
  */
 public class Member extends DomainObject implements PersonInterface {
     private String ssn;
