@@ -2,6 +2,7 @@ package delfin.presentation;
 
 import delfin.data.*;
 import delfin.logic.*;
+import delfin.logic.controller.ResultController;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -11,27 +12,22 @@ import javax.swing.table.DefaultTableModel;
  * @author Martin Frederiksen
  */
 public class ShowResult extends javax.swing.JFrame {
-    private DataAccessor data = null;
+    
+    ResultController resultController = null;
+    
     /**
      * Creates new form ShowResult
      */
     public ShowResult() {
         initComponents();
-        try{
+        
+        resultController = new ResultController();
+        
         ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
         jButton1.setIcon(addIcon);
         ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
         jButton2.setIcon(refreshIcon);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        try{
-            data = new DataAccessorResult(new DBConnector());
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-            System.out.println("Fail to setup");
-        }
+        
         update();
     }
 
@@ -154,8 +150,9 @@ public class ShowResult extends javax.swing.JFrame {
             }
         });
     }
-     public void update(){
-        List<Result> results = (List<Result>)(Object)data.getAll();
+    
+    public void update(){
+        List<Result> results = resultController.getAllResults();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         for(Result r: results) {

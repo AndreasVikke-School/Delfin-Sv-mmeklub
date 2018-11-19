@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Andreas Vikke
  */
 public class ShowQuota extends javax.swing.JFrame {
+    
     QuotaController quotaController = null;
     
     /**
@@ -17,19 +18,14 @@ public class ShowQuota extends javax.swing.JFrame {
      */
     public ShowQuota() {
         initComponents();
-        try{
-            ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
-            jButton1.setIcon(addIcon);
-            jButton3.setIcon(addIcon);
-            ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
-            jButton2.setIcon(refreshIcon);
-            
-            
-        } catch(Exception e){
-            e.printStackTrace();
-        }
         
         quotaController = new QuotaController();
+        
+        ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
+        jButton1.setIcon(addIcon);
+        jButton3.setIcon(addIcon);
+        ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
+        jButton2.setIcon(refreshIcon);
         
         update(false);
     }
