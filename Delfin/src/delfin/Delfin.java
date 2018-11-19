@@ -1,7 +1,6 @@
 package delfin;
 
 import delfin.presentation.Menu;
-
 /**
  *
  * @author Andreas Vikke, Nina Lisakovski, Martin Frederiksen & Celina Dencker
@@ -15,5 +14,4 @@ public class Delfin {
             }
         });
     }
-    
 }
