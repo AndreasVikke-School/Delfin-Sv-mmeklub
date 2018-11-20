@@ -7,29 +7,30 @@ import java.util.Formatter;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Martin Frederiksen
  */
 public class ShowMember extends javax.swing.JFrame {
-    
+
     MemberController memberController = null;
-    
+
     /**
      * Creates new form ShowMember
      */
     public ShowMember() {
         initComponents();
-        
+
         memberController = new MemberController();
         
         ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
         jButton1.setIcon(addIcon);
         ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
         jButton2.setIcon(refreshIcon);
-        ImageIcon fileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
+        ImageIcon fileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/folder.png"));
         jButton3.setIcon(fileIcon);
-        
+
         update();
     }
 
@@ -147,25 +148,24 @@ public class ShowMember extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        try{
-        FileWriter fW = new FileWriter("test.txt");
-        // bedre at lave 2 variable?
-            for(int i = 0; i < jTable1.getRowCount(); i++) {
-                for(int j = 0; j < jTable1.getColumnCount(); j++) {
-                    if(j == jTable1.getColumnCount()-1) fW.write(jTable1.getModel().getValueAt(i, j) + ".");
-                    else fW.write(jTable1.getModel().getValueAt(i, j) + ", ");
+        try {
+            FileWriter fW = new FileWriter("test.txt");
+            // bedre at lave 2 variable?
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                    if (j == jTable1.getColumnCount() - 1) {
+                        fW.write(jTable1.getModel().getValueAt(i, j) + ".");
+                    } else {
+                        fW.write(jTable1.getModel().getValueAt(i, j) + ", ");
+                    }
                 }
-            fW.write("\n\n");
+                fW.write("\n\n");
             }
 
-        fW.close();
-    }catch(Exception ex){
-        ex.printStackTrace();
+            fW.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        
-        
-        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -202,12 +202,12 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void update(){
+
+    public void update() {
         List<Member> members = memberController.getAllMembers();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for(Member m: members) {
+        for (Member m : members) {
             model.addRow(new Object[]{m.getSsn(), m.getSsn(), m.getName(), m.getAddress(), m.getPhone(), m.getActivityInfo().getActivity(), m.getActivityInfo().getStatus(), m.getActivityInfo().getTeam()});
         }
     }
