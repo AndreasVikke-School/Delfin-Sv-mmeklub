@@ -39,4 +39,11 @@ public class ActivityInfoController {
         daa.createWithSsn(ssn, activityInfo);
         return ("ActivityInfo created succesfully!");
     }
+    
+    public String updateActivityInfo(String ssn, StatusEnum status, TeamEnum team, ActivityEnum activity){
+        ActivityInfo activityInfo = new ActivityInfo(status, team, activity);
+        
+        daa.update(ssn, activityInfo);
+        return ("ActivityInfo updated succesfully!");
+    }
 }

@@ -105,4 +105,20 @@ public class DataAccessorActivityInfo implements DataAccessor {
             throw new IllegalArgumentException();
         }
     }
+    
+    public void update(String ssn, DomainObject obj) {
+        try{
+            ActivityInfo activityInfo = (ActivityInfo)obj;
+            
+            String query = "UPDATE activityinfo SET status = " + activityInfo.getStatus().ordinal() + ", team = " + activityInfo.getTeam().ordinal() + ", activity = " + activityInfo.getActivity().ordinal() + " WHERE ssn = '" + ssn + "';";
+            
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
 }

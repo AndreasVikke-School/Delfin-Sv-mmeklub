@@ -2,10 +2,13 @@ package delfin.presentation;
 
 import delfin.logic.Member;
 import delfin.logic.controller.*;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileWriter;
-import java.util.Formatter;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +35,23 @@ public class ShowMember extends javax.swing.JFrame {
         jButton3.setIcon(fileIcon);
 
         update();
+
+        jTable1.setDefaultEditor(Object.class, null);
+        
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    java.awt.EventQueue.invokeLater(new Thread() {
+                        public void run() {
+                            new CreateMember(memberController.getSingleMember(table.getValueAt(row, 0).toString())).setVisible(true);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -63,7 +83,6 @@ public class ShowMember extends javax.swing.JFrame {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
             }
         ));
-        jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
@@ -138,7 +157,7 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Thread() {
             public void run() {
-                new CreateMember().setVisible(true);
+                new CreateMember(null).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
