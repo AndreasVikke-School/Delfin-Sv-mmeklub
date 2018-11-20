@@ -13,7 +13,7 @@ public class ResultTest {
     @Test
     public void testGetSsn() {
         Result r = new Result("0911920777", LocalDate.now(), 10.02, 0, null, DisciplinEnum.BACKSTROKE, new Member(null,null,null,null,null));
-        assertNotNull(r);
+        assertNotNull(r); 
         assertNotNull(r.getSsn()); 
         assertNotNull(r.getDate());
         assertNotNull(r.getTime());
