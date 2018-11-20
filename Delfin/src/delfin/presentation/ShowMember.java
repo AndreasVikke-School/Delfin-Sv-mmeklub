@@ -3,7 +3,6 @@ package delfin.presentation;
 import delfin.logic.Member;
 import delfin.logic.controller.*;
 import java.io.FileWriter;
-import java.util.Formatter;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
