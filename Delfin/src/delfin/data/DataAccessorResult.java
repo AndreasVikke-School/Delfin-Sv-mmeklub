@@ -88,9 +88,9 @@ public class DataAccessorResult implements DataAccessor {
     }
 
     
-    public List<DomainObject> showTopFiveInDisciplin(DisciplinEnum de) {
+    public List<DomainObject> getTopFiveInDisciplin(DisciplinEnum de) {
         try {
-            String query = "SELECT * FROM results WHERE disciplin = '" + de.ordinal() + "LIMIT = 5;";
+            String query = "SELECT * FROM results WHERE disciplin = " + de.ordinal() + " LIMIT 5;";
 
             Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();

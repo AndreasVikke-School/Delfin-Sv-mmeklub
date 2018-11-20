@@ -39,6 +39,10 @@ public class ResultController {
         return (Result)dar.getSingleById(id);
     }
     
+    public List<Result> getTopFiveInDisciplin(DisciplinEnum de) {
+        return (List<Result>)(Object)dar.getTopFiveInDisciplin(de);
+    }
+    
     public String createResult(String ssn, String day, String month, String year, String time, String placement, String event, String disciplin){
         try {
             if(day.length() != 2 || Pattern.matches("[a-zA-Z]+", day)) {
