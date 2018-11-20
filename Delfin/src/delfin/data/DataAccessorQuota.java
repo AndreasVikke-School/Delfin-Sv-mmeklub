@@ -41,7 +41,7 @@ public class DataAccessorQuota implements DataAccessor {
         }catch(Exception ex){
             ex.printStackTrace();
             throw new IllegalAccessError();
-        }
+        } 
     }
     
     public List<DomainObject> getAllWithDebt() {
