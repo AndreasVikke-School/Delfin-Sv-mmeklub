@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Nina Lisakovski & Martin Frederiksen
+ * @author Nina Lisakovski, Martin Frederiksen & Celina Dencker
  */
 public class DataAccessorResult implements DataAccessor {
 
@@ -18,16 +18,16 @@ public class DataAccessorResult implements DataAccessor {
     public DataAccessorResult(DBConnector connector) {
         this.connector = connector;
     }
-    
+
     @Override
     public List<DomainObject> getAll() {
-        try{
+        try {
             String query = "SELECT * FROM results;";
-        
-            Connection connection = connector.getConnection();  
+
+            Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             ArrayList<DomainObject> results = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
@@ -35,8 +35,8 @@ public class DataAccessorResult implements DataAccessor {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
                 results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member)); 
             }
-            return results;  
-        }catch (Exception ex){
+            return results;
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -44,13 +44,13 @@ public class DataAccessorResult implements DataAccessor {
 
     @Override
     public List<DomainObject> getAllById(String id) {
-        try{
+        try {
             String query = "SELECT * FROM results WHERE ssn = '" + id + "';";
-            
-            Connection connection = connector.getConnection();  
+
+            Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             ArrayList<DomainObject> results = new ArrayList();
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
@@ -58,8 +58,8 @@ public class DataAccessorResult implements DataAccessor {
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
                 results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member));
             }
-            return results; 
-        }catch (Exception ex){
+            return results;
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -67,13 +67,13 @@ public class DataAccessorResult implements DataAccessor {
 
     @Override
     public DomainObject getSingleById(String id) {
-        try{
+        try {
             String query = "SELECT * FROM results WHERE id = " + id + ";";
-            
-            Connection connection = connector.getConnection();  
+
+            Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             DataAccessor da = new DataAccessorMember(new DBConnector());
             
             while (rs.next()) {   
@@ -81,7 +81,33 @@ public class DataAccessorResult implements DataAccessor {
                 return new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member);
             }
             throw new NullPointerException();
-        }catch (Exception ex){
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
+
+    
+    public List<DomainObject> showTopFiveInDisciplin(DisciplinEnum de) {
+        try {
+            String query = "SELECT * FROM results WHERE disciplin = '" + de.ordinal() + "LIMIT = 5;";
+
+            Connection connection = connector.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            ArrayList<DomainObject> results = new ArrayList();
+            
+            DataAccessor da = new DataAccessorMember(new DBConnector());
+            
+            while (rs.next()) {
+                Member member = (Member) da.getSingleById(rs.getString("ssn"));
+                results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member));
+            }
+
+            return results;
+     
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
@@ -89,16 +115,16 @@ public class DataAccessorResult implements DataAccessor {
 
     @Override
     public void create(DomainObject obj) {
-        try{
-            Result result = (Result)obj;
-            
-            String query = "INSERT INTO results (ssn, date, time, placement, event, disciplin) VALUES ('" + result.getSsn() + "','" + result.getDate()+ "', '" + result.getTime()+ "', '" + result.getPlacement()+ "', '" + result.getEvent() + "', '" + result.getDisciplin().ordinal() + "');";
+        try {
+            Result result = (Result) obj;
 
-            Connection connection = connector.getConnection();  
+            String query = "INSERT INTO results (ssn, date, time, placement, event, disciplin) VALUES ('" + result.getSsn() + "','" + result.getDate() + "', '" + result.getTime() + "', '" + result.getPlacement() + "', '" + result.getEvent() + "', '" + result.getDisciplin().ordinal() + "');";
+
+            Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();
             stmt.execute(query);
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }

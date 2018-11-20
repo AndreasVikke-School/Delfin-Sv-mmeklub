@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Martin Frederiksen
+ * @author Martin Frederiksen & Celina Dencker
  */
 public class ShowResult extends javax.swing.JFrame {
     
