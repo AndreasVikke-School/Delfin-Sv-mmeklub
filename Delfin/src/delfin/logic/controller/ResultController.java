@@ -55,7 +55,7 @@ public class ResultController {
                 return ("Please type a valid month with two digits");
             }
             else if(Integer.parseInt(month) > 12 && 0 > Integer.parseInt(month)) {
-                return ("Please type a valid month between 12 and 1");
+                return ("Please type a valid month between 1 and 12");
             }
             else if(year.length() !=4 || Pattern.matches("[a-zA-Z]+",year)){
                 return ("Please type a valid year with four digits");

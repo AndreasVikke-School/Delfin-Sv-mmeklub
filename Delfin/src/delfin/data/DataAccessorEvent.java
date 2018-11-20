@@ -53,10 +53,8 @@ public class DataAccessorEvent implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query); 
             
             ArrayList<DomainObject> events = new ArrayList();
-            DataAccessor dae = new DataAccessorEvent(new DBConnector());
             
             while (rs.next()) {
-                Event event = (Event) dae.getSingleById(rs.getString("id"));
                 events.add(new Event(rs.getInt("id"), rs.getString("name"), rs.getDate("date").toLocalDate()));
             }
             return events;
@@ -75,11 +73,7 @@ public class DataAccessorEvent implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
-            ArrayList<DomainObject> events = new ArrayList();
-            DataAccessor dae = new DataAccessorEvent(new DBConnector());
-            
             while (rs.next()) {
-                Event event = (Event)dae.getSingleById(rs.getString("id"));
                 return new Event(rs.getInt("id"), rs.getString("name"), rs.getDate("date").toLocalDate());
             }
             throw new NullPointerException();
