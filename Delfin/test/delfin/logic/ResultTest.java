@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Nina Lisakovski
- */
+*/
 public class ResultTest {
     
     @Test
@@ -22,6 +22,5 @@ public class ResultTest {
         assertEquals(r.getSsn().length(), 10);
         assertEquals(r.getDate(), LocalDate.now());
         assertNotEquals(r.getTime(), 10.03); 
-    }
-    
+    }        
 }
