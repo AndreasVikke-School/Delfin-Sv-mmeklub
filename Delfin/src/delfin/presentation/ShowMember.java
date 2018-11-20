@@ -5,7 +5,6 @@ import delfin.logic.controller.*;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileWriter;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
@@ -31,8 +30,6 @@ public class ShowMember extends javax.swing.JFrame {
         jButton1.setIcon(addIcon);
         ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
         jButton2.setIcon(refreshIcon);
-        ImageIcon fileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/folder.png"));
-        jButton3.setIcon(fileIcon);
 
         update();
 
@@ -67,7 +64,6 @@ public class ShowMember extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Members");
@@ -114,12 +110,6 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
 
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,8 +120,6 @@ public class ShowMember extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -141,11 +129,9 @@ public class ShowMember extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2))
-                    .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -165,27 +151,6 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            FileWriter fW = new FileWriter("test.txt");
-            // bedre at lave 2 variable?
-            for (int i = 0; i < jTable1.getRowCount(); i++) {
-                for (int j = 0; j < jTable1.getColumnCount(); j++) {
-                    if (j == jTable1.getColumnCount() - 1) {
-                        fW.write(jTable1.getModel().getValueAt(i, j) + ".");
-                    } else {
-                        fW.write(jTable1.getModel().getValueAt(i, j) + ", ");
-                    }
-                }
-                fW.write("\n\n");
-            }
-
-            fW.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,7 +198,6 @@ public class ShowMember extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
