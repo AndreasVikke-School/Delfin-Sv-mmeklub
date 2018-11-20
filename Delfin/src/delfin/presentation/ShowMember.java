@@ -2,6 +2,9 @@ package delfin.presentation;
 
 import delfin.logic.Member;
 import delfin.logic.controller.*;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
