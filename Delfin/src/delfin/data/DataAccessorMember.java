@@ -107,5 +107,24 @@ public class DataAccessorMember implements DataAccessor {
             ex.printStackTrace();
             throw new IllegalAccessError();
         }
-    }   
+    }
+    
+    public void update(DomainObject obj) {
+        try{
+            Member member = (Member)obj;
+            
+            String query = "UPDATE member SET name = '" + member.getName() + "', address = '" + member.getAddress() + "', phone = '" + member.getPhone() + "' WHERE ssn = '" + member.getSsn() + "';";
+            
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            
+            ActivityInfoController activityInfoController = new ActivityInfoController();
+            activityInfoController.updateActivityInfo(member.getSsn(), member.getActivityInfo().getStatus(), member.getActivityInfo().getTeam(), member.getActivityInfo().getActivity());
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
 }

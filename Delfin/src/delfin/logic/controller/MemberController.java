@@ -36,6 +36,10 @@ public class MemberController {
         return (List<Member>)(Object)dam.getAll();
     }
     
+    public Member getSingleMember(String ssn) {
+        return (Member)dam.getSingleById(ssn);
+    }
+    
     public String createMember(String ssn, String name, String address, String phone, String activity, String status){
         try {
             if(ssn.length() != 10 || Pattern.matches("[a-zA-Z]+", ssn)) {
@@ -88,5 +92,38 @@ public class MemberController {
             }  
         }
         return String.valueOf(subscription);
+    }
+    
+    public String updateMember(String ssn, String name, String address, String phone, String activity, String status){
+        try {
+            if(ssn.length() != 10 || Pattern.matches("[a-zA-Z]+", ssn)) {
+                return ("Please type a real SSN number (Only digits and 10 in length)");
+            }
+            else if(name.length() == 0) {
+                return ("Please input a name");
+            }
+            else if(address.length() == 0) {
+                return ("Please input an address");
+            }
+            else if(phone.length() == 0 || Pattern.matches("[a-zA-Z]+", phone)) {
+                return ("Please input a phone number only digits");
+            }
+            else {
+                Member newMember = new Member(ssn, null, null, null, null);
+
+                TeamEnum teamEnum = null;
+                if(newMember.getAge() >= 18)
+                    teamEnum = TeamEnum.SENIOR;
+                else
+                    teamEnum = TeamEnum.JUNIOR;
+
+                newMember = new Member(ssn, name, address, phone, new ActivityInfo(StatusEnum.valueOf(status), teamEnum, ActivityEnum.valueOf(activity)));
+                dam.update(newMember);
+                return ("<html><font color='green'>Member is updated successfully!</font></html>");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return (ex.getMessage());
+        }
     }
 }
