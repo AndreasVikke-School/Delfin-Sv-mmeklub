@@ -7,6 +7,7 @@ import java.time.LocalDate;
  * @author Nina Lisakovski & Martin Frederiksen
  */
 public class Result extends DomainObject {
+    private int id;
     private String ssn;
     private LocalDate date;
     private double time;
@@ -15,7 +16,8 @@ public class Result extends DomainObject {
     private Member member;
     private DisciplinEnum disciplin;
     
-    public Result (String ssn, LocalDate date, double time, int placement, String event, DisciplinEnum disciplin, Member member){
+    public Result (int id, String ssn, LocalDate date, double time, int placement, String event, DisciplinEnum disciplin, Member member){
+        this.id = id;
         this.ssn = ssn;
         this.date = date;
         this.time = time;
@@ -23,6 +25,10 @@ public class Result extends DomainObject {
         this.event = event;
         this.member = member;
         this.disciplin = disciplin;
+    }
+    
+    public int getId() {
+        return id;
     }
     
     public String getSsn(){

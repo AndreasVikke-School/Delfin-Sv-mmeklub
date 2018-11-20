@@ -33,7 +33,7 @@ public class DataAccessorResult implements DataAccessor {
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member)); 
+                results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member)); 
             }
             return results;  
         }catch (Exception ex){
@@ -56,7 +56,7 @@ public class DataAccessorResult implements DataAccessor {
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                results.add(new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member));
+                results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member));
             }
             return results; 
         }catch (Exception ex){
@@ -78,7 +78,7 @@ public class DataAccessorResult implements DataAccessor {
             
             while (rs.next()) {   
                 Member member = (Member)da.getSingleById(rs.getString("ssn"));
-                return new Result(rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member);
+                return new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), rs.getString("event"), DisciplinEnum.values()[rs.getInt("disciplin")], member);
             }
             throw new NullPointerException();
         }catch (Exception ex){
@@ -103,5 +103,20 @@ public class DataAccessorResult implements DataAccessor {
             throw new IllegalAccessError();
         }
     }
-
+    
+    public void update(DomainObject obj) {
+        try{
+            Result result = (Result)obj;
+            
+            String query = "UPDATE results SET date = '" + result.getDate() + "', time = " + result.getTime() + ", placement = " + result.getPlacement() + ", event = '" + result.getEvent() + "', disciplin = " + result.getDisciplin().ordinal() + " WHERE ssn = '" + result.getSsn() + "';";
+            
+            Connection connection = connector.getConnection();  
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
 }
