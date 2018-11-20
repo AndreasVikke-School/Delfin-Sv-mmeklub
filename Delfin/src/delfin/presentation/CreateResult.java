@@ -16,10 +16,12 @@ public class CreateResult extends javax.swing.JFrame {
 
     List<Member> members = null;
     
+    boolean editing = false;
+    
     /**
      * Creates new form CreateResult
      */
-    public CreateResult() {
+    public CreateResult(Result resultEdit) {
         initComponents();
         
         memberController = new MemberController();
@@ -36,6 +38,27 @@ public class CreateResult extends javax.swing.JFrame {
         
         for(DisciplinEnum status: DisciplinEnum.values())
             disciplinComboBox.addItem(status.toString());
+        
+        if(resultEdit != null) {
+            this.editing = true;
+            
+            this.ssnComboBox.setEnabled(false);
+            this.ssnComboBox.setSelectedItem(resultEdit.getSsn());
+            
+            this.timeTextField.setText(String.valueOf(resultEdit.getTime()));
+            
+            this.dayTextField.setText(String.valueOf(resultEdit.getDate().getDayOfMonth()));
+            this.monthTextField.setText(String.valueOf(resultEdit.getDate().getMonthValue()));
+            this.yearTextField.setText(String.valueOf(resultEdit.getDate().getYear()));
+            
+            this.placementTextField.setText(String.valueOf(resultEdit.getPlacement()));
+            
+            this.eventTextField.setText(resultEdit.getEvent());
+            
+            this.disciplinComboBox.setSelectedItem(resultEdit.getDisciplin().toString());
+            
+            this.createButton.setText("Update");
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -221,7 +244,10 @@ public class CreateResult extends javax.swing.JFrame {
     }//GEN-LAST:event_timeTextFieldActionPerformed
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        showMessage(resultController.createResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
+        if(editing)
+            showMessage(resultController.updateResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
+        else
+            showMessage(resultController.createResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
    
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
@@ -278,7 +304,7 @@ public class CreateResult extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateResult().setVisible(true);
+                new CreateResult(null).setVisible(true);
             }
         });
     }

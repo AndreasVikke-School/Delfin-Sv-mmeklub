@@ -2,35 +2,53 @@ package delfin.presentation;
 
 import delfin.logic.Member;
 import delfin.logic.controller.*;
-import java.io.FileWriter;
-import java.util.Formatter;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Martin Frederiksen
  */
 public class ShowMember extends javax.swing.JFrame {
-    
+
     MemberController memberController = null;
-    
+
     /**
      * Creates new form ShowMember
      */
     public ShowMember() {
         initComponents();
-        
+
         memberController = new MemberController();
         
         ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
         jButton1.setIcon(addIcon);
         ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
         jButton2.setIcon(refreshIcon);
-        ImageIcon fileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
-        jButton3.setIcon(fileIcon);
-        
+
         update();
+
+        jTable1.setDefaultEditor(Object.class, null);
+        
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    java.awt.EventQueue.invokeLater(new Thread() {
+                        public void run() {
+                            new CreateMember(memberController.getSingleMember(table.getValueAt(row, 0).toString())).setVisible(true);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -46,7 +64,6 @@ public class ShowMember extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Members");
@@ -62,7 +79,6 @@ public class ShowMember extends javax.swing.JFrame {
                 "Id", "Ssn", "Name", "Address", "Phone", "Activity", "Status", "Team"
             }
         ));
-        jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
@@ -94,12 +110,6 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
 
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,8 +120,6 @@ public class ShowMember extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -121,11 +129,9 @@ public class ShowMember extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2))
-                    .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -137,7 +143,7 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Thread() {
             public void run() {
-                new CreateMember().setVisible(true);
+                new CreateMember(null).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -145,28 +151,6 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        try{
-        FileWriter fW = new FileWriter("test.txt");
-        // bedre at lave 2 variable?
-            for(int i = 0; i < jTable1.getRowCount(); i++) {
-                for(int j = 0; j < jTable1.getColumnCount(); j++) {
-                    if(j == jTable1.getColumnCount()-1) fW.write(jTable1.getModel().getValueAt(i, j) + ".");
-                    else fW.write(jTable1.getModel().getValueAt(i, j) + ", ");
-                }
-            fW.write("\n\n");
-            }
-
-        fW.close();
-    }catch(Exception ex){
-        ex.printStackTrace();
-        }
-        
-        
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,19 +186,18 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void update(){
+
+    public void update() {
         List<Member> members = memberController.getAllMembers();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for(Member m: members) {
+        for (Member m : members) {
             model.addRow(new Object[]{m.getSsn(), m.getSsn(), m.getName(), m.getAddress(), m.getPhone(), m.getActivityInfo().getActivity(), m.getActivityInfo().getStatus(), m.getActivityInfo().getTeam()});
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

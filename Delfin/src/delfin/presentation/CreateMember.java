@@ -12,10 +12,12 @@ public class CreateMember extends javax.swing.JFrame {
     // MemberController null
     MemberController mc = null;
     
+    boolean editing = false;
+    
     /**
      * Creates new form CreateMember
      */
-    public CreateMember() {
+    public CreateMember(Member memberEdit) {
         initComponents();
         
         // New Membercontroller
@@ -31,6 +33,25 @@ public class CreateMember extends javax.swing.JFrame {
         
         
         messageLabel.setText("");
+        
+        if(memberEdit != null) {
+            this.editing = true;
+            
+            this.ssnTextField.setEnabled(false);
+            this.ssnTextField.setText(memberEdit.getSsn());
+            
+            this.nameTextField.setText(memberEdit.getName());
+            
+            this.addressTextField.setText(memberEdit.getAddress());
+            
+            this.phoneTextField.setText(memberEdit.getPhone());
+            
+            this.statusComboBox.setSelectedItem(memberEdit.getActivityInfo().getStatus().toString());
+            
+            this.activityComboBox.setSelectedItem(memberEdit.getActivityInfo().getActivity().toString());
+            
+            this.createButton.setText("Update");
+        }
     }
 
     /**
@@ -183,7 +204,10 @@ public class CreateMember extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneTextFieldActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        showMessage(mc.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
+        if(editing)    
+            showMessage(mc.updateMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
+        else
+            showMessage(mc.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
 
     private void showMessage(String message) {
@@ -220,7 +244,7 @@ public class CreateMember extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateMember().setVisible(true);
+                new CreateMember(null).setVisible(true);
             }
         });
     }

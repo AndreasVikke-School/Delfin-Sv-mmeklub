@@ -51,4 +51,19 @@ public class DataAccessorResultTest {
             fail(ex.getMessage());
         }
     }
+    
+    @Test
+    public void testGetTopFiveInDisciplin() {
+        try {
+            List<Result> results = (List<Result>)(Object)da.getAllById("0202961234");
+            assertNotNull(results);
+            
+            int expected = 5;
+            int actual = 3; 
+            assertEquals(expected, actual);
+        
+        }catch(Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 }
