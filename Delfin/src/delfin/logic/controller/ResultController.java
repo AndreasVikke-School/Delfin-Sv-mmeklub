@@ -35,6 +35,10 @@ public class ResultController {
         return (List<Result>)(Object)dar.getAll();
     }
     
+    public Result getSingleResult(String id){
+        return (Result)dar.getSingleById(id);
+    }
+    
     public String createResult(String ssn, String day, String month, String year, String time, String placement, String event, String disciplin){
         try {
             if(day.length() != 2 || Pattern.matches("[a-zA-Z]+", day)) {
@@ -59,12 +63,45 @@ public class ResultController {
                 return ("Please type a valid digit");
             }
             else{
-                Result result = new Result(ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
+                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
                 dar.create(result);
-                return ("<html><font color='green'>Member is created successfully!</font></html>");
+                return ("<html><font color='green'>Result is created successfully!</font></html>");
             }
         } catch(Exception ex) {
             return (ex.getMessage());        
         }  
-    }    
+    }  
+    
+    public String updateResult(String ssn, String day, String month, String year, String time, String placement, String event, String disciplin){
+        try {
+            if(day.length() != 2 || Pattern.matches("[a-zA-Z]+", day)) {
+                return ("Please type a valid day with two digits");
+            }
+            else if(Integer.parseInt(day) > 31 && 0 > Integer.parseInt(day)) {
+                return ("Please type a valid day between 1 and 31");
+            }
+            else if(month.length() != 2 || Pattern.matches("[a-zA-Z]+", month)) {
+                return ("Please type a valid month with two digits");
+            }
+            else if(Integer.parseInt(month) > 12 && 0 > Integer.parseInt(month)) {
+                return ("Please type a valid month between 12 and 1");
+            }
+            else if(year.length() !=4 || Pattern.matches("[a-zA-Z]+",year)){
+                return ("Please type a valid year with four digits");
+            }
+            else if (Pattern.matches("[a-zA-Z]+",time)){
+                return ("Please type a valid digit");
+            }
+            else if (Pattern.matches("[a-zA-Z]+",placement)){
+                return ("Please type a valid digit");
+            }
+            else{
+                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
+                dar.update(result);
+                return ("<html><font color='green'>Result is updated successfully!</font></html>");
+            }
+        } catch(Exception ex) {
+            return (ex.getMessage());        
+        } 
+    }
 }

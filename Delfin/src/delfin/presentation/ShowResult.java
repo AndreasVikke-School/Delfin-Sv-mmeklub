@@ -1,15 +1,18 @@
 package delfin.presentation;
 
-import delfin.data.*;
 import delfin.logic.*;
 import delfin.logic.controller.ResultController;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Martin Frederiksen
+ * @author Martin Frederiksen & Celina Dencker
  */
 public class ShowResult extends javax.swing.JFrame {
     
@@ -29,6 +32,23 @@ public class ShowResult extends javax.swing.JFrame {
         jButton2.setIcon(refreshIcon);
         
         update();
+        
+        jTable1.setDefaultEditor(Object.class, null);
+        
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    java.awt.EventQueue.invokeLater(new Thread() {
+                        public void run() {
+                            new CreateResult(resultController.getSingleResult(table.getValueAt(row, 0).toString())).setVisible(true);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     /**
@@ -55,12 +75,14 @@ public class ShowResult extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Disciplin", "Placement", "Time", "Event", "Date"
+                "Id", "Ssn", "Name", "Disciplin", "Placement", "Time", "Event", "Date"
             }
         ));
-        jTable1.setEnabled(false);
         jTable1.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
 
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +133,7 @@ public class ShowResult extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Thread() {
             public void run() {
-                new CreateResult().setVisible(true);
+                new CreateResult(null).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -156,7 +178,7 @@ public class ShowResult extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         for(Result r: results) {
-            model.addRow(new Object[]{r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getTime(), r.getEvent(), r.getDate()});
+            model.addRow(new Object[]{r.getId(), r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getPlacement(), r.getTime(), r.getEvent(), r.getDate()});
         }
     }
 
