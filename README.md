@@ -1,5 +1,5 @@
 # Delfin Svømmeklub
-[logo]: https://github.com/AndreasVikke/Delfin-Sv-mmeklub/tree/master/Delfin/src/images/Logo.png "Logo"
+![alt text](https://raw.githubusercontent.com/AndreasVikke/Delfin-Sv-mmeklub/master/Delfin/src/images/Logo.png "Logo")
 
 ### Contributers
 - Martin Frederiksen
