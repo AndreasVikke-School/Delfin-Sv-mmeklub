@@ -2,6 +2,8 @@ package delfin.presentation;
 
 import delfin.logic.*;
 import delfin.logic.controller.MemberController;
+import delfin.logic.controller.MemberFileController;
+import javax.swing.JFrame;
 
 /**
  *
@@ -11,6 +13,7 @@ public class CreateMember extends javax.swing.JFrame {
     
     // MemberController null
     MemberController mc = null;
+    MemberFileController mfc = null;
     
     boolean editing = false;
     
@@ -22,6 +25,7 @@ public class CreateMember extends javax.swing.JFrame {
         
         // New Membercontroller
         mc = new MemberController();
+        mfc = new MemberFileController();
         
         statusComboBox.removeAllItems();
         for(StatusEnum status : StatusEnum.values())
@@ -75,6 +79,7 @@ public class CreateMember extends javax.swing.JFrame {
         activityComboBox = new javax.swing.JComboBox<>();
         createButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Member");
@@ -114,6 +119,11 @@ public class CreateMember extends javax.swing.JFrame {
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         activityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        activityComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activityComboBoxActionPerformed(evt);
+            }
+        });
 
         createButton.setText("Create");
         createButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +134,8 @@ public class CreateMember extends javax.swing.JFrame {
 
         messageLabel.setText("jLabel5");
 
+        jCheckBox1.setText("File");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,14 +144,12 @@ public class CreateMember extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(messageLabel))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -151,7 +161,11 @@ public class CreateMember extends javax.swing.JFrame {
                             .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                             .addComponent(addressTextField)
                             .addComponent(nameTextField)
-                            .addComponent(ssnTextField))))
+                            .addComponent(ssnTextField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(messageLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -176,7 +190,8 @@ public class CreateMember extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(activityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(createButton)
@@ -206,9 +221,15 @@ public class CreateMember extends javax.swing.JFrame {
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         if(editing)    
             showMessage(mc.updateMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
+        else if(jCheckBox1.isSelected())
+            showMessage(mfc.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
         else
             showMessage(mc.createMember(ssnTextField.getText(), nameTextField.getText(), addressTextField.getText(), phoneTextField.getText(), activityComboBox.getSelectedItem().toString(), statusComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
+
+    private void activityComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_activityComboBoxActionPerformed
 
     private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
@@ -253,6 +274,7 @@ public class CreateMember extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> activityComboBox;
     private javax.swing.JTextField addressTextField;
     private javax.swing.JButton createButton;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

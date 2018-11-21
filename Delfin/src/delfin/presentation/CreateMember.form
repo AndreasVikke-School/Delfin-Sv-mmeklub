@@ -28,15 +28,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="createButton" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="messageLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="statusComboBox" min="-2" pref="146" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="activityComboBox" min="-2" pref="147" max="-2" attributes="0"/>
+                      <Component id="statusComboBox" min="-2" pref="120" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="activityComboBox" min="-2" pref="120" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBox1" min="-2" pref="58" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -52,6 +49,11 @@
                           <Component id="nameTextField" max="32767" attributes="0"/>
                           <Component id="ssnTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="createButton" min="-2" pref="95" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="messageLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -85,6 +87,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="statusComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="activityComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBox1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -163,6 +166,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="activityComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -178,6 +184,11 @@
     <Component class="javax.swing.JLabel" name="messageLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="File"/>
       </Properties>
     </Component>
   </SubComponents>
