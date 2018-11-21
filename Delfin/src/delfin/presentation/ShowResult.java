@@ -211,7 +211,7 @@ public class ShowResult extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         for(Result r: results) {
-            model.addRow(new Object[]{r.getId(), r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getPlacement(), r.getTime(), r.getEvent(), r.getDate()});
+            model.addRow(new Object[]{r.getId(), r.getSsn(), r.getMember().getName(), r.getDisciplin(), r.getPlacement(), r.getTime(), r.getEvent().getName(), r.getDate()});
         }
     }
 

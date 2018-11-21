@@ -82,6 +82,24 @@ public class DataAccessorEvent implements DataAccessor {
             throw new IllegalAccessError();
         }
     }
+    
+    public DomainObject getSingleByName(String name) {
+        try{
+            String query = "SELECT * FROM event WHERE name = '" + name + "';";
+            
+            Connection connection = connector.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                return new Event(rs.getInt("id"), rs.getString("name"), rs.getDate("date").toLocalDate());
+            }
+            throw new NullPointerException();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new IllegalAccessError();
+        }
+    }
 
     @Override
     public void create(DomainObject obj) {

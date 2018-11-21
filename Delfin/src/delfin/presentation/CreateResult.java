@@ -13,6 +13,7 @@ public class CreateResult extends javax.swing.JFrame {
     
     MemberController memberController = null;
     ResultController resultController = null;
+    EventController eventController = null;
 
     List<Member> members = null;
     
@@ -26,6 +27,7 @@ public class CreateResult extends javax.swing.JFrame {
         
         memberController = new MemberController();
         resultController = new ResultController();
+        eventController = new EventController();
         
         messageLabel.setText("");
         members = memberController.getAllMembers();
@@ -33,6 +35,13 @@ public class CreateResult extends javax.swing.JFrame {
         ssnComboBox.removeAllItems();
         for(Member m : members)
             ssnComboBox.addItem(m.getSsn());
+        
+        
+        List<Event> events = eventController.getAllEvents();
+                
+        eventComboBox.removeAllItems();
+        for(Event e : events)
+            eventComboBox.addItem(e.getName());
         
         disciplinComboBox.removeAllItems();
         
@@ -53,7 +62,7 @@ public class CreateResult extends javax.swing.JFrame {
             
             this.placementTextField.setText(String.valueOf(resultEdit.getPlacement()));
             
-            this.eventTextField.setText(resultEdit.getEvent());
+            this.eventComboBox.setSelectedItem(resultEdit.getEvent());
             
             this.disciplinComboBox.setSelectedItem(resultEdit.getDisciplin().toString());
             
@@ -73,7 +82,6 @@ public class CreateResult extends javax.swing.JFrame {
         dayTextField = new javax.swing.JTextField();
         timeTextField = new javax.swing.JTextField();
         placementTextField = new javax.swing.JTextField();
-        eventTextField = new javax.swing.JTextField();
         dateLabel = new javax.swing.JLabel();
         timeLabel = new javax.swing.JLabel();
         placementLabel = new javax.swing.JLabel();
@@ -85,6 +93,7 @@ public class CreateResult extends javax.swing.JFrame {
         ssnComboBox = new javax.swing.JComboBox<>();
         eventLabel1 = new javax.swing.JLabel();
         disciplinComboBox = new javax.swing.JComboBox<>();
+        eventComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Results");
@@ -106,12 +115,6 @@ public class CreateResult extends javax.swing.JFrame {
         placementTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 placementTextFieldActionPerformed(evt);
-            }
-        });
-
-        eventTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eventTextFieldActionPerformed(evt);
             }
         });
 
@@ -155,6 +158,13 @@ public class CreateResult extends javax.swing.JFrame {
             }
         });
 
+        eventComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        eventComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eventComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,8 +174,9 @@ public class CreateResult extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(messageLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(messageLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,18 +194,19 @@ public class CreateResult extends javax.swing.JFrame {
                                 .addComponent(eventLabel1)
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(disciplinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(placementTextField)
-                            .addComponent(eventTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(timeTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(yearTextField))
-                            .addComponent(ssnComboBox, 0, 255, Short.MAX_VALUE))))
-                .addContainerGap())
+                                .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(disciplinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(eventComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(timeTextField)
+                            .addComponent(placementTextField)
+                            .addComponent(ssnComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,16 +231,19 @@ public class CreateResult extends javax.swing.JFrame {
                     .addComponent(placementLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(eventTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eventLabel))
+                    .addComponent(eventLabel)
+                    .addComponent(eventComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disciplinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eventLabel1))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createButton)
-                    .addComponent(messageLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(createButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(messageLabel)))
                 .addContainerGap())
         );
 
@@ -245,18 +260,14 @@ public class CreateResult extends javax.swing.JFrame {
                                               
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         if(editing)
-            showMessage(resultController.updateResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
+            showMessage(resultController.updateResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventComboBox.getSelectedItem().toString(), disciplinComboBox.getSelectedItem().toString()));
         else
-            showMessage(resultController.createResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventTextField.getText(), disciplinComboBox.getSelectedItem().toString()));
+            showMessage(resultController.createResult(ssnComboBox.getSelectedItem().toString(), dayTextField.getText(), monthTextField.getText(), yearTextField.getText(), timeTextField.getText(), placementTextField.getText(), eventComboBox.getSelectedItem().toString(), disciplinComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_createButtonActionPerformed
    
     private void placementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_placementTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_placementTextFieldActionPerformed
-
-    private void eventTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eventTextFieldActionPerformed
 
     private void monthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthTextFieldActionPerformed
         // TODO add your handling code here:
@@ -269,6 +280,10 @@ public class CreateResult extends javax.swing.JFrame {
     private void disciplinComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disciplinComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_disciplinComboBoxActionPerformed
+
+    private void eventComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eventComboBoxActionPerformed
     
     private void showMessage(String message) {
         messageLabel.setText("<html><font color='red'>"+ message + "</font></html>");
@@ -314,9 +329,9 @@ public class CreateResult extends javax.swing.JFrame {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dayTextField;
     private javax.swing.JComboBox<String> disciplinComboBox;
+    private javax.swing.JComboBox<String> eventComboBox;
     private javax.swing.JLabel eventLabel;
     private javax.swing.JLabel eventLabel1;
-    private javax.swing.JTextField eventTextField;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JTextField monthTextField;
     private javax.swing.JLabel placementLabel;

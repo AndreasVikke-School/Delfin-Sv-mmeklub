@@ -8,6 +8,7 @@ package delfin.logic.controller;
 import delfin.data.DBConnector;
 import delfin.data.DataAccessorResult;
 import delfin.logic.DisciplinEnum;
+import delfin.logic.Event;
 import delfin.logic.Result;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +21,12 @@ import java.util.regex.Pattern;
 public class ResultController {
     
     DataAccessorResult dar = null;
+    EventController eventController = null;
     
     public ResultController(){
         try{
             dar = new DataAccessorResult(new DBConnector());
+            eventController = new EventController();
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Setup fail!");
@@ -67,7 +70,7 @@ public class ResultController {
                 return ("Please type a valid digit");
             }
             else{
-                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
+                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), eventController.getSingleEventByName(event), DisciplinEnum.valueOf(disciplin), null);
                 dar.create(result);
                 return ("<html><font color='green'>Result is created successfully!</font></html>");
             }
@@ -100,7 +103,7 @@ public class ResultController {
                 return ("Please type a valid digit");
             }
             else{
-                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), event, DisciplinEnum.valueOf(disciplin), null);
+                Result result = new Result(0, ssn, LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), Double.parseDouble(time), Integer.parseInt(placement), eventController.getSingleEventByName(event), DisciplinEnum.valueOf(disciplin), null);
                 dar.update(result);
                 return ("<html><font color='green'>Result is updated successfully!</font></html>");
             }
