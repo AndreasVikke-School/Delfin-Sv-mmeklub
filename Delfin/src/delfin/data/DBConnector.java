@@ -9,11 +9,11 @@ public class DBConnector {
 	private Connection connection = null;
 	
 	//Constants
-	private static final String IP	     = "localhost";
+	private static final String IP	     = "mysql57.unoeuro.com";
 	private static final String PORT     = "3306";
-	public  static final String DATABASE = "delfin";
-	private static final String USERNAME = "root"; 
-	private static final String PASSWORD = "root";	     	
+	public  static final String DATABASE = "glazzo_dk_db3";
+	private static final String USERNAME = "glazzo_dk"; 
+	private static final String PASSWORD = "WdnJWm38GMRCXXn3jUNV";	     	
 	
 	public DBConnector() throws SQLException {
             try {
