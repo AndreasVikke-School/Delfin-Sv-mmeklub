@@ -37,6 +37,10 @@ public class EventController {
         return (Event)dae.getSingleById(id);
     }
     
+    public Event getSingleEventByName(String name) {
+        return (Event)dae.getSingleByName(name);
+    }
+    
     public String createEvent(String name, String day, String month, String year){
         try{
             if(name.length() == 0){

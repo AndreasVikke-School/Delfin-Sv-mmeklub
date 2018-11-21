@@ -12,11 +12,11 @@ public class Result extends DomainObject {
     private LocalDate date;
     private double time;
     private int placement;
-    private String event;
+    private Event event;
     private Member member;
     private DisciplinEnum disciplin;
     
-    public Result (int id, String ssn, LocalDate date, double time, int placement, String event, DisciplinEnum disciplin, Member member){
+    public Result (int id, String ssn, LocalDate date, double time, int placement, Event event, DisciplinEnum disciplin, Member member){
         this.id = id;
         this.ssn = ssn;
         this.date = date;
@@ -47,7 +47,7 @@ public class Result extends DomainObject {
         return placement;
     }
     
-    public String getEvent(){
+    public Event getEvent(){
         return event;
     }
     
