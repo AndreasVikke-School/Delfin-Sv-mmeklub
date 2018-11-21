@@ -88,7 +88,7 @@ public class DataAccessorEvent implements DataAccessor {
         try{
             Event event = (Event)obj;
 
-            String query = "INSERT INTO event (id, name, date) VALUES ('" + event.getId() + "','" + event.getName() + "','" + event.getDate() + "');";
+            String query = "INSERT INTO event (name, date) VALUES ('" + event.getName() + "','" + event.getDate() + "');";
 
             Connection connection = connector.getConnection();
             Statement stmt = connection.createStatement();
@@ -97,6 +97,22 @@ public class DataAccessorEvent implements DataAccessor {
         }catch (Exception ex) {
         ex.printStackTrace();
         throw new IllegalAccessError();
+        }
+    }
+    
+    public void update(DomainObject obj) {
+        try{
+            Event event = (Event)obj;
+            
+            String query = "UPDATE event SET name = '" + event.getName() + "', date = '" + event.getDate() + "' WHERE id = '" + event.getId() + "';";
+            
+            Connection connection = connector.getConnection();
+            Statement stmt = connection.createStatement();
+            stmt.execute(query);
+            
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            throw new IllegalAccessError();
         }
     }
 }
