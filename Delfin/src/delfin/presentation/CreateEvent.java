@@ -5,7 +5,7 @@ import delfin.logic.controller.EventController;
 
 /**
  *
- * @author Andreas Vikke, Celina Dencker & Nina Lisakowski
+ * @author Nina Lisakowski
  */
 public class CreateEvent extends javax.swing.JFrame {
     
@@ -58,7 +58,7 @@ public class CreateEvent extends javax.swing.JFrame {
         yearTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Create Member");
+        setTitle("Create Event");
 
         jLabel2.setText("Name:");
 

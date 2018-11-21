@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Martin Frederiksen
+ * @author Nina Lisakowski
  */
 public class ShowEvent extends javax.swing.JFrame {
 
@@ -66,7 +66,7 @@ public class ShowEvent extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Members");
+        setTitle("Events");
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
