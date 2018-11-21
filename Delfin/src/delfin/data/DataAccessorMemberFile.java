@@ -9,8 +9,12 @@ import delfin.logic.TeamEnum;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -84,12 +88,45 @@ public class DataAccessorMemberFile implements DataAccessor {
         try {
             FileWriter fW = new FileWriter("ShowMembers.txt", true);
             fW.write(member.getId() + ";" + member.getSsn() + ";" + member.getName() + ";" + member.getAddress() + ";" + member.getPhone() + ";" + member.getActivityInfo().getStatus().ordinal() + ";" + member.getActivityInfo().getTeam().ordinal() + ";" + member.getActivityInfo().getActivity().ordinal() + "\n");
-            fW.close();   
+            fW.close();
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new IllegalArgumentException("File not found while writing!");
         }
-
     }
+
+    /*public void update(DomainObject obj) {
+        Member member = (Member) obj;
+
+        String fileName = "ShowMembers.txt";
+        String lineToRemove = (member.getId() + ";" + member.getSsn() + ";" + member.getName() + ";" + member.getAddress() + ";" + member.getPhone() + ";" + member.getActivityInfo().getStatus().ordinal() + ";" + member.getActivityInfo().getTeam().ordinal() + ";" + member.getActivityInfo().getActivity().ordinal() + "\n");;
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+            stream.filter(line -> !line.trim().equals(lineToRemove)).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("ShowMembers.txt"));
+            String line;
+            if ((line = reader.readLine()) != null) {
+                String[] lineSplit = line.split(";");
+                if (member.getId().equals(lineSplit[0])) {
+                    try {
+                        FileWriter fW = new FileWriter("ShowMembers.txt", true);
+                        fW.write(member.getId() + ";" + member.getSsn() + ";" + member.getName() + ";" + member.getAddress() + ";" + member.getPhone() + ";" + member.getActivityInfo().getStatus().ordinal() + ";" + member.getActivityInfo().getTeam().ordinal() + ";" + member.getActivityInfo().getActivity().ordinal() + "\n");
+                        fW.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        throw new IllegalArgumentException("File not found while writing!");
+                    }
+    }
+}
+reader.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new IllegalArgumentException("File not found while reading!");
+        }
+    }*/
 
 }
