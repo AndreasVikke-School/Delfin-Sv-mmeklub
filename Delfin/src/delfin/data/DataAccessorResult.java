@@ -2,6 +2,7 @@ package delfin.data;
 
 import delfin.logic.*;
 import delfin.logic.controller.EventController;
+import delfin.logic.controller.MemberController;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -30,11 +31,11 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
 
             ArrayList<DomainObject> results = new ArrayList();
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController mc = new MemberController();
             EventController ec = new EventController();
             
             while (rs.next()) {   
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = mc.getSingleMember(rs.getString("ssn"));
                 Event event = ec.getSingleEvent(String.valueOf(rs.getInt("event")));
                 results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), event, DisciplinEnum.values()[rs.getInt("disciplin")], member)); 
             }
@@ -55,11 +56,11 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
 
             ArrayList<DomainObject> results = new ArrayList();
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController mc = new MemberController();
             EventController ec = new EventController();
             
             while (rs.next()) {   
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = mc.getSingleMember(rs.getString("ssn"));
                 Event event = ec.getSingleEvent(String.valueOf(rs.getInt("event")));
                 results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), event, DisciplinEnum.values()[rs.getInt("disciplin")], member));
             }
@@ -79,11 +80,11 @@ public class DataAccessorResult implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController mc = new MemberController();
             EventController ec = new EventController();
             
             while (rs.next()) {   
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = mc.getSingleMember(rs.getString("ssn"));
                 Event event = ec.getSingleEvent(String.valueOf(rs.getInt("event")));
                 return new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), event, DisciplinEnum.values()[rs.getInt("disciplin")], member);
             }
@@ -104,12 +105,11 @@ public class DataAccessorResult implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
 
             ArrayList<DomainObject> results = new ArrayList();
+            MemberController mc = new MemberController();
             EventController ec = new EventController();
             
-            DataAccessor da = new DataAccessorMember(new DBConnector());
-            
-            while (rs.next()) {
-                Member member = (Member) da.getSingleById(rs.getString("ssn"));
+            while (rs.next()) {   
+                Member member = mc.getSingleMember(rs.getString("ssn"));
                 Event event = ec.getSingleEvent(String.valueOf(rs.getInt("event")));
                 results.add(new Result(rs.getInt("id"), rs.getString("ssn"), rs.getDate("date").toLocalDate(), rs.getDouble("time"), rs.getInt("placement"), event, DisciplinEnum.values()[rs.getInt("disciplin")], member));
             }

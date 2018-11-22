@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package delfin.logic.controller;
 
 import delfin.data.DBConnector;
@@ -29,8 +24,13 @@ public class ActivityInfoController {
             System.out.println("Setup fail!");
         }
     }
+    
     public List<ActivityInfo> getAllActivityInfo(){
         return (List<ActivityInfo>)(Object)daa.getAll();
+    }
+    
+    public ActivityInfo getSingleActivityInfoById(String ssn){
+        return (ActivityInfo)daa.getSingleById(ssn);
     }
     
     public String createActivityInfo(String ssn, StatusEnum status, TeamEnum team, ActivityEnum activity){

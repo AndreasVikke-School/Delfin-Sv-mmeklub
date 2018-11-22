@@ -3,10 +3,10 @@ package delfin.data;
 import delfin.logic.DomainObject;
 import delfin.logic.Quota;
 import delfin.logic.Member;
+import delfin.logic.controller.MemberController;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,10 @@ public class DataAccessorQuota implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList <DomainObject> quotas = new ArrayList();
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController memberController = new MemberController();
             
             while (rs.next()) {
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = memberController.getSingleMember(rs.getString("ssn"));
                 quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             return quotas;
@@ -53,10 +53,10 @@ public class DataAccessorQuota implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList <DomainObject> quotas = new ArrayList();
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController memberController = new MemberController();
             
             while (rs.next()) {
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = memberController.getSingleMember(rs.getString("ssn"));
                 quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             return quotas;
@@ -75,10 +75,10 @@ public class DataAccessorQuota implements DataAccessor {
             ResultSet rs = stmt.executeQuery(query);
             
             ArrayList<DomainObject> quotas = new ArrayList();
-            DataAccessor da = new DataAccessorMember(new DBConnector());
+            MemberController memberController = new MemberController();
             
             while (rs.next()) {
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = memberController.getSingleMember(rs.getString("ssn"));
                 quotas.add(new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             return quotas;
@@ -97,10 +97,10 @@ public class DataAccessorQuota implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            DataAccessor da = new DataAccessorMember(new DBConnector());
-
+            MemberController memberController = new MemberController();
+            
             while (rs.next()) {
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = memberController.getSingleMember(rs.getString("ssn"));
                 return (new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             throw new NullPointerException();
@@ -118,10 +118,10 @@ public class DataAccessorQuota implements DataAccessor {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            DataAccessor da = new DataAccessorMember(new DBConnector());
-
+            MemberController memberController = new MemberController();
+            
             while (rs.next()) {
-                Member member = (Member)da.getSingleById(rs.getString("ssn"));
+                Member member = memberController.getSingleMember(rs.getString("ssn"));
                 return (new Quota (rs.getString("ssn"), rs.getDouble("subscription"), rs.getDouble("paid"), member));
             }
             throw new NullPointerException();
