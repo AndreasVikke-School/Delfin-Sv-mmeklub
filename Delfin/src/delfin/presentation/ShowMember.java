@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class ShowMember extends javax.swing.JFrame {
 
     MemberController memberController = null;
-
+    MemberFileController memberFileController = null;
     /**
      * Creates new form ShowMember
      */
@@ -25,7 +25,8 @@ public class ShowMember extends javax.swing.JFrame {
         initComponents();
 
         memberController = new MemberController();
-        
+        memberFileController = new MemberFileController();
+
         ImageIcon addIcon = new ImageIcon(getClass().getClassLoader().getResource("images/add16.png"));
         jButton1.setIcon(addIcon);
         ImageIcon refreshIcon = new ImageIcon(getClass().getClassLoader().getResource("images/refresh16.png"));
@@ -34,7 +35,7 @@ public class ShowMember extends javax.swing.JFrame {
         update();
 
         jTable1.setDefaultEditor(Object.class, null);
-        
+
         jTable1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 JTable table = (JTable) mouseEvent.getSource();
@@ -64,6 +65,7 @@ public class ShowMember extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Members");
@@ -110,6 +112,14 @@ public class ShowMember extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("File");
+        jCheckBox1.setMaximumSize(new java.awt.Dimension(30, 20));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,6 +130,8 @@ public class ShowMember extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -128,12 +140,17 @@ public class ShowMember extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -151,6 +168,10 @@ public class ShowMember extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,16 +209,26 @@ public class ShowMember extends javax.swing.JFrame {
     }
 
     public void update() {
-        List<Member> members = memberController.getAllMembers();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        for (Member m : members) {
-            model.addRow(new Object[]{m.getSsn(), m.getSsn(), m.getName(), m.getAddress(), m.getPhone(), m.getActivityInfo().getActivity(), m.getActivityInfo().getStatus(), m.getActivityInfo().getTeam()});
+        if (jCheckBox1.isSelected()) {
+            List<Member> members = memberFileController.getAllMembers();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Member m : members) {
+                model.addRow(new Object[]{m.getSsn(), m.getSsn(), m.getName(), m.getAddress(), m.getPhone(), m.getActivityInfo().getActivity(), m.getActivityInfo().getStatus(), m.getActivityInfo().getTeam()});
+            }
+        } else {
+            List<Member> members = memberController.getAllMembers();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Member m : members) {
+                model.addRow(new Object[]{m.getSsn(), m.getSsn(), m.getName(), m.getAddress(), m.getPhone(), m.getActivityInfo().getActivity(), m.getActivityInfo().getStatus(), m.getActivityInfo().getTeam()});
+            }
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
