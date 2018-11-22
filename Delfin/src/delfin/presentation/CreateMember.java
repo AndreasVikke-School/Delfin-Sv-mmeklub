@@ -3,8 +3,6 @@ package delfin.presentation;
 import delfin.logic.*;
 import delfin.logic.controller.MemberController;
 import delfin.logic.controller.MemberFileController;
-import javax.swing.JFrame;
-
 /**
  *
  * @author Andreas Vikke, Celina Dencker & Nina Lisakowski
